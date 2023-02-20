@@ -9,13 +9,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: "14.x"
+
       - name: Install dependencies
         run: npm install
+
+      - name: Get issue description
+        id: issue-info
+        run: node src/utils/get-issue-description.js
+        with:
+          issue-number: ${{ github.event.pull_request.base.repo.issue.number }}
+
       - name: Send Discord message
         run: node src/utils/send-discord-message.js
+        with:
+          issue-number: ${{ github.event.pull_request.base.repo.issue.number }}
+          issue-description: ${{ steps.issue-info.outputs.description }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
