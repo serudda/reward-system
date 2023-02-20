@@ -8,7 +8,9 @@ async function run() {
 
     console.log(`Token: ${process.env.GITHUB_TOKEN}`);
     console.log(`Número del issue: ${process.env.ISSUE_NUMBER}`);
-    console.log(`Repositorio: ${process.env.GITHUB_REPOSITORY}`);
+    console.log(`Repositorio Completo: ${process.env.GITHUB_REPOSITORY}`);
+    console.log(`Owner: ${process.env.GITHUB_REPOSITORY.split("/")[0]}`);
+    console.log(`Repositorio: ${process.env.GITHUB_REPOSITORY.split("/")[1]}`);
 
     const { data } = await octokit.issues.get({
       owner: process.env.GITHUB_REPOSITORY.split("/")[0],
