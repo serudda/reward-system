@@ -6,6 +6,7 @@ jobs:
   send-discord-message:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,14 +21,13 @@ jobs:
 
       - name: Get issue description
         id: issue-info
+        env:
+          ISSUE_NUMBER: ${{ github.event.pull_request.base.repo.issue.number }}
         run: node src/utils/get-issue-description.js
-        with:
-          issue-number: ${{ github.event.pull_request.base.repo.issue.number }}
 
       - name: Send Discord message
-        run: node src/utils/send-discord-message.js
-        with:
-          issue-number: ${{ github.event.pull_request.base.repo.issue.number }}
-          issue-description: ${{ steps.issue-info.outputs.description }}
         env:
+          ISSUE_NUMBER: ${{ github.event.pull_request.base.repo.issue.number }}
+          ISSUE-DESCRIPTION: ${{ steps.issue-info.outputs.description }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: node src/utils/send-discord-message.js
