@@ -1,4 +1,5 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
+
 const issueNumber = process.env.GITHUB_HEAD_REF.split("/").pop();
 const reward = 10;
 const username = "username_de_discord";
