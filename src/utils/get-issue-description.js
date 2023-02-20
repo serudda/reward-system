@@ -3,10 +3,10 @@ import { Octokit } from "@octokit/rest";
 async function run() {
   try {
     const octokit = new Octokit({
-      auth: process.env.GITHUB_TOKEN,
+      auth: process.env.PROJECT_TOKEN,
     });
 
-    console.log(`Token: ${process.env.GITHUB_TOKEN}`);
+    console.log(`Token: ${process.env.PROJECT_TOKEN}`);
     console.log(`Número del issue: ${process.env.ISSUE_NUMBER}`);
     console.log(`Repositorio Completo: ${process.env.GITHUB_REPOSITORY}`);
     console.log(`Owner: ${process.env.GITHUB_REPOSITORY.split("/")[0]}`);
