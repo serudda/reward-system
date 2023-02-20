@@ -9,7 +9,7 @@ async function run() {
     const { data } = await octokit.issues.get({
       owner: process.env.GITHUB_REPOSITORY.split("/")[0],
       repo: process.env.GITHUB_REPOSITORY.split("/")[1],
-      issue_number: process.env.INPUT_ISSUE_NUMBER,
+      issue_number: process.env.ISSUE_NUMBER,
     });
 
     console.log(`Descripción del issue: ${data.body}`);
