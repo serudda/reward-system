@@ -22,7 +22,7 @@ jobs:
       - name: Get issue description
         id: issue-info
         env:
-          GITHUB_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+          PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.pull_request.base.repo.issue.number }}
         run: node src/utils/get-issue-description.js
 
