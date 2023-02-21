@@ -1,3 +1,4 @@
+import * as core from "@actions/core";
 import { Octokit } from "@octokit/rest";
 
 function getValueAfterMark(text) {
@@ -34,7 +35,7 @@ export async function run() {
       issueNumber,
     };
 
-    console.log(JSON.stringify(stepOutput)); // print stepOutput in the stdout
+    core.setOutput("stepOutput", JSON.stringify(stepOutput));
   } catch (error) {
     console.log(error);
     process.exit(1);
