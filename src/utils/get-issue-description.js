@@ -34,8 +34,7 @@ export async function run() {
       issueNumber,
     };
 
-    // Export output
-    return stepOutput;
+    console.log(JSON.stringify(stepOutput)); // print stepOutput in the stdout
   } catch (error) {
     console.log(error);
     process.exit(1);
