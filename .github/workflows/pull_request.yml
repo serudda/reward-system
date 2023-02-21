@@ -15,6 +15,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "14.x"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm install
@@ -23,12 +25,14 @@ jobs:
         id: issue-info
         env:
           PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
-        run: node src/utils/get-issue-description.js
+        run: |
+          node src/utils/get-issue-description.js
+          echo "::set-output name=stepOutput::$(cat output.json)"
 
       - name: Send Discord message
         env:
-          ISSUE_NUMBER: ${{ steps.issue-info.outputs.issueNumber }}
-          ISSUE_DESCRIPTION: ${{ steps.issue-info.outputs.description }}
-          ISSUE_REWARD: ${{ steps.issue-info.outputs.reward }}
+          ISSUE_NUMBER: ${{ steps.issue-info.outputs.stepOutput.issueNumber }}
+          ISSUE_DESCRIPTION: ${{ steps.issue-info.outputs.stepOutput.description }}
+          ISSUE_REWARD: ${{ steps.issue-info.outputs.stepOutput.reward }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: node src/utils/send-discord-message.js

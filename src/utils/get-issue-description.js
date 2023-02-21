@@ -6,7 +6,7 @@ function getValueAfterMark(text) {
   return match ? match[1] : null;
 }
 
-async function run() {
+export async function run() {
   try {
     const octokit = new Octokit({
       auth: process.env.PROJECT_TOKEN,
@@ -28,14 +28,14 @@ async function run() {
     console.log(`Reward del issue: ${data.title}`);
     console.log(`Descripción del issue: ${data.body}`);
 
-    const output = {
+    const stepOutput = {
       reward: getValueAfterMark(data.title),
       description: data.body,
       issueNumber,
     };
 
     // Export output
-    console.log(JSON.stringify(output));
+    return stepOutput;
   } catch (error) {
     console.log(error);
     process.exit(1);
