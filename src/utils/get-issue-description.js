@@ -18,6 +18,9 @@ async function run() {
     const owner = process.env.GITHUB_REPOSITORY.split("/")[0];
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1];
 
+    console.log(
+      `Issue Code: ${process.env.GITHUB_HEAD_REF.split("RS-").pop()}`
+    );
     console.log(`Owner: ${owner}`);
     console.log(`Repo: ${repo}`);
     console.log(`Issue Number: ${issue_number}`);
