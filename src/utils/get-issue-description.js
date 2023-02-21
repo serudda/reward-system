@@ -33,6 +33,9 @@ async function run() {
       description: data.body,
       issueNumber,
     };
+
+    // Export output
+    console.log(JSON.stringify(output));
   } catch (error) {
     console.log(error);
     process.exit(1);
