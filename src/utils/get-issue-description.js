@@ -27,7 +27,7 @@ export async function run() {
     );
 
     console.log(`Reward del issue: ${data.title}`);
-    console.log(`Descripción del issue: ${data.body}`);
+    console.log(`Asignado del issue: ${data.assignee.login}`);
 
     core.setOutput("issueReward", getValueAfterMark(data.title));
     core.setOutput("issueAssignee", data.assignee.login);
