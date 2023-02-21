@@ -13,10 +13,14 @@ async function run() {
     });
 
     const issue_number = getValueAfterPrefix(
-      process.env.GITHUB_HEAD_REF.split("/RS-").pop()
+      process.env.GITHUB_HEAD_REF.split("RS-").pop()
     );
     const owner = process.env.GITHUB_REPOSITORY.split("/")[0];
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1];
+
+    console.log(`Owner: ${owner}`);
+    console.log(`Repo: ${repo}`);
+    console.log(`Issue Number: ${issue_number}`);
 
     const { data } = await octokit.request(
       `GET /repos/${owner}/${repo}/issues/${issue_number}`,
