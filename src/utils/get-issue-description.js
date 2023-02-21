@@ -8,6 +8,9 @@ async function run() {
 
     console.log(`Token: ${process.env.PROJECT_TOKEN}`);
     console.log(`Número del issue: ${process.env.ISSUE_NUMBER}`);
+    console.log(
+      `Número del issue2: ${process.env.GITHUB_HEAD_REF.split("/").pop()}`
+    );
     console.log(`Repositorio Completo: ${process.env.GITHUB_REPOSITORY}`);
     console.log(`Owner: ${process.env.GITHUB_REPOSITORY.split("/")[0]}`);
     console.log(`Repositorio: ${process.env.GITHUB_REPOSITORY.split("/")[1]}`);
