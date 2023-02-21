@@ -30,7 +30,7 @@ export async function run() {
     console.log(`Descripción del issue: ${data.body}`);
 
     core.setOutput("issueReward", getValueAfterMark(data.title));
-    core.setOutput("issueDescription", data.body);
+    core.setOutput("issueAssignee", data.assignee.login);
     core.setOutput("issueNumber", issueNumber);
   } catch (error) {
     console.log(error);
