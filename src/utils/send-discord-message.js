@@ -12,7 +12,8 @@ const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 const data = {
   username: "El Banco",
   content: `El pull request #${issueName} ha sido mergeado en Develop. 
-  Se otorgan ${issueReward} puntos a ${issueAssignee}.`,
+  Se otorgan ${issueReward} puntos a ${issueAssignee}.
+  /add amount:${issueReward} user:${issueAssignee}`,
 };
 
 fetch(webhookUrl, {
