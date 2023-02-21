@@ -25,7 +25,7 @@ jobs:
           PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
         run: node src/utils/get-issue-description.js
 
-      - name: Send Discord message
+      - name: Send Discord msg
         env:
           ISSUE_NUMBER: ${{ steps.issue-info.outputs.issueNumber }}
           ISSUE_ASSIGNEE: ${{ steps.issue-info.outputs.issueAssignee }}
