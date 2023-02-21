@@ -6,21 +6,20 @@ async function run() {
       auth: process.env.PROJECT_TOKEN,
     });
 
-    console.log(`Token: ${process.env.PROJECT_TOKEN}`);
-    console.log(`Número del issue: ${process.env.ISSUE_NUMBER}`);
-    console.log(
-      `Número del issue2: ${process.env.GITHUB_HEAD_REF.split("/").pop()}`
+    const issue_number = process.env.GITHUB_HEAD_REF.split("/").pop();
+    const owner = process.env.GITHUB_REPOSITORY.split("/")[0];
+    const repo = process.env.GITHUB_REPOSITORY.split("/")[1];
+
+    const { data } = await octokit.request(
+      `GET /repos/${owner}/${repo}/issues/${issue_number}`,
+      {
+        owner,
+        repo,
+        issue_number,
+      }
     );
-    console.log(`Repositorio Completo: ${process.env.GITHUB_REPOSITORY}`);
-    console.log(`Owner: ${process.env.GITHUB_REPOSITORY.split("/")[0]}`);
-    console.log(`Repositorio: ${process.env.GITHUB_REPOSITORY.split("/")[1]}`);
 
-    const { data } = await octokit.issues.get({
-      owner: process.env.GITHUB_REPOSITORY.split("/")[0],
-      repo: process.env.GITHUB_REPOSITORY.split("/")[1],
-      issue_number: process.env.ISSUE_NUMBER,
-    });
-
+    console.log(`Reward del issue: ${data.title}`);
     console.log(`Descripción del issue: ${data.body}`);
 
     const output = {
