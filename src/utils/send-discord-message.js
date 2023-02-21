@@ -1,20 +1,18 @@
 import fetch from "node-fetch";
 
 const issueName = process.env.ISSUE_NUMBER;
-const issueDescription = process.ISSUE_DESCRIPTION;
-const reward = process.env.ISSUE_REWARD;
-const username = "username_de_discord";
+const issueAssignee = process.ISSUE_ASSIGNEE;
+const issueReward = process.env.ISSUE_REWARD;
 
 console.log("issueName", issueName);
-console.log("issueDescription", issueDescription);
-console.log("reward", reward);
+console.log("issueAssignee", issueAssignee);
+console.log("issueReward", issueReward);
 
 const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 const data = {
-  username: "GitHub Action",
+  username: "El Banco",
   content: `El pull request #${issueName} ha sido mergeado en Develop. 
-  Descripcion: ${issueDescription}
-  Se otorgan ${reward} puntos a ${username}.`,
+  Se otorgan ${issueReward} puntos a ${issueAssignee}.`,
 };
 
 fetch(webhookUrl, {
