@@ -5,6 +5,10 @@ const issueDescription = process.ISSUE_DESCRIPTION;
 const reward = process.env.REWARD;
 const username = "username_de_discord";
 
+console.log("issueName", issueName);
+console.log("issueDescription", issueDescription);
+console.log("reward", reward);
+
 const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 const data = {
   username: "GitHub Action",

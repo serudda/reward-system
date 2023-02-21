@@ -23,9 +23,7 @@ jobs:
         id: issue-info
         env:
           PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
-        run: |
-          node src/utils/get-issue-description.js
-          echo "name=stepOutput::$(cat output.json)" >> $GITHUB_OUTPUT
+        run: node src/utils/get-issue-description.js
 
       - name: Send Discord message
         env:
