@@ -29,13 +29,9 @@ export async function run() {
     console.log(`Reward del issue: ${data.title}`);
     console.log(`Descripción del issue: ${data.body}`);
 
-    const stepOutput = {
-      reward: getValueAfterMark(data.title),
-      description: data.body,
-      issueNumber,
-    };
-
-    core.setOutput("stepOutput", JSON.stringify(stepOutput));
+    core.setOutput("reward", getValueAfterMark(data.title));
+    core.setOutput("description", data.body);
+    core.setOutput("issueNumber", issueNumber);
   } catch (error) {
     console.log(error);
     process.exit(1);
