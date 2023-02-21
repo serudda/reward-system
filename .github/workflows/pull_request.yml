@@ -28,7 +28,7 @@ jobs:
       - name: Send Discord message
         env:
           ISSUE_NUMBER: ${{ steps.issue-info.outputs.issueNumber }}
-          ISSUE_DESCRIPTION: ${{ steps.issue-info.outputs.description }}
-          ISSUE_REWARD: ${{ steps.issue-info.outputs.reward }}
+          ISSUE_DESCRIPTION: ${{ steps.issue-info.outputs.issueDescription }}
+          ISSUE_REWARD: ${{ steps.issue-info.outputs.issueReward }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: node src/utils/send-discord-message.js

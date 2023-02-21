@@ -29,8 +29,8 @@ export async function run() {
     console.log(`Reward del issue: ${data.title}`);
     console.log(`Descripción del issue: ${data.body}`);
 
-    core.setOutput("reward", getValueAfterMark(data.title));
-    core.setOutput("description", data.body);
+    core.setOutput("issueReward", getValueAfterMark(data.title));
+    core.setOutput("issueDescription", data.body);
     core.setOutput("issueNumber", issueNumber);
   } catch (error) {
     console.log(error);
