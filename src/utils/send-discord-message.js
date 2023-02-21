@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 const issueName = process.env.ISSUE_NUMBER;
-const issueAssignee = process.ISSUE_ASSIGNEE;
+const issueAssignee = process.env.ISSUE_ASSIGNEE;
 const issueReward = process.env.ISSUE_REWARD;
 
 console.log("issueName", issueName);
