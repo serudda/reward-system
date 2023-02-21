@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 
 const issueName = process.env.ISSUE_NUMBER;
 const issueDescription = process.ISSUE_DESCRIPTION;
-const reward = process.env.REWARD;
+const reward = process.env.ISSUE_REWARD;
 const username = "username_de_discord";
 
 console.log("issueName", issueName);
