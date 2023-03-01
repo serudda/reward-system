@@ -1,30 +1,26 @@
----
-name: Feature request
-about: Sugiere una idea para el proyecto
-title: ""
-labels: ""
-assignees: ""
----
+# Descripción de la tarea
 
-**¿Tu Feature Request está relacionada con un problema? Por favor, describa.**
+<!--
+¿Tu Feature Request está relacionada con un problema? Por favor, describa.
+Una descripción clara y concisa de cuál es el problema. ej. Siempre me siento frustrado cuando […]
+-->
 
-<!-- Una descripción clara y concisa de cuál es el problema. ej. Siempre me siento frustrado cuando […] -->
+<!--
+Describa la solución que le gustaría
+Una descripción clara y concisa de lo que quieres que suceda.
+-->
 
-**Describa la solución que le gustaría**
+<!--
+Describa las alternativas que ha considerado (opcional)
+Una descripción clara y concisa de cualquier solución o feature alternativa que haya considerado.
+-->
 
-<!-- Una descripción clara y concisa de lo que quieres que suceda. -->
+<!--
+Contexto adicional (opcional)
+Agregar cualquier otro contexto o screenshots para dar más contexto de tu idea.
+-->
 
-**Describa las alternativas que ha considerado (opcional)**
-
-<!-- Una descripción clara y concisa de cualquier solución o feature alternativa que haya considerado. -->
-
-**Contexto adicional (opcional)**
-
-<!-- Agregar cualquier otro contexto o screenshots para dar más contexto de tu idea. -->
-
----
-
-Criterios de aceptación:
+# Criterios de aceptación
 
 <!-- Detalla una check list  con lo minimo requerido para que esta tarea se de como completada -->
 
