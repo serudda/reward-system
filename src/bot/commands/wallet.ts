@@ -1,6 +1,6 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { type CommandInteraction, SlashCommandBuilder } from "discord.js";
 // import { getDiscordUserById, getCoinsByDiscordUser } from "../db/discordUser";
-import { SlashCommand, SlashCommandHandler } from "../types/command";
+import { type SlashCommand, type SlashCommandHandler } from "../types/command";
 
 const execute: SlashCommandHandler = async (
   interaction: CommandInteraction

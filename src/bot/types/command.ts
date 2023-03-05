@@ -1,7 +1,7 @@
 import {
-  CommandInteraction,
-  CommandInteractionOptionResolver,
-  SlashCommandBuilder,
+  type CommandInteraction,
+  type CommandInteractionOptionResolver,
+  type SlashCommandBuilder,
 } from "discord.js";
 
 export type SlashCommandHandler = (
