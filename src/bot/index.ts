@@ -1,6 +1,7 @@
 // Require the necessary discord.js classes
 import { Client, Events } from "discord.js";
 import { config, intentOptions } from "./config";
+import { registerCommands } from "./register";
 
 // Create a new client instance
 const client = new Client({ intents: intentOptions });
@@ -11,5 +12,8 @@ client.once(Events.ClientReady, (c) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
+// Register all commands
+registerCommands(client);
+
 // Log in to Discord with your client's token
-client.login(config.token);
+void client.login(config.token);
