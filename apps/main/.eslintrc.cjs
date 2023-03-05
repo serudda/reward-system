@@ -19,8 +19,6 @@ module.exports = {
   extends: ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   ignorePatterns: ["**/*.js"],
   rules: {
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
