@@ -16,9 +16,7 @@ client.once(Events.ClientReady, (c) => {
 registerCommands(client);
 
 // Log in to Discord with your client's token
-void client.login(
-	"MTA3NzAwOTE4MTUxNDY3ODI3Mw.GIJTJR.GqxhAKmT1-g3M0zF__jnE5gzCKesmYKtahzE0s"
-);
+void client.login(config.token);
 
 client.on("messageCreate", (message) => {
 	console.log(message.content);
