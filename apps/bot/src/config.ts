@@ -1,9 +1,8 @@
 import { GatewayIntentBits } from "discord.js";
-// import { env } from "@/env.mjs";
 
 export const config = {
-	prefix: "!",
-	token: "",
+	prefix: "/",
+	token: process.env.DISCORD_TOKEN,
 };
 
 export const intentOptions: Array<GatewayIntentBits> = [
