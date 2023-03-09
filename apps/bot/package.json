@@ -1,22 +1,22 @@
 {
-	"name": "bot",
-	"version": "0.1.0",
-	"description": "This is our Reward System Bot.",
-	"main": "index.ts",
-	"scripts": {
-		"start": "ts-node-transpile-only src/index.ts",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [],
-	"author": "Indie Creators Community",
-	"license": "ISC",
-	"dependencies": {
-		"discord.js": "^14.7.1"
-	},
-	"devDependencies": {
-		"@types/node": "^18.11.18",
-		"ts-node": "^10.9.1",
-		"tslib": "^2.5.0",
-		"typescript": "^4.9.4"
-	}
+  "name": "@ic/bot",
+  "version": "0.1.0",
+  "description": "This is our Reward System Bot.",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node-transpile-only src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Indie Creators Community",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.4"
+  }
 }

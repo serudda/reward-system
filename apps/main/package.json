@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev -p 3005",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start -p 3005"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
