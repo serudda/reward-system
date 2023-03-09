@@ -1,0 +1,33 @@
+// NOTE: Dont try to extend the root tsconfig.json, it will break the build
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "commonjs",
+		"rootDir": "./src/",
+		"outDir": "./dist/",
+		"allowJs": true,
+		"checkJs": true,
+		"strict": true,
+		"noEmit": true,
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"forceConsistentCasingInFileNames": true,
+		"removeComments": true,
+		"typeRoots": ["node_modules/@types"],
+		"incremental": true,
+		"noUncheckedIndexedAccess": true,
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	},
+	"files": ["src/index.ts"],
+	"include": [".eslintrc.cjs", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
+	"exclude": ["node_modules", "dist"]
+}
