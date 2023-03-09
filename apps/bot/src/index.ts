@@ -1,23 +1,22 @@
-// Require the necessary discord.js classes
-import { Client, Events } from "discord.js";
-import { config, intentOptions } from "./config";
-import { registerCommands } from "./register";
+import { Client, GatewayIntentBits, Collection } from "discord.js";
+const { Guilds, MessageContent, GuildMessages, GuildMembers } =
+	GatewayIntentBits;
+import { Command, SlashCommand } from "./types";
+import { readdirSync } from "fs";
+import { join } from "path";
 
-// Create a new client instance
-const client = new Client({ intents: intentOptions });
-
-// When the client is ready, run this code (only once)
-// We use 'c' for the event parameter to keep it separate from the already defined 'client'
-client.once(Events.ClientReady, (c) => {
-	console.log(`Ready! Logged in as ${c.user.tag}`);
+// Initialize the Discord Client
+const client = new Client({
+	intents: [Guilds, MessageContent, GuildMessages, GuildMembers],
 });
 
-// Register all commands
-registerCommands(client);
+client.slashCommands = new Collection<string, SlashCommand>();
+client.commands = new Collection<string, Command>();
+client.cooldowns = new Collection<string, number>();
 
-// Log in to Discord with your client's token
-void client.login(config.token);
-
-client.on("messageCreate", (message) => {
-	console.log(message.content);
+const handlersDir = join(__dirname, "./handlers");
+readdirSync(handlersDir).forEach((handler) => {
+	require(`${handlersDir}/${handler}`)(client);
 });
+
+client.login(process.env.DISCORD_BOT_TOKEN);
