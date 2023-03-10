@@ -12,7 +12,13 @@
     "dev": {
       "cache": false
     },
-    "start": {}
+    "start": {},
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    }
   },
   "globalEnv": [
     "DATABASE_URL",
