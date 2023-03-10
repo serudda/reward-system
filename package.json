@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "build": "pnpm with-env turbo run build",
@@ -18,6 +19,8 @@
     "dotenv-cli": "^7.0.0",
     "prettier": "latest",
     "turbo": "latest",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "@ic/eslint-config-indie": "workspace:*",
+    "@ic/tsconfig": "workspace:*"
   }
 }
