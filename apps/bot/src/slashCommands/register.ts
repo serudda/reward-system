@@ -1,4 +1,6 @@
+import fetch from 'cross-fetch';
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+
 import { SlashCommand } from '../types';
 
 // NOTE: This is an example of a simple test slash command.
@@ -19,6 +21,25 @@ const command: SlashCommand = {
         if (element.name && element.value) options[element.name] = element.value;
       }
       console.log(interaction.options);
+      const user = await fetch('http://localhost:3005/api/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          discord: interaction.user.username,
+          github: options.github,
+        }),
+      });
+      const response = await user.json();
+      console.log(user);
+      if (!user.ok) {
+        interaction.editReply({
+          embeds: [
+            new EmbedBuilder().setAuthor({ name: 'User Error 💀💀💀' }).setDescription(`❌${response.message}❌`),
+          ],
+        });
+        return;
+      }
+
       interaction.editReply({
         embeds: [
           new EmbedBuilder()
