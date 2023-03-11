@@ -21,6 +21,7 @@ const command: SlashCommand = {
         if (element.name && element.value) options[element.name] = element.value;
       }
       console.log(interaction.options);
+      // create request to trpc-openapi back end
       const user = await fetch('http://localhost:3005/api/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -16,8 +16,9 @@ export const userRouter = createTRPCRouter({
     .query(({ ctx }) => {
       return ctx.prisma.example.findMany();
     }), */
-
+  // TO make it pass to rest type you have to configure the input and output
   createUser: publicProcedure
+    // define the structure as if it were REST
     .meta({
       openapi: {
         method: 'POST',
@@ -43,6 +44,8 @@ export const userRouter = createTRPCRouter({
         const request = await fetch(`https://api.github.com/users/${input.github}`);
 
         if (request.status === 404) {
+          // for always use TRPCError
+          // otherwise it will always give status 200
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'Invalid Github User, please try again later.',
