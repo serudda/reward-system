@@ -6,8 +6,8 @@ import { api } from '../api';
 const command: SlashCommand = {
   command: new SlashCommandBuilder().setName('ping').setDescription("Shows the bot's ping"),
   execute: async (interaction) => {
-    const hello = await (api as any).example.hello.query({ text: 'TEST' });
-    console.log('hello: ', hello);
+    const user = await (api as any).user.getByEmail.query({ email: 'serudda.oficial@gmail.com' });
+    console.log('user: ', user);
     interaction.reply({
       embeds: [
         new EmbedBuilder()

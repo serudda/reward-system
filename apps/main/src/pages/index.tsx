@@ -7,6 +7,7 @@ import { api } from '@/utils/api';
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: 'from tRPC' });
+  const user = api.user.getByEmail.useQuery({ email: 'serudda.oficial@gmail.com' });
 
   return (
     <>
