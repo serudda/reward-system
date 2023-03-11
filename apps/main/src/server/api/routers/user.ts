@@ -1,9 +1,10 @@
 import { z } from 'zod';
-
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { getHTTPStatusCodeFromError } from '@trpc/server/http';
+import { TRPCError } from '@trpc/server';
 
 export const userRouter = createTRPCRouter({
-  getAll: publicProcedure
+  /*  getAll: publicProcedure
     .meta({
       openapi: {
         method: 'GET',
@@ -14,7 +15,7 @@ export const userRouter = createTRPCRouter({
     })
     .query(({ ctx }) => {
       return ctx.prisma.example.findMany();
-    }),
+    }), */
 
   createUser: publicProcedure
     .meta({
@@ -34,14 +35,18 @@ export const userRouter = createTRPCRouter({
           github: z.string(),
           discord: z.string(),
         })
-        .or(z.string()),
+        .or(z.undefined())
+        .or(z.number()),
     )
     .mutation(async ({ ctx, input }) => {
       try {
         const request = await fetch(`https://api.github.com/users/${input.github}`);
 
         if (request.status === 404) {
-          throw new Error('Invalid User');
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Invalid Github User, please try again later.',
+          });
         }
         return ctx.prisma.example.create({
           data: {
@@ -51,13 +56,18 @@ export const userRouter = createTRPCRouter({
         });
       } catch (err) {
         console.log(err);
-        if (err instanceof Error) {
+        if (err instanceof TRPCError) {
           // ✅ TypeScript knows err is Error
           console.log(err.message);
-          return err.message;
+          throw new TRPCError({
+            code: err.code,
+            message: err.message,
+          });
         } else {
           console.log('Unexpected error', err);
-          return 'Error';
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+          });
         }
       }
     }),
