@@ -15,12 +15,13 @@
     "with-env": "dotenv -e .env --"
   },
   "devDependencies": {
+    "@ic/eslint-config-indie": "workspace:*",
+    "@ic/tsconfig": "workspace:*",
     "@types/node": "^18.11.18",
     "dotenv-cli": "^7.0.0",
     "prettier": "latest",
+    "prettier-plugin-prisma": "^4.10.0",
     "turbo": "latest",
-    "typescript": "^4.9.4",
-    "@ic/eslint-config-indie": "workspace:*",
-    "@ic/tsconfig": "workspace:*"
+    "typescript": "^4.9.4"
   }
 }

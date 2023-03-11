@@ -4,6 +4,9 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "todohighlight.keywords": [
     {
       "text": "NOTE:",
