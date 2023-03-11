@@ -53,18 +53,18 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
-    coins         Int       @default(0)
+    coins         Int         @default(0)
     accounts      Account[]
     sessions      Session[]
     userItems     UserItems[]
-    isActive      Boolean   @default(true)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    isActive      Boolean     @default(true)
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
 }
 
 model VerificationToken {
@@ -78,36 +78,35 @@ model VerificationToken {
 }
 
 model Item {
-    id            String    @id @default(cuid())
-    name          String
-    description   String?
-    thumbnail     String
-    cost          Int
-    userItems     UserItems[]
-    isActive      Boolean   @default(true)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    id          String      @id @default(cuid())
+    name        String
+    description String?
+    thumbnail   String
+    cost        Int
+    userItems   UserItems[]
+    isActive    Boolean     @default(true)
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
 }
 
-
 model UserItems {
-    amount        Int       @default(0)
-    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId        String
-    item          Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
-    itemId        String
-    isActive      Boolean   @default(true)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    amount    Int      @default(0)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+    itemId    String
+    isActive  Boolean  @default(true)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     @@id([userId, itemId])
 }
 
 model Coin {
-    id            String    @id @default(cuid())
-    name          String    
-    description   String?
-    isActive      Boolean   @default(true)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    id          String   @id @default(cuid())
+    name        String
+    description String?
+    isActive    Boolean  @default(true)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
