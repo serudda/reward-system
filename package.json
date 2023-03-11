@@ -9,6 +9,7 @@
     "clean": "rm -rf .turbo .next node_modules dist coverage",
     "lint": "turbo run lint",
     "start": "pnpm with-env turbo run start",
+    "db": "pnpm with-env turbo db:push db:generate",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "with-env": "dotenv -e .env --"
   },
