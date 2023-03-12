@@ -1,4 +1,5 @@
-import { SlashCommandBuilder, TextChannel, EmbedBuilder, ColorResolvable } from 'discord.js';
+import { ColorResolvable, EmbedBuilder, SlashCommandBuilder, TextChannel } from 'discord.js';
+
 import { SlashCommand } from '../types';
 
 // NOTE: This is an example of a slash command that uses autocomplete.

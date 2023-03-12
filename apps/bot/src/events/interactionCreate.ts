@@ -1,4 +1,5 @@
 import { Interaction } from 'discord.js';
+
 import { BotEvent } from '../types';
 
 /*

@@ -1,10 +1,10 @@
 import {
-  SlashCommandBuilder,
-  CommandInteraction,
-  Collection,
-  PermissionResolvable,
-  Message,
   AutocompleteInteraction,
+  Collection,
+  CommandInteraction,
+  Message,
+  PermissionResolvable,
+  SlashCommandBuilder,
 } from 'discord.js';
 
 export interface SlashCommand {
