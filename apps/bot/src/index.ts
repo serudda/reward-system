@@ -1,8 +1,10 @@
-import { Client, GatewayIntentBits, Collection } from 'discord.js';
-const { Guilds, MessageContent, GuildMessages, GuildMembers } = GatewayIntentBits;
-import { SlashCommand } from './types';
 import { readdirSync } from 'fs';
 import { join } from 'path';
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
+
+import { SlashCommand } from './types';
+
+const { Guilds, MessageContent, GuildMessages, GuildMembers } = GatewayIntentBits;
 
 // Initialize the Discord Client
 const client = new Client({

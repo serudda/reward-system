@@ -1,4 +1,5 @@
 import { ChannelType, Message } from 'discord.js';
+
 import { checkPermissions, sendTimedMessage } from '../functions';
 import { BotEvent } from '../types';
 

@@ -1,14 +1,14 @@
 {
-	"extends": "@ic/tsconfig/discord.json",
-	"compilerOptions": {
-		"rootDir": "./src/",
-		"outDir": "./dist/",
-		"baseUrl": "./",
-		"paths": {
-			"@/*": ["./src/*"]
-		}
-	},
-	"files": ["src/index.ts"],
-	"include": [".eslintrc.cjs", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
-	"exclude": ["node_modules", "dist"]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
+  "exclude": ["node_modules"]
 }
+
+// BUSCAR

@@ -3,7 +3,9 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.formatOnSave": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "todohighlight.keywords": [
     {
       "text": "NOTE:",
@@ -11,5 +13,9 @@
       "backgroundColor": "#6D87A4",
       "overviewRulerColor": "#FFFFFF"
     }
-  ]
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

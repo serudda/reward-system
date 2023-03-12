@@ -1,26 +1,35 @@
 {
+  "name": "create-t3-turbo",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@7.29.1",
   "scripts": {
-    "build": "pnpm with-env turbo run build",
+    "build": "pnpm with-env turbo build",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "db:generate": "pnpm with-env turbo db:generate",
+    "db:push": "pnpm with-env turbo db:push db:generate",
     "dev": "pnpm with-env turbo dev --parallel",
-    "clean": "rm -rf .turbo .next node_modules dist coverage",
-    "lint": "turbo run lint",
-    "start": "pnpm with-env turbo run start",
-    "db": "pnpm with-env turbo db:push db:generate",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
+    "lint": "turbo lint && manypkg check",
+    "lint:fix": "turbo lint:fix && manypkg fix",
+    "type-check": "turbo type-check",
     "with-env": "dotenv -e .env --"
   },
-  "devDependencies": {
-    "@types/node": "^18.11.18",
+  "dependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
+    "@manypkg/cli": "^0.20.0",
+    "@paralleldrive/cuid2": "^2.2.0",
+    "@types/prettier": "^2.7.2",
     "dotenv-cli": "^7.0.0",
-    "prettier": "latest",
-    "turbo": "latest",
-    "typescript": "^4.9.4",
-    "@ic/eslint-config-indie": "workspace:*",
-    "@ic/tsconfig": "workspace:*"
+    "eslint": "^8.34.0",
+    "eslint-config-acme": "0.0.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-prisma": "^4.10.0",
+    "prettier-plugin-tailwindcss": "^0.2.4",
+    "turbo": "^1.8.3",
+    "typescript": "^4.9.5"
   }
 }
