@@ -57,6 +57,7 @@ model User {
     name                 String?
     email                String?     @unique
     avatar               String?
+    discordId            String?     @unique
     discordUserName      String?     @unique
     discordDiscriminator String?     @unique
     emailVerified        DateTime?

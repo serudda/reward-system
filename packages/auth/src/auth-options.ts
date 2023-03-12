@@ -1,4 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { createId } from '@paralleldrive/cuid2';
 import { type DefaultSession, type NextAuthOptions } from 'next-auth';
 import DiscordProvider, { DiscordProfile } from 'next-auth/providers/discord';
 
@@ -45,6 +46,7 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider<DiscordProfile>({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+
       profile(profile) {
         if (profile.avatar === null) {
           const defaultAvatarNumber = parseInt(profile.discriminator) % 5;
@@ -54,9 +56,10 @@ export const authOptions: NextAuthOptions = {
           profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`;
         }
         return {
-          id: profile.id,
+          id: createId(),
           name: profile.username,
           email: profile.email,
+          discordId: profile.id,
           discordUserName: profile.username,
           discordDiscriminator: profile.discriminator,
           thumbnail: profile.image_url,
