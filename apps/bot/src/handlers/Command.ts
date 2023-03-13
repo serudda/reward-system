@@ -19,6 +19,17 @@ module.exports = (client: Client) => {
 
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_BOT_TOKEN);
 
+  // NOTE: Temporary code to delete a command
+  // rest
+  //   .put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_SERVER_ID), { body: [] })
+  //   .then(() => console.log('Successfully deleted all guild commands.'))
+  //   .catch(console.error);
+
+  // rest
+  //   .put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), { body: [] })
+  //   .then(() => console.log('Successfully deleted all application commands.'))
+  //   .catch(console.error);
+
   rest
     .put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
       body: slashCommands.map((command) => command.toJSON()),
