@@ -10,6 +10,9 @@ const config = {
   rules: {
     '@next/next/no-html-link-for-pages': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+    '@typescript-eslint/no-unsafe-call': 'warn',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {

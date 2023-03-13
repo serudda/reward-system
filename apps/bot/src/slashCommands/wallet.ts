@@ -2,23 +2,23 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  CacheType,
-  CommandInteraction,
   EmbedBuilder,
   SlashCommandBuilder,
+  type CacheType,
+  type CommandInteraction,
 } from 'discord.js';
 
 import { api } from '../api';
 import translate from '../i18n/en.json';
-import { SlashCommand } from '../types';
+import { type SlashCommand } from '../types';
 
-const showUserWalletMsg = async (interaction: CommandInteraction<CacheType>, coins: string) => {
-  interaction.reply({
+const showUserWalletMsg = (interaction: CommandInteraction<CacheType>, coins: string) => {
+  void interaction.reply({
     embeds: [new EmbedBuilder().setAuthor({ name: translate.wallet.description }).setDescription(coins)],
   });
 };
 
-const showInviteLink = async (interaction: CommandInteraction<CacheType>) => {
+const showInviteLink = (interaction: CommandInteraction<CacheType>) => {
   // Button
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
@@ -33,7 +33,7 @@ const showInviteLink = async (interaction: CommandInteraction<CacheType>) => {
     .setTitle(translate.wallet.create)
     .setDescription(translate.wallet.noWallet);
 
-  await interaction.reply({ ephemeral: true, embeds: [embed], components: [row] });
+  void interaction.reply({ ephemeral: true, embeds: [embed], components: [row] });
 };
 
 /** Main command */

@@ -1,6 +1,6 @@
-import { GuildMember, PermissionFlagsBits, PermissionResolvable, TextChannel } from 'discord.js';
+import { PermissionFlagsBits, type GuildMember, type PermissionResolvable, type TextChannel } from 'discord.js';
 
-import { GuildOption } from './types';
+import { type GuildOption } from './types';
 
 /**
 This function checks whether a given GuildMember has an array of permissions and returns an array of the missing permissions as strings.
@@ -12,7 +12,7 @@ This function checks whether a given GuildMember has an array of permissions and
 The function loops through the input permissions array and adds any missing permissions to a neededPermissions array. If the neededPermissions array is empty, it returns null. Otherwise, it maps the neededPermissions array and formats each permission string or flag for readability.
 **/
 export const checkPermissions = (member: GuildMember, permissions: Array<PermissionResolvable>) => {
-  let neededPermissions: PermissionResolvable[] = [];
+  const neededPermissions: PermissionResolvable[] = [];
   permissions.forEach((permission) => {
     if (!member.permissions.has(permission)) neededPermissions.push(permission);
   });
@@ -38,7 +38,7 @@ This function sends a message to a Discord TextChannel and deletes it after a se
 The function sends the message to the channel using channel.send(), schedules the message to be deleted after duration with setTimeout(), and returns nothing. It's useful for temporary messages that don't need to persist in the channel's history.
  */
 export const sendTimedMessage = (message: string, channel: TextChannel, duration: number) => {
-  channel.send(message).then((m) => setTimeout(async () => (await channel.messages.fetch(m)).delete(), duration));
+  void channel.send(message).then((m) => setTimeout(async () => (await channel.messages.fetch(m)).delete(), duration));
   return;
 };
 
@@ -50,8 +50,8 @@ This function gets a GuildOption from the database or returns the default value.
 
 The function searches the database for a guild with a matching ID and returns the value of the specified option key in the options object. If no guild is found, it returns null.
  */
-export const getGuildOption = async (option: GuildOption) => {
-  let foundGuild = {
+export const getGuildOption = (option: GuildOption) => {
+  const foundGuild = {
     guildID: process.env.DISCORD_SERVER_ID,
     options: {
       prefix: process.env.PREFIX,
