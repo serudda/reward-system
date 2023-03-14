@@ -43,6 +43,7 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
+        // TODO: Duplicated code (see packages/auth/src/auth-options.ts)
         let tempThumbnail = '';
         if (input.user.avatar === null) {
           const defaultAvatarNumber = parseInt(input.user.discriminator) % 5;
