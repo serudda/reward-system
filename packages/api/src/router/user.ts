@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
@@ -51,7 +52,7 @@ export const userRouter = createTRPCRouter({
           tempThumbnail = `https://cdn.discordapp.com/avatars/${input.user.id}/${input.user.avatar}.${format}`;
         }
 
-        const sentCoins = await ctx.prisma.user.upsert({
+        const user: User = await ctx.prisma.user.upsert({
           where: { discordId: input.user.id },
           update: { coins: { increment: input.coins } },
           create: {
@@ -64,7 +65,7 @@ export const userRouter = createTRPCRouter({
           },
         });
 
-        if (!sentCoins) {
+        if (!user) {
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'USer with that ID not found',
@@ -74,7 +75,7 @@ export const userRouter = createTRPCRouter({
         return {
           status: 'success',
           data: {
-            sentCoins,
+            user,
           },
         };
       } catch (err: any) {
