@@ -2,7 +2,7 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 
-import { SlashCommand } from './types';
+import { type SlashCommand } from './types';
 
 const { Guilds, MessageContent, GuildMessages, GuildMembers } = GatewayIntentBits;
 
@@ -16,7 +16,7 @@ client.cooldowns = new Collection<string, number>();
 
 const handlersDir = join(__dirname, './handlers');
 readdirSync(handlersDir).forEach((handler) => {
-  require(`${handlersDir}/${handler}`)(client);
+  void require(`${handlersDir}/${handler}`)(client);
 });
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+void client.login(process.env.DISCORD_BOT_TOKEN);

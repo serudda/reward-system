@@ -1,10 +1,10 @@
 import {
-  AutocompleteInteraction,
-  Collection,
-  CommandInteraction,
-  Message,
-  PermissionResolvable,
-  SlashCommandBuilder,
+  type AutocompleteInteraction,
+  type Collection,
+  type CommandInteraction,
+  type Message,
+  type PermissionResolvable,
+  type SlashCommandBuilder,
 } from 'discord.js';
 
 export interface SlashCommand {
@@ -44,6 +44,7 @@ declare global {
     interface ProcessEnv {
       DISCORD_BOT_TOKEN: string;
       DISCORD_CLIENT_ID: string;
+      DISCORD_SERVER_ID: string;
       PREFIX: string;
     }
   }

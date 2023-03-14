@@ -1,6 +1,6 @@
-import { ColorResolvable, EmbedBuilder, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder, type ColorResolvable, type TextChannel } from 'discord.js';
 
-import { SlashCommand } from '../types';
+import { type SlashCommand } from '../types';
 
 // NOTE: This is an example of a slash command that uses autocomplete.
 const command: SlashCommand = {
@@ -56,12 +56,12 @@ const command: SlashCommand = {
         { name: 'LightGrey', value: 'LightGrey' },
         { name: 'DarkNavy', value: 'DarkNavy' },
       ];
-      let filtered: { name: string; value: string }[] = [];
+      const filtered: { name: string; value: string }[] = [];
       for (let i = 0; i < choices.length; i++) {
-        const choice: any = choices[i];
+        const choice = choices[i] as { name: string; value: string };
         if (choice.name.includes(focusedValue)) filtered.push(choice);
       }
-      await interaction.respond(filtered);
+      void (await interaction.respond(filtered));
     } catch (error: any) {
       console.log(`Error: ${error.message}`);
     }
@@ -72,13 +72,13 @@ const command: SlashCommand = {
       const options: any = {};
       if (!interaction.options) return interaction.editReply({ content: 'Something went wrong...' });
       for (let i = 0; i < interaction.options.data.length; i++) {
-        const element: any = interaction.options.data[i];
-        if (element.name && element.value) options[element.name] = element.value;
+        const element = interaction.options.data[i];
+        if (element?.name && element?.value) options[element.name] = element.value;
       }
       const embed = new EmbedBuilder()
         .setColor(options.color.toString() as ColorResolvable)
-        .setTitle(options.title.toString())
-        .setDescription(options.description.toString())
+        .setTitle(options.title.toString() as string)
+        .setDescription(options.description.toString() as string)
         .setAuthor({
           name: interaction.client.user?.username || 'Default Name',
           iconURL: interaction.client.user?.avatarURL() || undefined,
@@ -89,15 +89,15 @@ const command: SlashCommand = {
           text: 'Test embed message',
           iconURL: interaction.client.user?.avatarURL() || undefined,
         });
-      let selectedTextChannel = interaction.channel?.client.channels.cache.get(
-        options.channel.toString(),
+      const selectedTextChannel = interaction.channel?.client.channels.cache.get(
+        options.channel.toString() as string,
       ) as TextChannel;
-      selectedTextChannel.send({ embeds: [embed] });
+      void selectedTextChannel.send({ embeds: [embed] });
       return interaction.editReply({
         content: 'Embed message successfully sent.',
       });
     } catch (error) {
-      interaction.editReply({ content: 'Something went wrong...' });
+      void interaction.editReply({ content: 'Something went wrong...' });
     }
   },
   cooldown: 10,
