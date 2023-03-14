@@ -1,9 +1,17 @@
 {
-  "wallet": {
-    "create": "Create your wallet :moneybag:",
-    "show": "Show my wallet's balance",
-    "description": "This is the amount of IndieTokens in your wallet",
-    "connectDiscord": "Connect with Discord",
-    "noWallet": "You don't have a wallet yet, please connect with Discord to create one"
+  "commands": {
+    "wallet": {
+      "create": "Create your wallet :moneybag:",
+      "show": "Show my wallet's balance",
+      "description": "This is the amount of IndieTokens in your wallet",
+      "connectDiscord": "Connect with Discord",
+      "noWallet": "You don't have a wallet yet, please connect with Discord to create one"
+    },
+    "giveCoins": {
+      "give": "Give Indie Tokens to an User",
+      "receiver": "The receiver's username",
+      "amount": "Set the amount of coins you want to give.",
+      "giveSuccess": "You gave :amount IndieTokens to :user"
+    }
   }
 }

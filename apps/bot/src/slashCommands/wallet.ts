@@ -14,7 +14,7 @@ import { type SlashCommand } from '../types';
 
 const showUserWalletMsg = (interaction: CommandInteraction<CacheType>, coins: string) => {
   void interaction.reply({
-    embeds: [new EmbedBuilder().setAuthor({ name: translate.wallet.description }).setDescription(coins)],
+    embeds: [new EmbedBuilder().setAuthor({ name: translate.commands.wallet.description }).setDescription(coins)],
   });
 };
 
@@ -22,7 +22,7 @@ const showInviteLink = (interaction: CommandInteraction<CacheType>) => {
   // Button
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
-      .setLabel(translate.wallet.connectDiscord)
+      .setLabel(translate.commands.wallet.connectDiscord)
       .setStyle(ButtonStyle.Link)
       .setURL('http://localhost:3000/api/auth/signin?callbackUrl=http://localhost:3000'),
   );
@@ -30,15 +30,15 @@ const showInviteLink = (interaction: CommandInteraction<CacheType>) => {
   // Message
   const embed = new EmbedBuilder()
     .setColor('#5865F2')
-    .setTitle(translate.wallet.create)
-    .setDescription(translate.wallet.noWallet);
+    .setTitle(translate.commands.wallet.create)
+    .setDescription(translate.commands.wallet.noWallet);
 
   void interaction.reply({ ephemeral: true, embeds: [embed], components: [row] });
 };
 
 /** Main command */
 const command: SlashCommand = {
-  command: new SlashCommandBuilder().setName('wallet').setDescription(translate.wallet.show),
+  command: new SlashCommandBuilder().setName('wallet').setDescription(translate.commands.wallet.show),
   execute: async (interaction) => {
     const user = await api.user.getByDiscordId.query({ discordId: interaction.user.id });
 
