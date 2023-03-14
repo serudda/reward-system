@@ -1,4 +1,10 @@
-import { EmbedBuilder, SlashCommandBuilder, type ColorResolvable, type TextChannel } from 'discord.js';
+import {
+  EmbedBuilder,
+  SlashCommandBuilder,
+  type ColorResolvable,
+  type CommandInteractionOptionResolver,
+  type TextChannel,
+} from 'discord.js';
 
 import { type SlashCommand } from '../types';
 
