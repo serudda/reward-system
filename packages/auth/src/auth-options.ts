@@ -1,7 +1,7 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { createId } from '@paralleldrive/cuid2';
 import { type DefaultSession, type NextAuthOptions } from 'next-auth';
-import DiscordProvider, { DiscordProfile } from 'next-auth/providers/discord';
+import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
 
 import { prisma } from '@acme/db';
 

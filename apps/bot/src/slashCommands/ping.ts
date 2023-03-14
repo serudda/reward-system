@@ -6,7 +6,7 @@ import { type SlashCommand } from '../types';
 const command: SlashCommand = {
   command: new SlashCommandBuilder().setName('ping').setDescription("Shows the bot's ping"),
   execute: async (interaction) => {
-    void interaction.reply({
+    await interaction.reply({
       embeds: [
         new EmbedBuilder()
           .setAuthor({ name: 'MRC License' })

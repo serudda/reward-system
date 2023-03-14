@@ -61,7 +61,7 @@ const command: SlashCommand = {
         const choice = choices[i] as { name: string; value: string };
         if (choice.name.includes(focusedValue)) filtered.push(choice);
       }
-      await interaction.respond(filtered);
+      void (await interaction.respond(filtered));
     } catch (error: any) {
       console.log(`Error: ${error.message}`);
     }
