@@ -1,12 +1,9 @@
-# create-t3-turbo
+# Reward System
 
-<img width="1758" alt="turbo2" src="https://user-images.githubusercontent.com/51714798/213819392-33e50db9-3e38-4c51-9a22-03abe5e48f3d.png">
+<!-- <img width="1758" alt="turbo2" src="https://user-images.githubusercontent.com/51714798/213819392-33e50db9-3e38-4c51-9a22-03abe5e48f3d.png">
+ -->
 
-## About
-
-Ever wondered how to migrate your T3 application into a monorepo? Stop right here! This is the perfect starter repo to get you running with the perfect stack!
-
-It uses [Turborepo](https://turborepo.org/) and contains:
+Introducing the perfect companion for your Discord community! 💻🚀 This reward calculation bot is the ultimate tool for those seeking recognition for their contributions. From small code tweaks to large collaborative projects, this bot is equipped to calculate and display the rewards deserved for each contribution. ⚙️💰 With its precision and speed, this bot will make your creators feel valued and motivated to keep working in the community. Don't wait any longer to add it to your Discord server and give your members the gratification they deserve! 💯💪
 
 ```
 .github
@@ -15,12 +12,11 @@ It uses [Turborepo](https://turborepo.org/) and contains:
 .vscode
   └─ Recommended extensions and settings for VSCode users
 apps
-  ├─ expo
-  |   ├─ Expo SDK 48
-  |   ├─ React Native using React 18
-  |   ├─ Navigation using Expo Router
-  |   ├─ Tailwind using Nativewind
-  |   └─ Typesafe API calls using tRPC
+  ├─ bot
+  |   ├─ Node
+  |   ├─ Discord JS
+  |   ├─ tRPC Client
+  |   └─ TypeScript
   └─ next.js
       ├─ Next.js 13
       ├─ React 18
@@ -30,159 +26,103 @@ packages
  ├─ api
  |   └─ tRPC v10 router definition
  ├─ auth
-     └─ authentication using next-auth. **NOTE: Only for Next.js app, not Expo**
+     └─ authentication using next-auth. **NOTE: Only with Discord**
  └─ db
      └─ typesafe db-calls using Prisma
 ```
+# Run Project
 
-## FAQ
+As the project uses Turborepo, you could run the following commands on the root, and it will run every inner same command.
 
-### Can you include Solito?
+## Run the Main Project
 
-No. Solito will not be included in this repo. It is a great tool if you want to share code between your Next.js and Expo app. However, the main purpose of this repo is not the integration between Next.js and Expo - it's the codesplitting of your T3 App into a monorepo, the Expo app is just a bonus example of how you can utilize the monorepo with multiple apps but can just as well be any app such as Vite, Electron, etc.
+Install Dependencies
+`pnpm install`
 
-Integrating Solito into this repo isn't hard, and there are a few [offical templates](https://github.com/nandorojo/solito/tree/master/example-monorepos) by the creators of Solito that you can use as a reference.
+Build the app
+`pnpm build`
 
-### What auth solution should I use instead of Next-Auth.js for Expo?
+Run the app locally
+`pnpm dev`
 
-I've left this kind of open for you to decide. Some options are [Clerk](https://clerk.dev), [Supabase Auth](https://supabase.com/docs/guides/auth), [Firebase Auth](https://firebase.google.com/docs/auth/) or [Auth0](https://auth0.com/docs). Note that if you're dropping the Expo app for something more "browser-like", you can still use Next-Auth.js for those.
+## Run the Bot
 
-The Clerk.dev team even made an [official template repository](https://github.com/clerkinc/t3-turbo-and-clerk) integrating Clerk.dev with this repo.
+Install Dependencies (if this is the first time you run this command)
+`pnpm install`
+
+Run the bot
+`pnpm start`
+
+# How can I contribute ?
+
+It is an open-source project, check the issues and join our discord to be part of this community.
 
 ## Quick Start
 
 To get it running, follow the steps below:
 
-### Setup dependencies
+### Setup .ENV
 
-```diff
-# Install dependencies
-pnpm i
+```
+DATABASE_URL=""
 
-# In packages/db/prisma update schema.prisma provider to use sqlite
-# or use your own database provider
-- provider = "postgresql"
-+ provider = "sqlite"
+NEXTAUTH_SECRET=""
+NEXTAUTH_URL=""
 
-# Configure environment variables.
-# There is an `.env.example` in the root directory you can use for reference
-cp .env.example .env
-
-# Push the Prisma schema to your database
-pnpm db:push
+DISCORD_CLIENT_ID=""
+DISCORD_CLIENT_SECRET=""
+DISCORD_BOT_TOKEN=""
 ```
 
-### Configure Expo `dev`-script
+### Configure DB (SUPABASE)
 
-#### Use iOS Simulator
+Create a new project in Supabase, go to settings / database / Connection string(URI).
+[more details here](https://supabase.com/docs/guides/integrations/prisma)
 
-1. Make sure you have XCode and XCommand Line Tools installed [as shown on expo docs](https://docs.expo.dev/workflow/ios-simulator/).
-   > **NOTE:** If you just installed XCode, or if you have updated it, you need to open the simulator manually once. Run `npx expo start` in the root dir, and then enter `I` to launch Expo Go. After the manual launch, you can run `pnpm dev` in the root directory.
+### Configure NEXT AUTH
 
-```diff
-+  "dev": "expo start --ios",
-```
+`NEXTAUTH_URL` Your localhost.
 
-3. Run `pnpm dev` at the project root folder.
+### Configure DISCORD BOT
 
-> **TIP:** It might be easier to run each app in separate terminal windows so you get the logs from each app separately. This is also required if you want your terminals to be interactive, e.g. to access the Expo QR code. You can run `pnpm --filter expo dev` and `pnpm --filter nextjs dev` to run each app in a separate terminal window.
+1. [Go to the Discord Developer Portal](https://discordapp.com/developers/applications/).
+2. Create a New Application.
+   ![Application](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678755937/o1vaqzbm7f6tozark9yo.png "Application")
+3. Your next step is to go over the menu on the left side of the screen and click “Bot”.
 
-#### For Android
+   ![Bot](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756136/pwgtlao3pd9evqedtnxm.png "Bot")
+4. Now you want to click the blue “Add Bot” button.
+   ![Add Bot](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756280/wcr0nny5wdcd8fovf768.png "AddBot")
+5. Click the “Yes, do it!” button…
+6. You’ll also see a “Token” and a blue link you can click called “Copy”.
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756280/x3f9nk65tq5szib6jb22.png "Token")
 
-1. Install Android Studio tools [as shown on expo docs](https://docs.expo.dev/workflow/android-studio-emulator/).
-2. Change the `dev` script at `apps/expo/package.json` to open the Android emulator.
 
-```diff
-+  "dev": "expo start --android",
-```
+`DISCORD_BOT_TOKEN="YOUR_TOKEN"`
 
-3. Run `pnpm dev` at the project root folder.
+7. Add Your Bot to a Discord Server
+8. In order to add your bot to your Discord Server, you’ll need to navigate back to the “OAuth2” "URL GENERATOR" tab.
 
-## Deployment
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759651/pw1svnypnnbvbt0ceczt.png "Token")
+9. In the “Scopes” section, you’ll want to select the “bot” checkbox.
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759632/ntra1xoyhye5r3tixy9c.png "Token")
+10. “Bot Permissions” section. This is where you choose what permissions to give your bot, and what it can and can’t do.
+11. After you’ve selected your permissions, scroll up a little bit and look at the URL that was generated.
+12. Click the blue “Copy” button on the right side. This is the URL you’ll navigate to in order to add your bot to a server.
+### Configure DISCORD KEYS
 
-### Next.js
+1. you’ll need to navigate back to the “OAuth2” "GENERAL" tab.
+2. Copy "CLIENT ID"
 
-#### Prerequisites
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759900/qxbzfxoseuesr8eza5ic.png "Token")
 
-_We do not recommend deploying a SQLite database on serverless environments since the data wouldn't be persisted. I provisioned a quick Postgresql database on [Railway](https://railway.app), but you can of course use any other database provider. Make sure the prisma schema is updated to use the correct database._
+`DISCORD_CLIENT_ID="1xxxxxxxxx"`
 
-**Please note that the Next.js application with tRPC must be deployed in order for the Expo app to communicate with the server in a production environment.**
+3. Click the blue “Reset Secret” button.
+3. Click “YES” button.
+6. You’ll also see a “Token” and a blue link you can click called “Copy”.
 
-#### Deploy to Vercel
-
-Let's deploy the Next.js application to [Vercel](https://vercel.com/). If you have ever deployed a Turborepo app there, the steps are quite straightforward. You can also read the [official Turborepo guide](https://vercel.com/docs/concepts/monorepos/turborepo) on deploying to Vercel.
-
-1. Create a new project on Vercel, select the `apps/nextjs` folder as the root directory and apply the following build settings:
-
-<img width="927" alt="Vercel deployment settings" src="https://user-images.githubusercontent.com/11340449/201974887-b6403a32-5570-4ce6-b146-c486c0dbd244.png">
-
-> The install command filters out the expo package and saves a few second (and cache size) of dependency installation. The build command makes us build the application using Turbo.
-
-2. Add your `DATABASE_URL` environment variable.
-
-3. Done! Your app should successfully deploy. Assign your domain and use that instead of `localhost` for the `url` in the Expo app so that your Expo app can communicate with your backend when you are not in development.
-
-### Expo
-
-Deploying your Expo application works slightly differently compared to Next.js on the web. Instead of "deploying" your app online, you need to submit production builds of your app to the app stores, like [Apple App Store](https://www.apple.com/app-store/) and [Google Play](https://play.google.com/store/apps). You can read the full [Distributing your app](https://docs.expo.dev/distribution/introduction/), including best practices, in the Expo docs.
-
-1. Let's start by setting up [EAS Build](https://docs.expo.dev/build/introduction/), which is short for Expo Application Services. The build service helps you create builds of your app, without requiring a full native development setup. The commands below are a summary of [Creating your first build](https://docs.expo.dev/build/setup/).
-
-   ```bash
-   // Install the EAS CLI
-   $ pnpm add -g eas-cli
-
-   // Log in with your Expo account
-   $ eas login
-
-   // Configure your Expo app
-   $ cd apps/expo
-   $ eas build:configure
-   ```
-
-2. After the initial setup, you can create your first build. You can build for Android and iOS platforms and use different [**eas.json** build profiles](https://docs.expo.dev/build-reference/eas-json/) to create production builds or development, or test builds. Let's make a production build for iOS.
-
-   ```
-   $ eas build --platform ios --profile production
-   ```
-
-   > If you don't specify the `--profile` flag, EAS uses the `production` profile by default.
-
-3. Now that you have your first production build, you can submit this to the stores. [EAS Submit](https://docs.expo.dev/submit/introduction/) can help you send the build to the stores.
-
-   ```
-   $ eas submit --platform ios --latest
-   ```
-
-   > You can also combine build and submit in a single command, using `eas build ... --auto-submit`.
-
-4. Before you can get your app in the hands of your users, you'll have to provide additional information to the app stores. This includes screenshots, app information, privacy policies, etc. _While still in preview_, [EAS Metadata](https://docs.expo.dev/eas/metadata/) can help you with most of this information.
-
-5. Once everything is approved, your users can finally enjoy your app. Let's say you spotted a small typo; you'll have to create a new build, submit it to the stores, and wait for approval before you can resolve this issue. In these cases, you can use EAS Update to quickly send a small bugfix to your users without going through this long process. Let's start by setting up EAS Update.
-
-   The steps below summarize the [Getting started with EAS Update](https://docs.expo.dev/eas-update/getting-started/#configure-your-project) guide.
-
-   ```bash
-   // Add the `expo-updates` library to your Expo app
-   $ cd apps/expo
-   $ pnpm expo install expo-updates
-
-   // Configure EAS Update
-   $ eas update:configure
-   ```
-
-6. Before we can send out updates to your app, you have to create a new build and submit it to the app stores. For every change that includes native APIs, you have to rebuild the app and submit the update to the app stores. See steps 2 and 3.
-
-7. Now that everything is ready for updates, let's create a new update for `production` builds. With the `--auto` flag, EAS Update uses your current git branch name and commit message for this update. See [How EAS Update works](https://docs.expo.dev/eas-update/how-eas-update-works/#publishing-an-update) for more information.
-
-   ```bash
-   $ cd apps/expo
-   $ eas update --auto
-   ```
-
-   > Your OTA (Over The Air) updates must always follow the app store's rules. You can't change your app's primary functionality without getting app store approval. But this is a fast way to update your app for minor changes and bug fixes.
-
-8. Done! Now that you have created your production build, submitted it to the stores, and installed EAS Update, you are ready for anything!
+`DISCORD_CLIENT_SECRET="SECRET_TOKEN"`
 
 ## References
 
