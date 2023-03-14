@@ -22,7 +22,8 @@ const command: SlashCommand = {
     ),
   execute: async (interaction) => {
     const user = interaction.options.getUser('user');
-    const coins: string = (interaction.options as any).getString('coins');
+    // TODO: Fix an Type issue with .getString, it is not recognized as a function
+    const coins: string = (interaction.options as any).getString('coins'); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
     // Update or Create User
     const updatedUser = await api.user.sendCoinsByUserId.mutate({
