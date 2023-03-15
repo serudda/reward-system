@@ -12,15 +12,19 @@ jobs:
               repository(owner:$owner,name:$repo) {
                 issue(number:71) {
                   id
-                  fieldValues(first: 20) {
-                    nodes {
-                      ... on ProjectV2ItemFieldNumberValue {
-                        number
-                        field {
-                          ... on ProjectV2FieldCommon {
-                            id
-                            dataType
-                            name
+                  edges {
+                    node {
+                      fieldValues(first: 20) {
+                        nodes {
+                          ... on ProjectV2ItemFieldNumberValue {
+                            number
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                id
+                                dataType
+                                name
+                              }
+                            }
                           }
                         }
                       }
