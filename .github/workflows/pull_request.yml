@@ -18,5 +18,5 @@ jobs:
           owner: ${{ github.event.repository.owner.name }}
           repo: ${{ github.event.repository.name }}
         env:
-          GITHUB_TOKEN: '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'
+          GITHUB_TOKEN: ${{ secrets.PROJECT_TOKEN }}
       - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
