@@ -8,24 +8,14 @@ jobs:
         id: get_latest_release
         with:
           query: |
-            query FindIssueID($owner:String!,$repo:String!) {
-              repository(owner:$owner,name:$repo) {
-                issue(number:71) {
-                  id
-                  edges {
-                    node {
-                      fieldValues(first: 20) {
-                        nodes {
-                          ... on ProjectV2ItemFieldNumberValue {
-                            number
-                            field {
-                              ... on ProjectV2FieldCommon {
-                                id
-                                dataType
-                                name
-                              }
-                            }
-                          }
+            query {
+              repository(name:String!,owner: String!) {
+                issue(number: 71) {
+                  projectItems (first: 100) {
+                    nodes {
+                      fieldValueByName(name: "Reward") {
+                        ... on ProjectV2ItemFieldNumberValue {
+                          number
                         }
                       }
                     }
