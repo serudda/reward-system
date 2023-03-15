@@ -12,10 +12,8 @@ jobs:
               repository(owner:$owner,name:$repo) {
                 issue(number:71) {
                   id
-                  customFields {
-                    nodes {
-                        name
-                    }
+                  nodes {
+                    name
                   }
                 }
               }
