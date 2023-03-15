@@ -41,6 +41,7 @@ jobs:
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
+        id: send_coins
         with:
           url: 'https://localhost:3000/api/trpc/user.sendCoinsByGithubId'
           method: 'POST'
