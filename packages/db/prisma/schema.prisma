@@ -60,6 +60,8 @@ model User {
     discordId            String?     @unique
     discordUserName      String?     @unique
     discordDiscriminator String?     @unique
+    githubId             String?     @unique
+    githubUserName       String?     @unique
     emailVerified        DateTime?
     coins                Int         @default(0)
     accounts             Account[]

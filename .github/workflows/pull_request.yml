@@ -41,7 +41,7 @@ jobs:
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://localhost:3000/api/trpc/user.sendCoinsByGithubId/'
+          url: 'https://localhost:3000/api/trpc/user.sendCoinsByGithubId'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"user": {"id": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].id }}", "login": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].login }}", "name": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].name }}", "email": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].email }}", "avatarUrl": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}"}, "coins": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}}}'

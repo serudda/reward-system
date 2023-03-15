@@ -84,6 +84,53 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
+  sendCoinsByGithubId: publicProcedure
+    .input(
+      z.object({
+        user: z.object({
+          id: z.string(),
+          login: z.string(),
+          name: z.string(),
+          email: z.string(),
+          avatarUrl: z.string(),
+        }),
+        coins: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        console.log('input:', input);
+
+        const user: User = await ctx.prisma.user.upsert({
+          where: { githubId: input.user.id },
+          update: { coins: { increment: input.coins } },
+          create: {
+            name: input.user.name,
+            email: input.user.email,
+            githubUserName: input.user.login,
+            thumbnail: input.user.avatarUrl,
+            coins: input.coins,
+          },
+        });
+
+        if (!user) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'User with that ID not found',
+          });
+        }
+
+        return {
+          status: 'success',
+          data: {
+            user,
+          },
+        };
+      } catch (err: any) {
+        throw err;
+      }
+    }),
+
   getSecretMessage: protectedProcedure.query(() => {
     return 'you can now see this secret message!';
   }),
