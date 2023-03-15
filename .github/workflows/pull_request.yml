@@ -9,7 +9,7 @@ jobs:
         id: get_coins
         with:
           query: |
-            query FindIssueID($owner:String!,$repo:String!) {
+            query GetCoinsAndAssigneeUser($owner:String!,$repo:String!) {
               repository(owner:$owner,name:$repo) {
                 issue(number: 71) {
                   assignees(first: 10) {
