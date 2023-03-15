@@ -8,8 +8,8 @@ jobs:
         id: get_latest_release
         with:
           query: |
-            query {
-              repository(name:String!,owner: String!) {
+            query FindIssueID($owner:String!,$repo:String!) {
+              repository($owner:String!,$repo:String!) {
                 issue(number: 71) {
                   projectItems (first: 100) {
                     nodes {
