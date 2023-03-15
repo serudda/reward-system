@@ -4,8 +4,9 @@ jobs:
   logLatestRelease:
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/graphql-action@v2.x
-        id: get_latest_release
+      - name: Get Coins from Github Issue
+        uses: octokit/graphql-action@v2.x
+        id: get_coins
         with:
           query: |
             query FindIssueID($owner:String!,$repo:String!) {
@@ -36,7 +37,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "echo 'latest  release: ${{ steps.get_latest_release.outputs.data }}'"
+      - run: "echo 'latest  release: ${{ steps.get_coins.outputs.data }}'"
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
@@ -44,4 +45,4 @@ jobs:
           url: 'https://localhost:3000/api/trpc/user.sendCoinsByGithubId'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"user": {"id": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].id }}", "login": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].login }}", "name": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].name }}", "email": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].email }}", "avatarUrl": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}"}, "coins": "${{ fromJson(steps.get_latest_release.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}}}'
+          data: '{"user": {"id": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}", "login": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].login }}", "name": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}", "email": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].email }}", "avatarUrl": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}"}, "coins": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}}}'
