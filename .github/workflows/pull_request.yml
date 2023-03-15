@@ -13,7 +13,20 @@ jobs:
                 issue(number:71) {
                   id
                   nodes {
-                    name
+                    fieldValues(first: 20) {
+                      nodes {
+                      ... on ProjectV2ItemFieldNumberValue {
+                        number
+                        field {
+                          ... on ProjectV2FieldCommon {
+                            id
+                            dataType
+                            name
+                          }
+                        }
+                      }
+                      }
+                    }
                   }
                 }
               }
