@@ -30,6 +30,7 @@ packages
  └─ db
      └─ typesafe db-calls using Prisma
 ```
+
 # Run Project
 
 As the project uses Turborepo, you could run the following commands on the root, and it will run every inner same command.
@@ -87,40 +88,42 @@ Create a new project in Supabase, go to settings / database / Connection string(
 
 1. [Go to the Discord Developer Portal](https://discordapp.com/developers/applications/).
 2. Create a New Application.
-   ![Application](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678755937/o1vaqzbm7f6tozark9yo.png "Application")
+   ![Application](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678755937/o1vaqzbm7f6tozark9yo.png 'Application')
 3. Your next step is to go over the menu on the left side of the screen and click “Bot”.
 
-   ![Bot](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756136/pwgtlao3pd9evqedtnxm.png "Bot")
+   ![Bot](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756136/pwgtlao3pd9evqedtnxm.png 'Bot')
+
 4. Now you want to click the blue “Add Bot” button.
-   ![Add Bot](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756280/wcr0nny5wdcd8fovf768.png "AddBot")
+   ![Add Bot](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756280/wcr0nny5wdcd8fovf768.png 'AddBot')
 5. Click the “Yes, do it!” button…
 6. You’ll also see a “Token” and a blue link you can click called “Copy”.
-   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756280/x3f9nk65tq5szib6jb22.png "Token")
-
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678756280/x3f9nk65tq5szib6jb22.png 'Token')
 
 `DISCORD_BOT_TOKEN="YOUR_TOKEN"`
 
 7. Add Your Bot to a Discord Server
 8. In order to add your bot to your Discord Server, you’ll need to navigate back to the “OAuth2” "URL GENERATOR" tab.
 
-   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759651/pw1svnypnnbvbt0ceczt.png "Token")
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759651/pw1svnypnnbvbt0ceczt.png 'Token')
+
 9. In the “Scopes” section, you’ll want to select the “bot” checkbox.
-   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759632/ntra1xoyhye5r3tixy9c.png "Token")
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759632/ntra1xoyhye5r3tixy9c.png 'Token')
 10. “Bot Permissions” section. This is where you choose what permissions to give your bot, and what it can and can’t do.
 11. After you’ve selected your permissions, scroll up a little bit and look at the URL that was generated.
 12. Click the blue “Copy” button on the right side. This is the URL you’ll navigate to in order to add your bot to a server.
+
 ### Configure DISCORD KEYS
 
 1. you’ll need to navigate back to the “OAuth2” "GENERAL" tab.
 2. Copy "CLIENT ID"
 
-   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759900/qxbzfxoseuesr8eza5ic.png "Token")
+   ![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759900/qxbzfxoseuesr8eza5ic.png 'Token')
 
 `DISCORD_CLIENT_ID="1xxxxxxxxx"`
 
 3. Click the blue “Reset Secret” button.
-3. Click “YES” button.
-6. You’ll also see a “Token” and a blue link you can click called “Copy”.
+4. Click “YES” button.
+5. You’ll also see a “Token” and a blue link you can click called “Copy”.
 
 `DISCORD_CLIENT_SECRET="SECRET_TOKEN"`
 
@@ -129,3 +132,6 @@ Create a new project in Supabase, go to settings / database / Connection string(
 The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
+
+Test the Github GraphQL schema here:
+https://studio.apollographql.com/public/github/explorer?variant=current
