@@ -1,4 +1,4 @@
-name: Log latest release
+name: Send Reward to the Assignee
 on: push
 jobs:
   logLatestRelease:
