@@ -94,7 +94,7 @@ export const userRouter = createTRPCRouter({
           email: z.string(),
           avatarUrl: z.string(),
         }),
-        coins: z.number(),
+        coins: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -103,14 +103,14 @@ export const userRouter = createTRPCRouter({
 
         const user: User = await ctx.prisma.user.upsert({
           where: { githubId: input.user.id },
-          update: { coins: { increment: input.coins } },
+          update: { coins: { increment: parseInt(input.coins) } },
           create: {
             name: input.user.name,
             email: input.user.email,
             githubId: input.user.id,
             githubUserName: input.user.login,
             thumbnail: input.user.avatarUrl,
-            coins: input.coins,
+            coins: parseInt(input.coins),
           },
         });
 
