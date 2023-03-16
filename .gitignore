@@ -12,6 +12,9 @@ coverage
 prisma/db.sqlite
 prisma/db.sqlite-journal
 
+# Docker image files
+postgres_data/
+
 # next.js
 .next/
 out/
@@ -27,6 +30,9 @@ build
 # misc
 .DS_Store
 *.pem
+
+# Jetbrains (Intellij, Webstorm)
+.idea/
 
 # debug
 npm-debug.log*
