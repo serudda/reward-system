@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "eslint": "^8.34.0",
-    "eslint-config-acme": "workspace:*",
+    "eslint-config-ic": "workspace:*",
     "typescript": "^4.9.5"
   }
 }
