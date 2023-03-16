@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       id: 'MDQ6VXNlcjEwMDc1NTMy',
       login: 'serudda',
       name: 'serudda',
-      email: 'seruffa.oficial@gmail.com',
+      email: 'serudda.oficial@gmail.com',
       avatarUrl: 'https://avatars.githubusercontent.com/u/1016365?v=4',
     },
     coins: 100,

@@ -107,6 +107,7 @@ export const userRouter = createTRPCRouter({
           create: {
             name: input.user.name,
             email: input.user.email,
+            githubId: input.user.id,
             githubUserName: input.user.login,
             thumbnail: input.user.avatarUrl,
             coins: input.coins,
