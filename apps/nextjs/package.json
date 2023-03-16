@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@acme/api": "*",
-    "@acme/auth": "workspace:*",
-    "@acme/db": "workspace:*",
-    "@acme/tailwind-config": "workspace:*",
+    "@acme/auth": "*",
+    "@acme/db": "*",
+    "@acme/tailwind-config": "*",
     "@tanstack/react-query": "^4.24.10",
     "@trpc/client": "^10.14.0",
     "@trpc/next": "^10.14.0",
