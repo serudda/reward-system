@@ -37,7 +37,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "echo 'latest  release: ${{ steps.get_coins.outputs.data }}'"
+      - run: "echo 'latest  release: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}'"
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
