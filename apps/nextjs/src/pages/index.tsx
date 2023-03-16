@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   });
 
   const { mutate, error } = api.user.sendCoinsByGithubId.useMutation({
-    async onSuccess() {
+    onSuccess() {
       console.log('success creating or update');
     },
   });
