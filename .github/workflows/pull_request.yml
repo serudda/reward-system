@@ -43,6 +43,6 @@ jobs:
         uses: fjogeleit/http-request-action@v1
         id: send_coins
         with:
-          url: 'https://reward-system-nextjs-wvfw.vercel.app/api/trpc/example.hello'
+          url: 'https://reward-system-nextjs-wvfw.vercel.app/api/trpc/example.hello,user.getByEmail?batch=1&input={%220%22:{%22json%22:{%22text%22:%22from%20tRPC%22}},%221%22:{%22json%22:{%22email%22:%22serudda.oficial@gmail.com%22}}}'
           method: 'GET'
           customHeaders: '{"Content-Type": "application/json"}'
