@@ -46,4 +46,4 @@ jobs:
           url: 'https://reward-system-nextjs-wvfw-6mv1tylh2-serudda.vercel.app/api/trpc/user.sendCoinsByGithubId?batch=1'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"0":{"json":{"user":{"id":"MDQ6VXNlcjEwMDc1NTMy","login":"serudda","name":"serudda","email":"serudda.oficial@gmail.com","avatarUrl":"https://avatars.githubusercontent.com/u/1016365?v=4"},"coins":100}}}'
+          data: '{"0":{"json":{"user":{"id":"MDQ6VXNlcjEwMDc1NTMy","login":"serudda","name":"serudda","email":"serudda.oficial@gmail.com","avatarUrl":"https://avatars.githubusercontent.com/u/1016365?v=4"},"coins":1460}}}'
