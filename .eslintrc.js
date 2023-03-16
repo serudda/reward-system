@@ -1,20 +1,16 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
   root: true,
-  extends: ["acme"], // uses the config in `packages/config/eslint`
-  parser: "@typescript-eslint/parser",
+  extends: ['ic'], // uses the config in `packages/config/eslint`
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: 'latest',
     tsconfigRootDir: __dirname,
-    project: [
-      "./tsconfig.json",
-      "./apps/*/tsconfig.json",
-      "./packages/*/tsconfig.json",
-    ],
+    project: ['./tsconfig.json', './apps/*/tsconfig.json', './packages/*/tsconfig.json'],
   },
   settings: {
     next: {
-      rootDir: ["apps/nextjs"],
+      rootDir: ['apps/nextjs'],
     },
   },
 };
