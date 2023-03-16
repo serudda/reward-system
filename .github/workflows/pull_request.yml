@@ -38,11 +38,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set Variables
+        id: vars
+        run: echo "githubId= ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}"
+
       - run: "echo '${{ steps.get_coins.outputs.data }}'"
-      - run: "echo 'GithubId: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}'"
+      - run: "echo 'GithubId: steps.vars.outputs.githubId + 'TEST''"
       - run: "echo 'Login: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].login }}'"
       - run: "echo 'Name: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}'"
       - run: "echo 'AvatarUrl: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}'"
+      - run: "echo 'Email: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].email }}'"
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
