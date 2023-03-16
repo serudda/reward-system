@@ -46,7 +46,7 @@ jobs:
           echo "name=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}" >> $GITHUB_OUTPUT
           echo "avatar_url=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}" >> $GITHUB_OUTPUT
           echo "email=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].email }}" >> $GITHUB_OUTPUT
-          echo "coins=4500" >> $GITHUB_OUTPUT
+          echo "coins=400" >> $GITHUB_OUTPUT
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
