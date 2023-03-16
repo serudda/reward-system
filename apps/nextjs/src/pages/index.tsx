@@ -11,6 +11,19 @@ const Home: NextPage = () => {
     email: 'serudda.oficial@gmail.com',
   });
 
+  const { mutate: sendCoins } = api.user.sendCoinsByGithubId.useMutation();
+
+  sendCoins({
+    user: {
+      id: 'MDQ6VXNlcjEwMDc1NTMy',
+      login: 'serudda',
+      name: 'serudda',
+      email: 'seruffa.oficial@gmail.com',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/1016365?v=4',
+    },
+    coins: 100,
+  });
+
   return (
     <>
       <Head>
@@ -64,19 +77,6 @@ const AuthShowcase: React.FC = () => {
     undefined, // no input
     { enabled: sessionData?.user !== undefined },
   );
-
-  const { mutate: sendCoins } = api.user.sendCoinsByGithubId.useMutation();
-
-  sendCoins({
-    user: {
-      id: 'MDQ6VXNlcjEwMDc1NTMy',
-      login: 'serudda',
-      name: 'serudda',
-      email: 'seruffa.oficial@gmail.com',
-      avatarUrl: 'https://avatars.githubusercontent.com/u/1016365?v=4',
-    },
-    coins: 100,
-  });
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
