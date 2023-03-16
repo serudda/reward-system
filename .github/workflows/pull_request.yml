@@ -38,9 +38,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: "echo 'dataSet: ${{ steps.get_coins.outputs.data }}'"
+      - run: "echo '${{ steps.get_coins.outputs.data }}'"
       - run: "echo 'GithubId: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}'"
-      - run: "echo 'Coins: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}'"
+      - run: "echo 'Login: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].login }}'"
+      - run: "echo 'Name: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}'"
+      - run: "echo 'AvatarUrl: ${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}'"
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
