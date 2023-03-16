@@ -46,4 +46,3 @@ jobs:
           url: 'https://reward-system-nextjs-wvfw.vercel.app/api/trpc/example.hello'
           method: 'GET'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"user": {"id": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}", "login": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].login }}", "name": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}", "email": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].email }}", "avatarUrl": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}"}, "coins": "${{ fromJson(steps.get_coins.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}}}'
