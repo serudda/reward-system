@@ -12,10 +12,11 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Get Issue Number
-        run: echo "${{ fromJson(github.event) }}"
+      - name: Console Log Github Context
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
 
       - name: Get Coins from Github Issue
         uses: octokit/graphql-action@v2.x
