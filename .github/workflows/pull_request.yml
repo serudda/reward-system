@@ -1,0 +1,79 @@
+name: Send Reward to the Assignee
+on:
+  pull_request:
+    types: [closed]
+jobs:
+  send-reward-to-assignee:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Console Log Github Context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+
+      - name: Get Coins from Github Issue
+        uses: octokit/graphql-action@v2.x
+        id: get_coins
+        with:
+          query: |
+            query GetCoinsAndAssigneeUser($owner:String!,$repo:String!, $issueNumber:Int!) {
+              repository(owner:$owner,name:$repo) {
+                issue(number:$issueNumber) {
+                  assignees(first: 10) {
+                    nodes {
+                      id
+                      avatarUrl
+                      email
+                      name
+                      login
+                    }
+                  }
+                  projectItems (first: 100) {
+                    nodes {
+                      fieldValueByName(name: "Reward") {
+                        ... on ProjectV2ItemFieldNumberValue {
+                          number
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          owner: ${{ github.event.repository.owner.name }}
+          repo: ${{ github.event.repository.name }}
+          issueNumber: ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: echo ${{ steps.get_coins.outputs.data }}
+
+      - name: Set Variables
+        id: vars
+        run: |
+          echo "github_id=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}" >> $GITHUB_OUTPUT
+          echo "login=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].login }}" >> $GITHUB_OUTPUT
+          echo "name=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}" >> $GITHUB_OUTPUT
+          echo "avatar_url=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}" >> $GITHUB_OUTPUT
+          echo "email=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].email }}" >> $GITHUB_OUTPUT
+          echo "coins=400" >> $GITHUB_OUTPUT
+
+      - name: Send Coins By Github Id
+        uses: fjogeleit/http-request-action@v1
+        id: send_coins
+        with:
+          url: 'https://reward-system-nextjs-wvfw-jk8vta4az-serudda.vercel.app/api/trpc/user.sendCoinsByGithubId?batch=1'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{"0":{"json":{"user":{"id":"${{ steps.vars.outputs.github_id }}","login":"${{ steps.vars.outputs.login }}","name":"${{ steps.vars.outputs.name }}","email":"${{ steps.vars.outputs.email }}","avatarUrl":"${{ steps.vars.outputs.github_id }}"},"coins":"${{ steps.vars.outputs.coins }}"}}}'

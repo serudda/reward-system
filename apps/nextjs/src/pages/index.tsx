@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { type NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -10,6 +11,27 @@ const Home: NextPage = () => {
   const user = api.user.getByEmail.useQuery({
     email: 'serudda.oficial@gmail.com',
   });
+
+  const { mutate, error } = api.user.sendCoinsByGithubId.useMutation({
+    onSuccess() {
+      console.log('success creating or update');
+    },
+  });
+
+  if (error) console.log('SOMETHING WRONG', error);
+
+  useEffect(() => {
+    mutate({
+      user: {
+        id: 'MDQ6VXNlcjEwMDc1NTMy',
+        login: 'serudda',
+        name: 'serudda',
+        email: 'serudda.oficial@gmail.com',
+        avatarUrl: 'https://avatars.githubusercontent.com/u/1016365?v=4',
+      },
+      coins: '100',
+    });
+  }, []);
 
   return (
     <>
