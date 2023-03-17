@@ -38,6 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - run: echo ${{ steps.get_coins.outputs.data }}
+
       - name: Set Variables
         id: vars
         run: |
