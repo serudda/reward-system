@@ -8,7 +8,7 @@ Introducing the perfect companion for your Discord community! 💻🚀 This rewa
 ```
 .github
   └─ workflows
-        └─ CI with pnpm cache setup
+        └─ CI (GitHub Actions) with pnpm cache setup
 .vscode
   └─ Recommended extensions and settings for VSCode users
 apps
@@ -17,7 +17,7 @@ apps
   |   ├─ Discord JS
   |   ├─ tRPC Client
   |   └─ TypeScript
-  └─ next.js
+  └─ nextjs
       ├─ Next.js 13
       ├─ React 18
       ├─ Tailwind CSS
@@ -26,7 +26,12 @@ packages
  ├─ api
  |   └─ tRPC v10 router definition
  ├─ auth
-     └─ authentication using next-auth. **NOTE: Only with Discord**
+ |    └─ authentication using next-auth. **NOTE: Only with Discord**
+ ├─ config
+ |    ├─ eslint
+ |    |     └─ Eslint global configuration
+ |    └─ tailwind
+ |          └─ Tailwind global configuration **NOTE: Currently only for apps/nextjs**
  └─ db
      └─ typesafe db-calls using Prisma
 ```
@@ -37,34 +42,9 @@ As the project uses Turborepo, you could run the following commands on the root,
 
 ## Run the Main Project
 
-Install Dependencies
-`pnpm install`
+### Setup .env file
 
-Build the app
-`pnpm build`
-
-Run the app locally
-`pnpm dev`
-
-## Run the Bot
-
-Install Dependencies (if this is the first time you run this command)
-`pnpm install`
-
-Run the bot
-`pnpm start`
-
-# How can I contribute ?
-
-It is an open-source project, check the issues and join our discord to be part of this community.
-
-## Quick Start
-
-To get it running, follow the steps below:
-
-### Setup .ENV
-
-```
+```dotenv
 DATABASE_URL=""
 
 NEXTAUTH_SECRET=""
@@ -75,16 +55,87 @@ DISCORD_CLIENT_SECRET=""
 DISCORD_BOT_TOKEN=""
 ```
 
-### Configure DB (SUPABASE)
+
+### For development mode
+Install Dependencies
+`pnpm install`
+
+Sync the app with your database (if it is a new database and has not been previously synchronized)
+`pnpm run db:push --filter=@acme/db`
+
+Run the app locally
+`pnpm dev`
+
+### For production
+Install Dependencies
+`pnpm install`
+
+Build the app
+`pnpm build`
+(turbo repo internally run
+`pnpm run db:push --filter=@acme/db`)
+
+Run the app locally
+`pnpm start`
+
+## Run the Bot
+
+Install Dependencies (if this is the first time you run this command)
+`pnpm install`
+
+Sync the app with your database (if it is a new database and has not been previously synchronized)
+`pnpm run db:push --filter=@acme/db`
+
+Run the bot
+`pnpm run dev --filter=@acme/bot`
+or
+`pnpm run start --filter=@acme/bot`
+
+**NOTE: The --filter argument allows us to execute a command or script from a specific workspace, in this case, the name of the workspace is defined in the package.json of the workspace**
+
+![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679091311/reward-system/007.png)
+
+# How can I contribute ?
+
+It is an open-source project, check the issues and join our discord to be part of this community.
+
+## Quick Start
+
+To get it running, follow the steps below:
+
+### Configure DB (SUPABASE) for packages/db workspace
 
 Create a new project in Supabase, go to settings / database / Connection string(URI).
 [more details here](https://supabase.com/docs/guides/integrations/prisma)
 
-### Configure NEXT AUTH
+#### Optional
 
-`NEXTAUTH_URL` Your localhost.
+If you use and have docker compose installed, you can locally use a postgrest database version 15 (which uses supabase under the hood), with the following command:
 
-### Configure DISCORD BOT
+```docker
+docker-compose up
+```
+
+And add the DATABASE_URL enviroment as:
+```dotenv
+ DATABASE_URL="postgresql://root:123456@localhost:5432/my_db?schema=public"
+```
+
+For change user, password, db name or version database modify the service postgres in the docker-compose.yml file.
+
+**IMPORTANT: If you are working for the first time with the monorepo and you have problems with the prisma client, perhaps you should run the following command to sync with your database:**
+``` npm
+pnpm run db:push --filter=@acme/db
+```
+
+
+### Configure apps/nextjs workspace
+
+`NEXTAUTH_URL` as localhost for dev mode.
+
+`NEXTAUTH_SECRET` as any string with a minimum size of 1.
+
+### Configure DISCORD BOT for apps/bot workspace
 
 1. [Go to the Discord Developer Portal](https://discordapp.com/developers/applications/).
 2. Create a New Application.
@@ -132,3 +183,40 @@ Create a new project in Supabase, go to settings / database / Connection string(
 The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
+
+## Railway Deployment
+
+**Note: It is considered that you already have a fork of the repository and you have already verified your github account with Railway**
+
+### Deploy monorepo
+
+1. First in your dashboard, create a new project.
+
+   ![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679086808/reward-system/001.png)
+
+2. Select "Deploy form GitHub repo" -> select your repository fork -> "Add variables"
+
+   ![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679087162/reward-system/002.png)
+
+3. In the raw edition, add the content of the .env file
+
+   ![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679087448/reward-system/003.png)
+
+4. Then go to tab settings. In the environment section, select the branch you want to deploy, (modifying this field will launch the deployment automatically, so you can leave it as the last step), and generate a domain.
+
+   ![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679088113/reward-system/004.png)
+
+5. In the service/general section, make sure you have "/" as the root directory and in the service/build section you have the build command set to "pnpm run build"
+
+   ![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679090167/reward-system/005.png)
+
+6. And finally you have in the service/deploy section the start command as "pnpm start"
+
+   ![Create new project](https://res.cloudinary.com/dp0gqoxaa/image/upload/v1679090329/reward-system/006.png)
+
+
+### Deploy only bot
+
+1. Steps 1 to 4 are done in the same way.
+2. In the service/general section, make sure you have "/" as the root directory and in the service/build section you have the build command field empty
+3. And finally you have in the service/deploy section the start command as "pnpm start --filter=@acme/bot"
