@@ -13,7 +13,7 @@ jobs:
           node-version: '14.x'
 
       - name: Get Issue Number
-        run: echo "${{github.event}}"
+        run: echo "${{fromJson(github.event)}}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
