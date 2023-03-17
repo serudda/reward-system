@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          echo "$GITHUB_CONTEXT"
+          echo "::set-output name=issue_number::${{ github.event.pull_request.body | capture("(?i)close[sd]? #(?<issue>\\d+)").issue }}"
 
       - name: Get Coins from Github Issue
         uses: octokit/graphql-action@v2.x
