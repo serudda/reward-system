@@ -42,14 +42,14 @@ jobs:
                     }
                   }
                   projectItems (first: 100) {
-                    edges {
-                      cursor
-                    }
                     nodes {
                       fieldValueByName(name: "Reward") {
                         ... on ProjectV2ItemFieldNumberValue {
                           number
                         }
+                      }
+                      project {
+                        id
                       }
                     }
                   }
