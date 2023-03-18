@@ -42,24 +42,11 @@ jobs:
                     }
                   }
                   projectItems (first: 100) {
-                    edges {
-                      cursor
-                      node {
-                        fieldValueByName(name: "Reward") {
-                         ... on ProjectV2ItemFieldNumberValue {
-                            number
-                         }  
-                        }
-                      }
-                    }
                     nodes {
                       fieldValueByName(name: "Reward") {
                         ... on ProjectV2ItemFieldNumberValue {
                           number
                         }
-                      }
-                      project {
-                        id
                       }
                     }
                   }
@@ -70,7 +57,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
           number: ${{steps.get_issue_number.outputs.issue_number_int}}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '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'
 
       - name: Set Variables
         id: vars
