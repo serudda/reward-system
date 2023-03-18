@@ -56,7 +56,7 @@ jobs:
             }
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
-          issueNumber: ${{ steps.get_issue_number.outputs.issue_number }}
+          issueNumber: $((steps.get_issue_number.outputs.issue_number))
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
