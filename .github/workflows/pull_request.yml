@@ -28,7 +28,7 @@ jobs:
           query: |
             query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $number:Int!) {
               repository(owner:$owner, name:$repo) {
-                issue(number:$number) {
+                issue(number:71) {
                   assignees(first: 10) {
                     nodes {
                       id
