@@ -23,7 +23,7 @@ jobs:
         run: |
           issue_number=$(echo "${{ github.event.pull_request.title }}" | grep -oE 'RS-[0-9]+' | head -1 | cut -d'-' -f2)
           issue_number_int=$((issue_number))
-          echo "::set-output name=issue_number::$issue_number_int"
+          echo "::set-output name=issue_number_int::$(echo ${{ steps.get_issue_number.outputs.issue_number }} | awk '{print int($0)}')"
 
       - name: Get Coins from Github Issue
         uses: octokit/graphql-action@v2.x
