@@ -62,7 +62,7 @@ jobs:
       - name: Set Variables
         id: vars
         run: |
-          echo "${{ steps.get_coins.outputs.data }}"
+          echo "${{ fromJson(steps.get_coins.outputs.data).repository.projectItems.nodes[0] }}"
           echo "github_id=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].id }}" >> $GITHUB_OUTPUT
           echo "login=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].login }}" >> $GITHUB_OUTPUT
           echo "name=${{ fromJson(steps.get_coins.outputs.data).repository.issue.assignees.nodes[0].name }}" >> $GITHUB_OUTPUT
