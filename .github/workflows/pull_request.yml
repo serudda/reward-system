@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Get Issue Number t
+      - name: Get Issue Number
         id: get_issue_number
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -32,15 +32,6 @@ jobs:
             query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $number:Int!) {
               repository(owner:$owner, name:$repo) {
                 issue(number:$number) {
-                  assignees(first: 10) {
-                    nodes {
-                      id
-                      avatarUrl
-                      email
-                      name
-                      login
-                    }
-                  }
                   projectItems (first: 100) {
                     nodes {
                       fieldValueByName(name: "Reward") {
