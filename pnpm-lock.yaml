@@ -10,7 +10,6 @@ importers:
       '@types/prettier': ^2.7.2
       dotenv-cli: ^7.0.0
       eslint: ^8.34.0
-      eslint-config-acme: 0.0.0
       prettier: ^2.8.4
       prettier-plugin-prisma: ^4.10.0
       prettier-plugin-tailwindcss: ^0.2.4
@@ -23,7 +22,6 @@ importers:
       '@types/prettier': 2.7.2
       dotenv-cli: 7.1.0
       eslint: 8.36.0
-      eslint-config-acme: link:packages/config/eslint
       prettier: 2.8.4
       prettier-plugin-prisma: 4.10.0_prettier@2.8.4
       prettier-plugin-tailwindcss: 0.2.4_2m34gfnsqvzqy5bj5eci3wt3by
