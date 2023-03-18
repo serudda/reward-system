@@ -16,11 +16,13 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Console Log Github Context
+      - name: Get Issue Number
+        id: get_issue_number
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          echo '${{ github.event.pull_request.title }}'
+          issue_number=$(echo "${{ github.event.pull_request.title }}" | grep -oE 'RS-[0-9]+' | head -1 | cut -d'-' -f2)
+          echo "::set-output name=issue_number::$issue_number"
 
       - name: Get Coins from Github Issue
         uses: octokit/graphql-action@v2.x
@@ -53,7 +55,7 @@ jobs:
             }
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
-          issueNumber: ${{ github.event.issue.number }}
+          issueNumber: ${{ steps.get_issue_number.outputs.issue_number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
