@@ -1,7 +1,5 @@
 name: Send Reward to the Assignee
-on:
-  pull_request:
-    types: [closed]
+on: push
 jobs:
   send-reward-to-assignee:
     runs-on: ubuntu-latest
