@@ -1,8 +1,11 @@
 name: Send Reward to the Assignee
-on: push
+on:
+  pull_request:
+    types: [closed]
 jobs:
   send-reward-to-assignee:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
 
     steps:
       - name: Checkout code
@@ -26,9 +29,9 @@ jobs:
         id: get_coins
         with:
           query: |
-            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!) {
+            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $number:Int!) {
               repository(owner:$owner, name:$repo) {
-                issue(number:71) {
+                issue(number:$number) {
                   assignees(first: 10) {
                     nodes {
                       id
@@ -39,14 +42,14 @@ jobs:
                     }
                   }
                   projectItems (first: 100) {
-                    edges {
-                      cursor
-                    }
                     nodes {
                       fieldValueByName(name: "Reward") {
                         ... on ProjectV2ItemFieldNumberValue {
                           number
                         }
+                      }
+                      project {
+                        id
                       }
                     }
                   }
