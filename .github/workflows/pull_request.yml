@@ -29,10 +29,19 @@ jobs:
         id: get_coins
         with:
           query: |
-            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $number:Int!) {
+            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!) {
               repository(owner:$owner, name:$repo) {
-                issue(number:$number) {
-                  projectItems (first: 100) {
+                issue(number:$issue) {
+                  assignees(first: 10) {
+                    nodes {
+                      id
+                      avatarUrl
+                      email
+                      name
+                      login
+                    }
+                  }
+                  projectItems (first: 100, includeArchived: false) {
                     nodes {
                       fieldValueByName(name: "Reward") {
                         ... on ProjectV2ItemFieldNumberValue {
@@ -46,7 +55,7 @@ jobs:
             }
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
-          number: ${{steps.get_issue_number.outputs.issue_number_int}}
+          issue: ${{steps.get_issue_number.outputs.issue_number_int}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
