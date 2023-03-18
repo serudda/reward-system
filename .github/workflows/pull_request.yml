@@ -22,7 +22,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           issue_number=$(echo "${{ github.event.pull_request.title }}" | grep -oE 'RS-[0-9]+' | head -1 | cut -d'-' -f2)
-          echo "name=issue_number_int::$(echo $((issue_number)) | awk '{print int($0)}')" >> $GITHUB_OUTPUT
+          echo "::set-output name=issue_number_int::$(echo $((issue_number)) | awk '{print int($0)}')"
 
       - name: Get Coins from Github Issue
         uses: octokit/graphql-action@v2.x
