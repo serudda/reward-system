@@ -57,7 +57,7 @@ jobs:
           repo: ${{ github.event.repository.name }}
           number: ${{steps.get_issue_number.outputs.issue_number_int}}
         env:
-          GITHUB_TOKEN: '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'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Variables
         id: vars
