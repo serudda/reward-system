@@ -42,6 +42,16 @@ jobs:
                     }
                   }
                   projectItems (first: 100) {
+                    edges {
+                      cursor
+                      node {
+                        fieldValueByName(name: "Reward") {
+                         ... on ProjectV2ItemFieldNumberValue {
+                            number
+                         }  
+                        }
+                      }
+                    }
                     nodes {
                       fieldValueByName(name: "Reward") {
                         ... on ProjectV2ItemFieldNumberValue {
