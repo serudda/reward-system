@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Get Issue Number
+      - name: Get Issue Number t
         id: get_issue_number
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
