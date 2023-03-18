@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          echo '${{ github.event.pull_request }}'
+          echo '${{ toJson(github.event.pull_request) }}'
 
       - name: Get Coins from Github Issue
         uses: octokit/graphql-action@v2.x
