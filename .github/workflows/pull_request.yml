@@ -29,9 +29,9 @@ jobs:
         id: get_coins
         with:
           query: |
-            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $number:Int!) {
+            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issueNumber:Int!) {
               repository(owner:$owner, name:$repo) {
-                issue(number:$number) {
+                issue(number:$issueNumber) {
                   assignees(first: 10) {
                     nodes {
                       id
@@ -55,7 +55,7 @@ jobs:
             }
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
-          number: ${{steps.get_issue_number.outputs.issue_number_int}}
+          issueNumber: ${{steps.get_issue_number.outputs.issue_number_int}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
