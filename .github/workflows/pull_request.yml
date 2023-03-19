@@ -83,4 +83,5 @@ jobs:
         id: send_discord_message
         run: |
           echo ${{ steps.send_coins.outputs.response }}
-          echo ${{ fromJson(steps.send_coins.outputs.response).user }}
+          echo ${{ fromJson(steps.send_coins.outputs.response) }}
+          echo ${{ fromJson(steps.send_coins.outputs.response).result.data.githubUserName }}
