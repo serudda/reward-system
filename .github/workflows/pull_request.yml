@@ -56,7 +56,7 @@ jobs:
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
           issue: ${{ steps.get_issue_number.outputs.issue_number_int }}
-          field: ${{ secrets.REWARD_FIELD_NAME }}}
+          field: ${{ secrets.REWARD_FIELD_NAME }}
           token: ${{ secrets.MY_PERSONAL_TOKEN }}
 
       - name: Set Variables
