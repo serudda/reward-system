@@ -69,12 +69,13 @@ jobs:
           echo "avatar_url=${{ fromJson(steps.get_reward.outputs.data).repository.issue.assignees.nodes[0].avatarUrl }}" >> $GITHUB_OUTPUT
           echo "email=${{ fromJson(steps.get_reward.outputs.data).repository.issue.assignees.nodes[0].email }}" >> $GITHUB_OUTPUT
           echo "coins=${{ fromJson(steps.get_reward.outputs.data).repository.issue.projectItems.nodes[0].fieldValueByName.number }}" >> $GITHUB_OUTPUT
+          echo "url=${{ vars.ENDPOINT_URL }}" >> $GITHUB_OUTPUT
 
       - name: Send Coins By Github Id
         uses: fjogeleit/http-request-action@v1
         id: send_coins
         with:
-          url: ${{ vars.ENDPOINT_URL }}
+          url: ${{ steps.vars.outputs.url }}
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"0":{"json":{"user":{"id":"${{ steps.vars.outputs.github_id }}","login":"${{ steps.vars.outputs.login }}","name":"${{ steps.vars.outputs.name }}","email":"${{ steps.vars.outputs.email }}","avatarUrl":"${{ steps.vars.outputs.github_id }}"},"coins":"${{ steps.vars.outputs.coins }}"}}}'
