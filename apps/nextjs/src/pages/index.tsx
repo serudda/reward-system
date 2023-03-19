@@ -12,18 +12,35 @@ const Home: NextPage = () => {
     email: 'serudda.oficial@gmail.com',
   });
 
-  const { mutate, error } = api.bot.sendDiscordMsg.useMutation({
+  const { mutate: sendCoins } = api.user.sendCoinsByGithubId.useMutation({
     onSuccess() {
-      console.log('success creating or update');
+      console.log('success send Coin');
+    },
+  });
+
+  const { mutate: sendDiscordMsg, error } = api.bot.sendDiscordMsg.useMutation({
+    onSuccess() {
+      console.log('success send Discord msg');
     },
   });
 
   if (error) console.log('SOMETHING WRONG', error);
 
   useEffect(() => {
-    mutate({
+    sendDiscordMsg({
       username: 'serudda',
       prUrl: 'https://reward-system-nextjs-wvfw-git-develop-serudda.vercel.app/api/trpc/bot.sendDiscordMsg',
+      coins: '100',
+    });
+
+    sendCoins({
+      user: {
+        id: 'MDQ6VXNlcjEwMDc1NTMy',
+        login: 'serudda',
+        name: 'serudda',
+        email: 'serudda.oficial@gmail.com',
+        avatarUrl: 'https://avatars.githubusercontent.com/u/1016365?v=4',
+      },
       coins: '100',
     });
   }, []);

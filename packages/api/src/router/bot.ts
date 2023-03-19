@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const botRouter = createTRPCRouter({
   sendDiscordMsg: publicProcedure
@@ -14,17 +14,17 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        console.log('input TEST ENTRO: ', input);
-        const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+        const webhookUrl =
+          'https://discord.com/api/webhooks/1077255069281562684/9zZBqAqHPmH9skQkQ1FNZsGIt0VtciwwyfJQT_NDQTzZoYE05YZomNm27f8erX6wZug3';
         const data = {
-          username: 'El Banco',
+          username: 'El Banco ',
           content: `El pull request #${input.prUrl} ha sido mergeado en Develop. Se otorgan ${input.coins} puntos a ${input.username}.`,
         };
 
         if (!webhookUrl) {
           throw new TRPCError({
             code: 'NOT_FOUND',
-            message: 'Webhook URL not found',
+            message: `Webhook URL not found: ${webhookUrl}`,
           });
         }
 
@@ -45,8 +45,4 @@ export const botRouter = createTRPCRouter({
         throw err;
       }
     }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return 'you can now see this secret message!';
-  }),
 });
