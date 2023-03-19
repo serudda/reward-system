@@ -29,7 +29,7 @@ jobs:
         id: get_reward
         with:
           query: |
-            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!) {
+            query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!, $field: String!) {
               repository(owner:$owner, name:$repo) {
                 issue(number:$issue) {
                   assignees(first: 10) {
