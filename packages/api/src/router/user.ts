@@ -99,7 +99,6 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-
         const user: User = await ctx.prisma.user.upsert({
           where: { githubId: input.user.id },
           update: { coins: { increment: parseInt(input.coins) } },
