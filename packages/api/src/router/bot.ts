@@ -21,10 +21,9 @@ export const botRouter = createTRPCRouter({
         };
 
         if (!webhookUrl) {
-          console.log('input TEST ENTRO: ', input);
           throw new TRPCError({
             code: 'NOT_FOUND',
-            message: 'Webhook URL not found TEST',
+            message: `Webhook URL not found: ${webhookUrl}`,
           });
         }
 
