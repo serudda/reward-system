@@ -79,7 +79,7 @@ jobs:
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"0":{"json":{"user":{"id":"${{ steps.vars.outputs.github_id }}","login":"${{ steps.vars.outputs.login }}","name":"${{ steps.vars.outputs.name }}","email":"${{ steps.vars.outputs.email }}","avatarUrl":"${{ steps.vars.outputs.github_id }}"},"coins":"${{ steps.vars.outputs.coins }}"}}}'
 
-      - name: Send Discord Message
+      - name: Send Discord Message t
         id: send_discord_message
         run: |
           echo ${{ steps.send_coins.outputs.response }}
