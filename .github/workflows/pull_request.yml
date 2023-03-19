@@ -21,7 +21,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          issue_number=$(echo "${{ github.event.pull_request.title }}" | grep -oE '${{ secrets.PROJECT_PREFIX }}-[0-9]+' | head -1 | cut -d'-' -f2)
+          issue_number=$(echo "${{ github.event.pull_request.title }}" | grep -oE '${{ variables.PROJECT_PREFIX }}-[0-9]+' | head -1 | cut -d'-' -f2)
           echo "issue_number_int=$(echo $((issue_number)) | awk '{print int($0)}')" >> $GITHUB_OUTPUT
 
       - name: Get Reward from Github Issue
@@ -56,7 +56,7 @@ jobs:
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
           issue: ${{ steps.get_issue_number.outputs.issue_number_int }}
-          field: ${{ secrets.REWARD_FIELD_NAME }}
+          field: ${{ variables.REWARD_FIELD_NAME }}
           token: ${{ secrets.MY_PERSONAL_TOKEN }}
 
       - name: Set Variables
