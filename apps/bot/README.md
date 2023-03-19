@@ -4,6 +4,8 @@ reference: https://github.com/MericcaN41/discordjs-v14-template-ts
 
 - Dentro del repo agregar la carpeta .github/workflows, poner ahi dentro el archivo `pull_request.yml`, este sera el Github Action que se ejecutara cuando un PR se mergea exitosamente. Este toma el Issue Number seteado en el titulo del PR.
   `<secrets.PROJECT_PREFIX>-<issueNumber> Text of the PR's title`
+  
+  ejemplo: `RS-71 Configurar Home Page`
 
   **IMPORTANTE:** Si no se respeta el formato del titulo del PR, el action no encontrara el issue number, y por ende los rewards no seran entregados.
 
