@@ -82,6 +82,7 @@ jobs:
       - name: Send Discord Message t
         id: send_discord_message
         run: |
-          echo ${{ steps.send_coins.outputs.response }}
-          echo ${{ fromJson(steps.send_coins.outputs.response) }}
+          echo ${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.discordUserName }}
           echo ${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.githubUserName }}
+          echo ${{ github.event.pull_request.url }}
+          echo ${{ steps.vars.outputs.coins }}
