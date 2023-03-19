@@ -84,7 +84,7 @@ jobs:
         run: |
           echo "username=${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.githubUserName }}" >> $GITHUB_OUTPUT
           echo "pr_url=${{ github.event.pull_request.url }}" >> $GITHUB_OUTPUT
-          echo "coins=${{ steps.vars.outputs.coins }}" >> $GITHUB_OUTPUT
+          echo "coins=${{ steps.vars_send_coins.outputs.coins }}" >> $GITHUB_OUTPUT
 
       - name: Send Discord Message
         id: send_discord_message
@@ -93,4 +93,4 @@ jobs:
           url: 'https://reward-system-nextjs-wvfw-git-develop-serudda.vercel.app/api/trpc/bot.sendDiscordMsg'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"0": { "json":{ "username": "${{ steps.send_discord_message.outputs.username }}", "prUlr": "${{ steps.send_discord_message.outputs.pr_url }}", "coins": "${{ steps.vars_send_coins.outputs.coins }}" }}}'
+          data: '{"0": { "json":{ "username": "${{ steps.vars_send_discord_msg.outputs.username }}", "prUlr": "${{ steps.vars_send_discord_msg.outputs.pr_url }}", "coins": "${{ steps.vars_send_discord_msg.outputs.coins }}" }}}'
