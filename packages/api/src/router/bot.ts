@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const botRouter = createTRPCRouter({
   sendDiscordMsg: publicProcedure
@@ -45,8 +45,4 @@ export const botRouter = createTRPCRouter({
         throw err;
       }
     }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return 'you can now see this secret message!';
-  }),
 });
