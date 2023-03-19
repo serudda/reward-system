@@ -84,4 +84,4 @@ jobs:
         run: |
           echo ${{ steps.send_coins.outputs.response }}
           echo ${{ fromJson(steps.send_coins.outputs.response) }}
-          echo ${{ fromJson(steps.send_coins.outputs.response).result.data.githubUserName }}
+          echo ${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.githubUserName }}
