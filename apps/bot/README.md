@@ -11,6 +11,7 @@ reference: https://github.com/MericcaN41/discordjs-v14-template-ts
 
 - Crear un Personal Token
   Estos serian los permisos minimos que requeriria el Personal Token para poder asignar los coins correctamente:
+  
   ![image 3](https://user-images.githubusercontent.com/10075532/226198581-7e2c34e5-42f7-4882-bdbf-7512ff2408a7.png)
   ![image 4](https://user-images.githubusercontent.com/10075532/226198582-249c7718-5cdf-4782-b9b3-c0bbdc0bc5d3.png)
   ![image 5](https://user-images.githubusercontent.com/10075532/226198584-e39c9021-83b7-4230-b019-bbc4f5989691.png)
