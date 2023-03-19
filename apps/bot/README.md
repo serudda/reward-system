@@ -11,6 +11,8 @@ Flujo de Github Reward
 
 <image 2>
 
+DISCORD_WEBHOOK_URL = ?
+PROJECT_TOKEN = ?
 PROJECT_PREFIX = "RS"
 REWARD_FIELD_NAME = "Reward"
 MY_PERSONAL_TOKEN = <Personal Token>
