@@ -14,7 +14,6 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        console.log('input TEST ENTRO: ', input);
         const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
         const data = {
           username: 'El Banco',
@@ -22,6 +21,7 @@ export const botRouter = createTRPCRouter({
         };
 
         if (!webhookUrl) {
+          console.log('input TEST ENTRO: ', input);
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'Webhook URL not found',
