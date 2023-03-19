@@ -28,7 +28,7 @@ jobs:
         uses: octokit/graphql-action@v2.x
         id: get_coins
         with:
-          query: |
+          graphql: |
             query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!) {
               repository(owner:$owner, name:$repo) {
                 issue(number:$issue) {
@@ -56,8 +56,7 @@ jobs:
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
           issue: ${{steps.get_issue_number.outputs.issue_number_int}}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_PERSONAL_TOKEN }}
 
       - name: Set Variables
         id: vars
