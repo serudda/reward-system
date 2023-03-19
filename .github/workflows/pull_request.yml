@@ -28,7 +28,7 @@ jobs:
         uses: octokit/graphql-action@v2.x
         id: get_coins
         with:
-          graphql: |
+          query: |
             query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!) {
               repository(owner:$owner, name:$repo) {
                 issue(number:$issue) {
