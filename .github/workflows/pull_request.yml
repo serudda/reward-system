@@ -59,8 +59,8 @@ jobs:
           field: ${{ vars.REWARD_FIELD_NAME }}
           token: ${{ secrets.MY_PERSONAL_TOKEN }}
 
-      - name: Set Variables
-        id: vars
+      - name: Set Variables to Send Coins
+        id: vars_send_coins
         run: |
           echo "${{ steps.get_reward.outputs.data }}"
           echo "github_id=${{ fromJson(steps.get_reward.outputs.data).repository.issue.assignees.nodes[0].id }}" >> $GITHUB_OUTPUT
@@ -77,12 +77,20 @@ jobs:
           url: ${{ secrets.ENDPOINT_URL }}
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"0":{"json":{"user":{"id":"${{ steps.vars.outputs.github_id }}","login":"${{ steps.vars.outputs.login }}","name":"${{ steps.vars.outputs.name }}","email":"${{ steps.vars.outputs.email }}","avatarUrl":"${{ steps.vars.outputs.github_id }}"},"coins":"${{ steps.vars.outputs.coins }}"}}}'
+          data: '{"0":{"json":{"user":{"id":"${{ steps.vars_send_coins.outputs.github_id }}","login":"${{ steps.vars_send_coins.outputs.login }}","name":"${{ steps.vars_send_coins.outputs.name }}","email":"${{ steps.vars_send_coins.outputs.email }}","avatarUrl":"${{ steps.vars_send_coins.outputs.github_id }}"},"coins":"${{ steps.vars_send_coins.outputs.coins }}"}}}'
 
-      - name: Send Discord Message t
-        id: send_discord_message
+      - name: Set Variables to Send Discord Message
+        id: vars_send_discord_msg
         run: |
-          echo ${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.discordUserName }}
-          echo ${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.githubUserName }}
-          echo ${{ github.event.pull_request.url }}
-          echo ${{ steps.vars.outputs.coins }}
+          echo "username=${{ fromJson(steps.send_coins.outputs.response)[0].result.data.json.data.user.githubUserName }}" >> $GITHUB_OUTPUT
+          echo "pr_url=${{ github.event.pull_request.url }}" >> $GITHUB_OUTPUT
+          echo "coins=${{ steps.vars.outputs.coins }}" >> $GITHUB_OUTPUT
+
+      - name: Send Discord Message
+        id: send_discord_message
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://reward-system-nextjs-wvfw-git-develop-serudda.vercel.app/api/trpc/bot.sendDiscordMsg'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{"0": { "json":{ "username": "${{ steps.send_discord_message.outputs.username }}", "prUlr": "${{ steps.send_discord_message.outputs.pr_url }}", "coins": "${{ steps.vars_send_coins.outputs.coins }}" }}}'
