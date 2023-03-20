@@ -19,9 +19,10 @@ export const botRouter = createTRPCRouter({
         const data = {
           username: 'Reward System',
           content: `
-          @${input.username} has been rewarded with ${input.coins} Indie Tokens.
-          For merging the following pull request in Develop:
-          ${input.prUrl}`,
+            **${input.username}** has been rewarded with **${input.coins}** Indie Tokens 💎.
+            → For merging the following pull request in Develop:
+            ${input.prUrl}
+          `,
         };
 
         if (!webhookUrl) {
