@@ -93,4 +93,4 @@ jobs:
           url: '${{secrets.SERVER_URL}}api/trpc/bot.sendDiscordMsg?batch=1'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"0": { "json":{ "username": "${{ steps.vars_send_discord_msg.outputs.username }}", "prUrl": "${{ steps.vars_send_discord_msg.outputs.pr_url }}", "coins": "${{ steps.vars_send_discord_msg.outputs.coins }}" }}}'
+          data: '{"0": { "json":{ "username": "${{ steps.vars_send_discord_msg.outputs.username }}", "prUrl": "${{ steps.vars_send_discord_msg.outputs.pr_url }}", "coins": "${{ steps.vars_send_discord_msg.outputs.coins }}", "webhookDiscordUrl": "${{ secrets.DISCORD_WEBHOOK_URL }}" }}}'

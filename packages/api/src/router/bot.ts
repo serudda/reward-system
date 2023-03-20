@@ -13,12 +13,11 @@ export const botRouter = createTRPCRouter({
         username: z.string(),
         prUrl: z.string(),
         coins: z.string(),
+        webhookDiscordUrl: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
       try {
-        const webhookUrl =
-          'https://discord.com/api/webhooks/1077255069281562684/9zZBqAqHPmH9skQkQ1FNZsGIt0VtciwwyfJQT_NDQTzZoYE05YZomNm27f8erX6wZug3';
         const data = {
           username: DISCORD_BOT_USERNAME,
           content: `
@@ -31,14 +30,14 @@ ${input.prUrl}
           `,
         };
 
-        if (!webhookUrl) {
+        if (!input.webhookDiscordUrl) {
           throw new TRPCError({
             code: 'NOT_FOUND',
-            message: `Webhook URL not found: ${webhookUrl}`,
+            message: `Webhook URL not found: ${input.webhookDiscordUrl}`,
           });
         }
 
-        await fetch(webhookUrl, {
+        await fetch(input.webhookDiscordUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
