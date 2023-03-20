@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { api } from '~/utils/api';
+import { env } from '~/env.mjs';
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: 'from tRPC' });
@@ -31,6 +32,7 @@ const Home: NextPage = () => {
       username: 'serudda',
       prUrl: 'https://reward-system-nextjs-wvfw-git-develop-serudda.vercel.app/api/trpc/bot.sendDiscordMsg',
       coins: '100',
+      webhookDiscordUrl: env.DISCORD_WEBHOOK_URL as string,
     });
 
     sendCoins({
