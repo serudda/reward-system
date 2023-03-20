@@ -135,3 +135,13 @@ A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 
 
 Test the Github GraphQL schema here:
 https://studio.apollographql.com/public/github/explorer?variant=current
+
+-----
+
+<h2 id="contributors">Contributors</h2>
+
+<a href="https://github.com/serudda/reward-system/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=serudda/reward-system" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
