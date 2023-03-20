@@ -18,7 +18,10 @@ export const botRouter = createTRPCRouter({
           'https://discord.com/api/webhooks/1077255069281562684/9zZBqAqHPmH9skQkQ1FNZsGIt0VtciwwyfJQT_NDQTzZoYE05YZomNm27f8erX6wZug3';
         const data = {
           username: 'Reward System',
-          content: `El pull request #${input.prUrl} ha sido mergeado en Develop. Se otorgan ${input.coins} puntos a ${input.username}.`,
+          content: `
+          @${input.username} has been rewarded with ${input.coins} Indie Tokens.
+          For merging the following pull request in Develop:
+          ${input.prUrl}`,
         };
 
         if (!webhookUrl) {
