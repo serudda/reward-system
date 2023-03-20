@@ -35,12 +35,6 @@ export const botRouter = createTRPCRouter({
         })
           .then(() => console.log('Mensaje enviado correctamente.'))
           .catch((error) => console.error('Error al enviar mensaje:', error));
-        // if (!user) {
-        //   throw new TRPCError({
-        //     code: 'NOT_FOUND',
-        //     message: 'User with that ID not found',
-        //   });
-        // }
       } catch (err: any) {
         throw err;
       }
