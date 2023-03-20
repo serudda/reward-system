@@ -32,7 +32,7 @@ const Home: NextPage = () => {
       username: 'serudda',
       prUrl: 'https://reward-system-nextjs-wvfw-git-develop-serudda.vercel.app/api/trpc/bot.sendDiscordMsg',
       coins: '100',
-      webhookDiscordUrl: env.DISCORD_WEBHOOK_URL as string,
+      webhookDiscordUrl: env.DISCORD_WEBHOOK_URL,
     });
 
     sendCoins({
