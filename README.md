@@ -132,3 +132,13 @@ Create a new project in Supabase, go to settings / database / Connection string(
 The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
+
+-----
+
+<h2 id="contributors">Contributors</h2>
+
+<a href="https://github.com/serudda/reward-system/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=serudda/reward-system" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
