@@ -1,7 +1,10 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import translate from '../i18n/en.json';
 import { createTRPCRouter, publicProcedure } from '../trpc';
+
+const DISCORD_BOT_USERNAME = 'Reward System';
 
 export const botRouter = createTRPCRouter({
   sendDiscordMsg: publicProcedure
@@ -14,11 +17,17 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const webhookUrl =
-          'https://discord.com/api/webhooks/1077255069281562684/9zZBqAqHPmH9skQkQ1FNZsGIt0VtciwwyfJQT_NDQTzZoYE05YZomNm27f8erX6wZug3';
+        const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
         const data = {
-          username: 'El Banco ',
-          content: `El pull request #${input.prUrl} ha sido mergeado en Develop. Se otorgan ${input.coins} puntos a ${input.username}.`,
+          username: DISCORD_BOT_USERNAME,
+          content: `
+:mega:
+---------------
+**${input.username}** has been rewarded with **${input.coins}** Indie Tokens :gem:.
+→ For merging the following pull request in Develop:
+${input.prUrl}
+---------------
+          `,
         };
 
         if (!webhookUrl) {
@@ -28,19 +37,13 @@ export const botRouter = createTRPCRouter({
           });
         }
 
-        fetch(webhookUrl, {
+        await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         })
-          .then(() => console.log('Mensaje enviado correctamente.'))
-          .catch((error) => console.error('Error al enviar mensaje:', error));
-        // if (!user) {
-        //   throw new TRPCError({
-        //     code: 'NOT_FOUND',
-        //     message: 'User with that ID not found',
-        //   });
-        // }
+          .then(() => console.log(translate.bot.sendDiscordMsg.success))
+          .catch((error) => console.error(translate.bot.sendDiscordMsg.error, error));
       } catch (err: any) {
         throw err;
       }

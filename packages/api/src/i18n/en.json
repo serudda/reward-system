@@ -1,0 +1,8 @@
+{
+  "bot": {
+    "sendDiscordMsg": {
+      "success": "Message sent successfully.",
+      "error": "Error sending message:"
+    }
+  }
+}
