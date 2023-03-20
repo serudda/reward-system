@@ -20,11 +20,11 @@ export const botRouter = createTRPCRouter({
           username: 'Reward System',
           content: `
       :mega: 
-      ---------------
-      **${input.username}** has been rewarded with **${input.coins}** Indie Tokens :gem:.
-      → For merging the following pull request in Develop:
-      ${input.prUrl}
-      ---------------
+    ---------------
+    **${input.username}** has been rewarded with **${input.coins}** Indie Tokens :gem:.
+    → For merging the following pull request in Develop:
+    ${input.prUrl}
+    ---------------
           `,
         };
 
