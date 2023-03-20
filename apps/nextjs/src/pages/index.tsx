@@ -1,51 +1,14 @@
-import { useEffect } from 'react';
 import { type NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { api } from '~/utils/api';
-import { env } from '~/env.mjs';
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: 'from tRPC' });
   const user = api.user.getByEmail.useQuery({
     email: 'serudda.oficial@gmail.com',
   });
-
-  const { mutate: sendCoins } = api.user.sendCoinsByGithubId.useMutation({
-    onSuccess() {
-      console.log('success send Coin');
-    },
-  });
-
-  const { mutate: sendDiscordMsg, error } = api.bot.sendDiscordMsg.useMutation({
-    onSuccess() {
-      console.log('success send Discord msg');
-    },
-  });
-
-  if (error) console.log('SOMETHING WRONG', error);
-
-  useEffect(() => {
-    sendDiscordMsg({
-      username: 'serudda',
-      prUrl: 'https://reward-system-nextjs-wvfw-git-develop-serudda.vercel.app/api/trpc/bot.sendDiscordMsg',
-      coins: '100',
-      webhookDiscordUrl: env.DISCORD_WEBHOOK_URL,
-    });
-
-    sendCoins({
-      user: {
-        id: 'MDQ6VXNlcjEwMDc1NTMy',
-        login: 'serudda',
-        name: 'serudda',
-        email: 'serudda.oficial@gmail.com',
-        avatarUrl: 'https://avatars.githubusercontent.com/u/1016365?v=4',
-      },
-      coins: '100',
-    });
-  }, []);
 
   return (
     <>
@@ -82,7 +45,6 @@ const Home: NextPage = () => {
             </Link>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">{hello.data ? hello.data.greeting : 'Loading tRPC query...'}</p>
             <AuthShowcase />
           </div>
         </div>
