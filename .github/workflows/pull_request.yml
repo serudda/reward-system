@@ -90,7 +90,7 @@ jobs:
         id: send_discord_message
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://reward-system-nextjs-git-develop-serudda-s-team.vercel.app/api/trpc/bot.sendDiscordMsg'
+          url: 'https://reward-system-nextjs-git-develop-serudda-s-team.vercel.app/api/trpc/bot.sendDiscordMsg?batch=1'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"0": { "json":{ "username": "${{ steps.vars_send_discord_msg.outputs.username }}", "prUlr": "${{ steps.vars_send_discord_msg.outputs.pr_url }}", "coins": "${{ steps.vars_send_discord_msg.outputs.coins }}" }}}'
