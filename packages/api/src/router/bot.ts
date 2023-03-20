@@ -17,7 +17,8 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+        const webhookUrl =
+          'https://discord.com/api/webhooks/1077255069281562684/9zZBqAqHPmH9skQkQ1FNZsGIt0VtciwwyfJQT_NDQTzZoYE05YZomNm27f8erX6wZug3';
         const data = {
           username: DISCORD_BOT_USERNAME,
           content: `
