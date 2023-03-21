@@ -3,8 +3,13 @@ import { ChannelType, type Message } from 'discord.js';
 import { checkPermissions, sendTimedMessage } from '../functions';
 import { type BotEvent } from '../types';
 
-/*
-This  is an event handler that listens for a message event. It checks if the message was sent by a bot or not in a guild channel.If it starts with the bot's prefix, it searches for a command to execute and checks the user's permissions.If the command has a cooldown, it sets a timer and stores the cooldown information for future use.Finally, it executes the command with the given arguments. */
+/**
+  This is an event handler that listens for a message event.
+  It checks if the message was sent by a bot or not in a guild channel.
+  If it starts with the bot's prefix, it searches for a command to execute and checks the user's permissions.
+  If the command has a cooldown, it sets a timer and stores the cooldown information for future use.
+  Finally, it executes the command with the given arguments.
+*/
 const event: BotEvent = {
   name: 'messageCreate',
   execute: (message: Message) => {

@@ -1,14 +1,16 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 
 import { type SlashCommand } from './types';
 
-const { Guilds, MessageContent, GuildMessages, GuildMembers } = GatewayIntentBits;
+const { Guilds, MessageContent, GuildMessages, GuildMembers, GuildMessageReactions } = GatewayIntentBits;
+const { GuildMember, Message, Channel, Reaction, User } = Partials;
 
 // Initialize the Discord Client
 const client = new Client({
-  intents: [Guilds, MessageContent, GuildMessages, GuildMembers],
+  intents: [Guilds, MessageContent, GuildMessages, GuildMembers, GuildMessageReactions],
+  partials: [Message, Channel, Reaction, User, GuildMember],
 });
 
 client.slashCommands = new Collection<string, SlashCommand>();
