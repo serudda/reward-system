@@ -40,6 +40,9 @@ As the project uses Turborepo, you could run the following commands on the root,
 Install Dependencies
 `pnpm install`
 
+Prepare Husky
+`pnpm prepare`
+
 Build the app
 `pnpm build`
 
