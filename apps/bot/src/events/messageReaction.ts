@@ -1,10 +1,4 @@
-import {
-  EmbedBuilder,
-  type MessageReaction,
-  type PartialMessageReaction,
-  type PartialUser,
-  type User,
-} from 'discord.js';
+import { type MessageReaction, type PartialMessageReaction, type PartialUser, type User } from 'discord.js';
 
 import { api } from '../api';
 import { type BotEvent } from '../types';
@@ -49,7 +43,7 @@ const event: BotEvent = {
     });
 
     // Send a message to the Discord channel
-    reaction.message.channel.send(
+    void reaction.message.channel.send(
       `
     :mega:
   ---------------
