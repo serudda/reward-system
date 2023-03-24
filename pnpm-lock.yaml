@@ -39,6 +39,9 @@ importers:
       discord.js: ^14.7.1
       eslint: ^8.34.0
       eslint-config-acme: 0.0.0
+      i18next: ^22.4.13
+      i18next-browser-languagedetector: ^7.0.1
+      i18next-http-middleware: 3.3.0
       superjson: 1.9.1
       ts-node: ^10.9.1
       tslib: ^2.5.0
@@ -47,6 +50,9 @@ importers:
       '@trpc/client': 10.16.0_@trpc+server@10.16.0
       '@trpc/server': 10.16.0
       discord.js: 14.8.0
+      i18next: 22.4.13
+      i18next-browser-languagedetector: 7.0.1
+      i18next-http-middleware: 3.3.0
       superjson: 1.9.1
     devDependencies:
       '@acme/api': link:../../packages/api
@@ -2704,6 +2710,22 @@ packages:
 
   /http-cache-semantics/4.1.1:
     resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
+    dev: false
+
+  /i18next-browser-languagedetector/7.0.1:
+    resolution: {integrity: sha512-Pa5kFwaczXJAeHE56CHG2aWzFBMJNUNghf0Pm4SwSrEMps/PTKqW90EYWlIvhuYStf3Sn1K0vw+gH3+TLdkH1g==}
+    dependencies:
+      '@babel/runtime': 7.21.0
+    dev: false
+
+  /i18next-http-middleware/3.3.0:
+    resolution: {integrity: sha512-WX6uqxNwXccdNm/md5VJ+Q47DF2gjqLvygvgNzb2tCJWPM86FCi2LIvKco70EttlpV9IkfkCVNVF07/56EsSEw==}
+    dev: false
+
+  /i18next/22.4.13:
+    resolution: {integrity: sha512-GX7flMHRRqQA0I1yGLmaZ4Hwt1JfLqagk8QPDPZsqekbKtXsuIngSVWM/s3SLgNkrEXjA+0sMGNuOEkkmyqmWg==}
+    dependencies:
+      '@babel/runtime': 7.21.0
     dev: false
 
   /ieee754/1.2.1:

@@ -1,8 +1,12 @@
+/* Dependencies */
 import { type User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+/* tRCP Config */
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+/* Utils */
+import setTempThumbnail from '../utils/setTempThumbnail';
 
 export const userRouter = createTRPCRouter({
   getByDiscordId: publicProcedure
@@ -130,71 +134,101 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  payCoinByUserId: publicProcedure
+  payCoinsByUserId: publicProcedure
     .input(
       z.object({
-        user: z.object({
+        receiver: z.object({
           id: z.string(),
           username: z.string(),
           avatar: z.nullable(z.string()),
           discriminator: z.string(),
         }),
-        transmitter: z.string(),
+        sender: z.object({
+          id: z.string(),
+          username: z.string(),
+          avatar: z.nullable(z.string()),
+          discriminator: z.string(),
+        }),
         coins: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       try {
         // TODO: Duplicated code (see packages/auth/src/auth-options.ts)
-        let tempThumbnail = '';
-        if (input.user.avatar === null) {
-          const defaultAvatarNumber = parseInt(input.user.discriminator) % 5;
-          tempThumbnail = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
-        } else {
-          const format = input.user.avatar.startsWith('a_') ? 'gif' : 'png';
-          tempThumbnail = `https://cdn.discordapp.com/avatars/${input.user.id}/${input.user.avatar}.${format}`;
-        }
+        const tempThumbnail = setTempThumbnail(input.receiver);
 
-        const transmitterCoins: User = await ctx.prisma.user.findUnique({
-          where: { discordId: input.transmitter },
+        /**
+         * Check in the user, have a balance for the transaction
+         */
+        const sender = await ctx.prisma.user.findUnique({
+          where: { discordId: input.sender.id },
           select: {
             coins: true,
           },
         });
 
-        if (transmitterCoins.coins <= 0) {
+        if (!sender) {
+          const sender = await ctx.prisma.user.create({
+            name: input.sender.username,
+            discordId: input.sender.id,
+            discordUserName: input.sender.username,
+            discordDiscriminator: input.sender.discriminator,
+            thumbnail: setTempThumbnail(input.sender),
+            coins: 0,
+          });
+
+          if (sender) {
+            return {
+              status: 'failed',
+              message: 'You have no Indie Tokens for this transaction',
+            };
+          } else {
+            return {
+              status: 'error',
+              message: '500 Server error',
+            };
+          }
+        }
+
+        /**
+         * If sender, don't have coins, not aprove the transaction else,
+         * transfers coins to reciver and decrement amount in wallet sender
+         */
+        if (sender.coins <= 0) {
           return {
             status: 'failed',
             message: 'You have no Indie Tokens for this transaction',
           };
         } else {
-          const transmitter: User = await ctx.prisma.user.upsert({
-            where: { discordId: input.transmitter },
-            update: { coins: { decrement: input.coins } },
-            create: {
-              name: input.user.username,
-              discordId: input.user.id,
-              discordUserName: input.user.username,
-              discordDiscriminator: input.user.discriminator,
-              thumbnail: tempThumbnail,
-              coins: input.coins,
+          /**
+           * Update coins of the sender, discount coins to pay
+           */
+          const sender = await ctx.prisma.user.update({
+            where: { discordId: input.sender.id },
+            data: { coins: { decrement: input.coins } },
+            select: {
+              coins: true,
             },
           });
 
-          const user: User = await ctx.prisma.user.upsert({
-            where: { discordId: input.user.id },
+          /**
+           * If exist, add coins of the user receiver wallet, else
+           * create user wallet and add coins
+           */
+          const receiver: User = await ctx.prisma.user.upsert({
+            where: { discordId: input.receiver.id },
             update: { coins: { increment: input.coins } },
             create: {
-              name: input.user.username,
-              discordId: input.user.id,
-              discordUserName: input.user.username,
-              discordDiscriminator: input.user.discriminator,
+              name: input.receiver.username,
+              discordId: input.receiver.id,
+              discordUserName: input.receiver.username,
+              discordDiscriminator: input.receiver.discriminator,
               thumbnail: tempThumbnail,
               coins: input.coins,
             },
           });
 
-          if (!user) {
+          if (!receiver) {
             throw new TRPCError({
               code: 'NOT_FOUND',
               message: 'User with that ID not found',
@@ -204,7 +238,8 @@ export const userRouter = createTRPCRouter({
           return {
             status: 'success',
             data: {
-              user,
+              receiver: receiver,
+              sender: sender,
             },
           };
         }

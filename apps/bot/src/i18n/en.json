@@ -14,10 +14,10 @@
       "giveSuccess": "You gave :amount IndieTokens to :user"
     },
     "pay": {
-      "pay": "Give indie tokens to a user from your wallet",
+      "pay": "Give indie tokens to a user from her balance",
       "receiver": "The receiver's username",
-      "amount": "Set the amount of coins you want to give.",
-      "giveSuccess": "You give :amount IndieTokens to :user"
+      "amount": "Set the amount of coins you are going to pay.",
+      "paymentSuccess": "{{sender}} pay {{coins}} IndieTokens to {{receiver}}.\nYou new balance is :{{balanceSender}}"
     }
   }
 }

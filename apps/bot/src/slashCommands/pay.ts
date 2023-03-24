@@ -1,12 +1,24 @@
+/* Dependencies */
 import { SlashCommandBuilder, type CacheType, type CommandInteraction, type User as UserDiscord } from 'discord.js';
 
+/* API */
 import { api } from '../api';
+/* i18n */
+import i18n from '../i18n';
 import translate from '../i18n/en.json';
 import { type SlashCommand } from '../types';
 
-const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: string) => {
+const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: string, sender) => {
   const receiver = interaction.options.getUser('user');
-  void interaction.reply(`${interaction.user} gives ${coins} Indie Tokens to ${receiver}.`);
+
+  void interaction.reply(
+    i18n.t('commands.pay.paymentSuccess', {
+      sender: `<@${interaction.user.id}>`,
+      coins: coins,
+      receiver: `<@${receiver.id}>`,
+      balanceSender: sender.coins,
+    }),
+  );
 };
 
 /** Main command */
@@ -26,9 +38,9 @@ const command: SlashCommand = {
       void interaction.reply("They can't indie tokens to yourself");
     } else {
       // Update or Create User
-      const updatedUser = await api.user.payCoinByUserId.mutate({
-        user: user as UserDiscord,
-        transmitter: interaction.user.id,
+      const updatedUser = await api.user.payCoinsByUserId.mutate({
+        receiver: user as UserDiscord,
+        sender: interaction.user,
         coins: parseInt(coins),
       });
 
@@ -36,7 +48,7 @@ const command: SlashCommand = {
         void interaction.reply(updatedUser?.message);
       }
 
-      if (updatedUser.data) showSentCoinsMsg(interaction, coins);
+      if (updatedUser.data) showSentCoinsMsg(interaction, coins, updatedUser.data.sender);
     }
   },
   cooldown: 10,
