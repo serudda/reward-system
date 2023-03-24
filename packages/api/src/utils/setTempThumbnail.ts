@@ -1,14 +1,14 @@
-/**
- * setThemThumnail return url to discord user image, for expose in the command return.
- * @param user
- * @returns
- */
-
 interface User {
   avatar: string | null;
   discriminator: string;
   id: string;
 }
+
+/**
+ * setThemThumnail return url to discord user image, for expose in the command return.
+ * @param user
+ * @returns
+ */
 
 const setTempThumbnail = (user: User) => {
   if (user.avatar === null) {
