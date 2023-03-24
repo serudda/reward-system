@@ -7,21 +7,25 @@ import { api } from '../api';
 import i18n from '../i18n';
 import translate from '../i18n/en.json';
 import { type SlashCommand } from '../types';
+/* Model */
+import { type User as UserModel } from '.prisma/client';
 
-const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: string, sender) => {
+const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: string, sender: UserModel) => {
   const receiver = interaction.options.getUser('user');
 
-  void interaction.reply(
-    i18n.t('commands.pay.paymentSuccess', {
-      sender: `<@${interaction.user.id}>`,
-      coins: coins,
-      receiver: `<@${receiver.id}>`,
-      balanceSender: sender.coins,
-    }),
-  );
+  const bodyMessage = i18n.t('commands.pay.paymentSuccess', {
+    sender: `<@${interaction.user.id}>`,
+    coins: coins,
+    receiver: `<@${receiver?.id}>`,
+    balanceSender: sender.coins,
+  });
+
+  void interaction.reply(bodyMessage);
 };
 
-/** Main command */
+/**
+ * This command, allow to send coins to other users.
+ */
 const command: SlashCommand = {
   command: new SlashCommandBuilder()
     .setName('pay')
@@ -31,24 +35,27 @@ const command: SlashCommand = {
       option.setName('coins').setDescription(translate.commands.pay.amount).setRequired(true),
     ),
   execute: async (interaction) => {
-    const user = interaction.options.getUser('user');
+    const receiver = interaction.options.getUser('user');
     // TODO: Fix an Type issue with .getString, it is not recognized as a function
     const coins: string = (interaction.options as any).getString('coins'); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-    if (interaction.user === user) {
+    /**
+     * Check if the user is trying to send coins to himself
+     */
+    if (interaction.user === receiver) {
       void interaction.reply("They can't indie tokens to yourself");
     } else {
       // Update or Create User
-      const updatedUser = await api.user.payCoinsByUserId.mutate({
-        receiver: user as UserDiscord,
+      const payUserCoins = await api.user.payCoinsByUserId.mutate({
+        receiver: receiver as UserDiscord,
         sender: interaction.user,
         coins: parseInt(coins),
       });
 
-      if (updatedUser?.status === 'failed') {
-        void interaction.reply(updatedUser?.message);
+      if (payUserCoins?.status === 'error') {
+        void interaction.reply(payUserCoins?.message);
       }
 
-      if (updatedUser.data) showSentCoinsMsg(interaction, coins, updatedUser.data.sender);
+      if (payUserCoins.data) showSentCoinsMsg(interaction, coins, payUserCoins.data.sender);
     }
   },
   cooldown: 10,

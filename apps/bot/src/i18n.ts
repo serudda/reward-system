@@ -32,7 +32,7 @@ const loadLocaleFiles = () => {
 /**
  * i18n Configuration
  * This configuration, set the default language
- * and the detection orden of the user languages.
+ * and the detection user languages.
  * @returns i18n object
  */
     

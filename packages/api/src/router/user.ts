@@ -154,7 +154,9 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        // TODO: Duplicated code (see packages/auth/src/auth-options.ts)
+        /**
+         * This function set a temp thumbnail for the user
+         */
         const tempThumbnail = setTempThumbnail(input.receiver);
 
         /**
@@ -167,6 +169,9 @@ export const userRouter = createTRPCRouter({
           },
         });
 
+        /**
+         * If sender not exist, create a new user and return error tokens message
+         */
         if (!sender) {
           const sender = await ctx.prisma.user.create({
             name: input.sender.username,
@@ -179,7 +184,7 @@ export const userRouter = createTRPCRouter({
 
           if (sender) {
             return {
-              status: 'failed',
+              status: 'error',
               message: 'You have no Indie Tokens for this transaction',
             };
           } else {
@@ -196,14 +201,14 @@ export const userRouter = createTRPCRouter({
          */
         if (sender.coins <= 0) {
           return {
-            status: 'failed',
+            status: 'error',
             message: 'You have no Indie Tokens for this transaction',
           };
         } else {
           /**
            * Update coins of the sender, discount coins to pay
            */
-          const sender = await ctx.prisma.user.update({
+          const updateSender = await ctx.prisma.user.update({
             where: { discordId: input.sender.id },
             data: { coins: { decrement: input.coins } },
             select: {
@@ -215,7 +220,7 @@ export const userRouter = createTRPCRouter({
            * If exist, add coins of the user receiver wallet, else
            * create user wallet and add coins
            */
-          const receiver: User = await ctx.prisma.user.upsert({
+          const updateReceiver: User = await ctx.prisma.user.upsert({
             where: { discordId: input.receiver.id },
             update: { coins: { increment: input.coins } },
             create: {
@@ -228,7 +233,7 @@ export const userRouter = createTRPCRouter({
             },
           });
 
-          if (!receiver) {
+          if (!updateReceiver) {
             throw new TRPCError({
               code: 'NOT_FOUND',
               message: 'User with that ID not found',
@@ -238,8 +243,8 @@ export const userRouter = createTRPCRouter({
           return {
             status: 'success',
             data: {
-              receiver: receiver,
-              sender: sender,
+              receiver: updateReceiver,
+              sender: updateSender,
             },
           };
         }
