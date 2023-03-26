@@ -5,12 +5,12 @@ interface User {
 }
 
 /**
- * setThemThumnail return url to discord user image, for expose in the command return.
+ * setThumbnailUrl return url to discord user image, for expose in the command return.
  * @param user
  * @returns
  */
 
-const setTempThumbnail = (user: User) => {
+export const setThumbnailUrl = (user: User): string => {
   if (user.avatar === null) {
     const defaultAvatarNumber = parseInt(user.discriminator) % 5;
     return `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
@@ -19,5 +19,3 @@ const setTempThumbnail = (user: User) => {
     return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}`;
   }
 };
-
-export default setTempThumbnail;
