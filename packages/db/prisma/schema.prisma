@@ -52,26 +52,6 @@ model Session {
     updatedAt    DateTime @updatedAt
 }
 
-model User {
-    id                   String      @id @default(cuid())
-    name                 String?
-    email                String?     @unique
-    thumbnail            String?
-    discordId            String?     @unique
-    discordUserName      String?     @unique
-    discordDiscriminator String?     @unique
-    githubId             String?     @unique
-    githubUserName       String?     @unique
-    emailVerified        DateTime?
-    coins                Int         @default(0)
-    accounts             Account[]
-    sessions             Session[]
-    userItems            UserItems[]
-    isActive             Boolean     @default(true)
-    createdAt            DateTime    @default(now())
-    updatedAt            DateTime    @updatedAt
-}
-
 model VerificationToken {
     identifier String
     token      String   @unique
@@ -82,24 +62,57 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model Item {
-    id          String      @id @default(cuid())
-    name        String
-    description String?
-    thumbnail   String
-    cost        Int
-    userItems   UserItems[]
-    isActive    Boolean     @default(true)
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
+model User {
+    id                   String     @id @default(cuid())
+    name                 String?
+    email                String?    @unique
+    thumbnail            String?
+    discordId            String?    @unique
+    discordUserName      String?    @unique
+    discordDiscriminator String?    @unique
+    githubId             String?    @unique
+    githubUserName       String?    @unique
+    emailVerified        DateTime?
+    coins                Int        @default(0)
+    accounts             Account[]
+    sessions             Session[]
+    purchases            Purchase[]
+    isActive             Boolean    @default(true)
+    createdAt            DateTime   @default(now())
+    updatedAt            DateTime   @updatedAt
 }
 
-model UserItems {
-    amount    Int      @default(0)
+model Item {
+    id          String     @id @default(cuid())
+    name        String
+    description String?
+    imageUrl    String?
+    price       Int
+    store       Store      @relation(fields: [storeId], references: [id])
+    storeId     String
+    purchases   Purchase[]
+    isActive    Boolean    @default(true)
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+}
+
+model Store {
+    id          String   @id @default(cuid())
+    name        String   @unique
+    description String?
+    imageUrl    String?
+    items       Item[]
+    isActive    Boolean  @default(true)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Purchase {
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
     item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
     itemId    String
+    quantity  Int      @default(1)
     isActive  Boolean  @default(true)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -111,6 +124,7 @@ model Coin {
     id          String   @id @default(cuid())
     name        String
     description String?
+    imageUrl    String?
     isActive    Boolean  @default(true)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
