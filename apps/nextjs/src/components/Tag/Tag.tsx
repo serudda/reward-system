@@ -13,7 +13,7 @@ export enum TagVariant {
 const Variants: Record<TagVariant, string> = {
   [TagVariant.primary]: 'bg-primary-200/30 text-primary-50',
   [TagVariant.neutral]: 'bg-slate-800 text-slate-50',
-  [TagVariant.white]: 'bg-white text-slate-900',
+  [TagVariant.white]: 'bg-white/30 text-white',
   [TagVariant.success]: 'bg-green-400/50 text-green-50',
   [TagVariant.warning]: 'bg-yellow-400/50 text-yellow-50',
   [TagVariant.error]: 'bg-red-400/50 text-red-50',
