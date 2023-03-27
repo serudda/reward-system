@@ -59,8 +59,8 @@ export const ItemsCard = ({
   const renderAvailabilityTag = () => {
     if (amountAvailable === 0) return <Tag variant={TagVariant.neutral}>out of stock</Tag>;
     if (amountAvailable === 1) return <Tag variant={TagVariant.error}>last unit</Tag>;
-    if (amountAvailable <= 3) return <Tag variant={TagVariant.warning}>{amountAvailable}</Tag>;
-    if (amountAvailable > 3) return <Tag variant={TagVariant.neutral}>{amountAvailable}</Tag>;
+    if (amountAvailable <= 3) return <Tag variant={TagVariant.warning}>{amountAvailable} units</Tag>;
+    if (amountAvailable > 3) return <Tag variant={TagVariant.neutral}>{amountAvailable} units</Tag>;
   };
 
   /* Render JSX */
