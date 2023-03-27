@@ -1,6 +1,7 @@
 import { type NextPage } from 'next';
 import Head from 'next/head';
 
+import { ItemsGrid } from '~/components/ItemsGrid/ItemsGrid';
 import { Logo, LogoType } from '~/components/Logo/Logo';
 
 const Store: NextPage = () => {
@@ -12,6 +13,7 @@ const Store: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="relative mx-auto min-h-screen max-w-screen-xl px-6 sm:px-8">
+        {/* Navbar */}
         <div className="flex flex-row items-center gap-6 border-b border-slate-800 p-4">
           {/* Logo */}
           <div className="flex flex-row items-center gap-4 text-white">
@@ -76,6 +78,10 @@ const Store: NextPage = () => {
             </a>
           </div>
         </div>
+
+        {/* Main Content */}
+        <div className="pt-40"></div>
+        <ItemsGrid />
       </div>
     </>
   );
