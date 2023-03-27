@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState, type ReactNode } from 'react';
 import cn from 'classnames';
 
 export enum TagVariant {
