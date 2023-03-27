@@ -12,7 +12,7 @@ const Store: NextPage = () => {
         <meta name="description" content="Reward System - Store" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="relative mx-auto min-h-screen max-w-screen-xl px-6 sm:px-8">
+      <div className="relative mx-auto min-h-screen max-w-screen-xl px-6 pb-20 sm:px-8">
         {/* Navbar */}
         <div className="flex flex-row items-center gap-6 border-b border-slate-800 p-4">
           {/* Logo */}
@@ -80,7 +80,7 @@ const Store: NextPage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="pt-40"></div>
+        <div className="pt-20"></div>
         <ItemsGrid />
       </div>
     </>
