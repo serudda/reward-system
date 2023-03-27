@@ -3,13 +3,6 @@ import cn from 'classnames';
 
 import { Tag, TagVariant } from '~/components/Tag/Tag';
 
-export enum TagType {
-  lastUnit = 'lastUnit', // amountAvailable === 1
-  outOfStock = 'outOfStock', // amountAvailable === 0
-  fewUnits = 'fewUnits', // amountAvailable <= 3
-  enoughUnits = 'enoughUnits', // amountAvailable > 3
-}
-
 export interface ItemsCardProps {
   /**
    * Specify an optional className to be added to the component
@@ -40,6 +33,11 @@ export interface ItemsCardProps {
    * Disables the card, disallowing user interaction.
    */
   isDisabled?: boolean;
+
+  /**
+   * Provide a handler that is called when the action button was clicked.
+   */
+  onActionClick?: () => void;
 }
 
 /**
@@ -51,9 +49,23 @@ export const ItemsCard = ({
   thumbnailUrl = '/assets/default.png',
   amountAvailable = 0,
   cost = 0,
+  isDisabled = false,
+  onActionClick,
 }: ItemsCardProps) => {
   const classes = {
     container: cn(className),
+    imageContainer: cn('relative flex items-center justify-center rounded-t-lg bg-slate-800 p-6', {
+      'cursor-default opacity-50': isDisabled,
+    }),
+    action: cn('bg-primary-200/20 text-primary-50', 'flex items-center justify-center', 'rounded-b-lg p-2', {
+      'hover:bg-primary-200/30': !isDisabled,
+      'cursor-default opacity-30': isDisabled,
+    }),
+  };
+
+  const handleActionClick = () => {
+    if (isDisabled) return;
+    if (onActionClick) onActionClick();
   };
 
   const renderAvailabilityTag = () => {
@@ -61,6 +73,7 @@ export const ItemsCard = ({
     if (amountAvailable === 1) return <Tag variant={TagVariant.error}>last unit</Tag>;
     if (amountAvailable <= 3) return <Tag variant={TagVariant.warning}>{amountAvailable} units</Tag>;
     if (amountAvailable > 3) return <Tag variant={TagVariant.neutral}>{amountAvailable} units</Tag>;
+    return null;
   };
 
   /* Render JSX */
@@ -68,7 +81,7 @@ export const ItemsCard = ({
     <div className={classes.container}>
       <div className="mb-2 flex flex-col">
         {/* Image */}
-        <div className="relative flex items-center justify-center rounded-t-lg bg-slate-800 p-6">
+        <div className={classes.imageContainer}>
           <div className="absolute top-2 right-2">
             <Tag variant={TagVariant.neutral}>🔥</Tag>
           </div>
@@ -80,11 +93,11 @@ export const ItemsCard = ({
 
         {/* Action */}
         <div
-          className="bg-primary-200/20 text-primary-50 hover:bg-primary-200/30 flex cursor-pointer items-center justify-center rounded-b-lg p-2"
+          className={classes.action}
           role="button"
           tabIndex={0}
-          onClick={() => console.log('CLICK')}
-          onKeyDown={() => console.log('KEYDOWN')}
+          onClick={handleActionClick}
+          onKeyDown={handleActionClick}
         >
           <div className="flex items-center space-x-2">
             <Image src="/assets/indie-token-icon.png" alt="Platzi" width={20} height={20} />
