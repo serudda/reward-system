@@ -15,6 +15,12 @@
 2. Click the "Add Bot" button on the right side of the page.
 3. Confirm by clicking "Yes, do it!" in the pop-up window.
 4. Your bot is now created.
+5. Give bot the "Privileged Gateway Intents"
+![image](https://user-images.githubusercontent.com/10075532/227964903-9d34e2f5-942c-47fa-8ac7-bddcd42d8522.png)
+6. Assign a redirect URL.
+![Screenshot 2023-03-27 at 9 11 53 AM](https://user-images.githubusercontent.com/10075532/227965674-684e000a-8748-464f-9bcf-d90a75b9a985.png)
+
+
 
 ### Step 3: Invite the Bot to Your Server
 
