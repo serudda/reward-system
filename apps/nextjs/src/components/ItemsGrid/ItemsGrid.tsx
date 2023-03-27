@@ -36,6 +36,7 @@ export const ItemsGrid = ({ className }: ItemsGridProps) => {
               title="Suscripcion a Platzi"
               cost={43000}
               amountAvailable={0}
+              isDisabled
             />
             <ItemsCard
               thumbnailUrl="https://yt3.googleusercontent.com/rwU607PYF9jK9QL2I85SdfCLVZJGGsxWukuF_LxD0PepnqEIrFVg3W85FOVPDmWdMN1SxyJ7Xi8=s900-c-k-c0x00ffffff-no-rj"
