@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import cn from 'classnames';
 
-import { Item } from '@acme/db';
+import { type Item } from '@acme/db';
 
 import { ItemsCard } from '~/components/ItemsCard/ItemsCard';
 
@@ -27,16 +27,10 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
   };
 
   const renderItems = () => {
-    if (items.length === 0) return <div>This store doesn't have items yet.</div>;
+    if (items.length === 0) return <div>This store doesn&lsquo;t have items yet.</div>;
 
     return items.map((item) => (
-      <ItemsCard
-        key={item.id}
-        thumbnailUrl={item.imageUrl as string}
-        title={item.name as string}
-        price={item.price}
-        stock={item.stock}
-      />
+      <ItemsCard key={item.id} thumbnailUrl={item.imageUrl} title={item.name} price={item.price} stock={item.stock} />
     ));
   };
 
