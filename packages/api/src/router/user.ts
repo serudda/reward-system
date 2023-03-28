@@ -3,6 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { setThumbnailUrl } from '../utils/functions';
 
 export const userRouter = createTRPCRouter({
   getByDiscordId: publicProcedure
@@ -43,15 +44,7 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        // TODO: Duplicated code (see packages/auth/src/auth-options.ts)
-        let tempThumbnail = '';
-        if (input.user.avatar === null) {
-          const defaultAvatarNumber = parseInt(input.user.discriminator) % 5;
-          tempThumbnail = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
-        } else {
-          const format = input.user.avatar.startsWith('a_') ? 'gif' : 'png';
-          tempThumbnail = `https://cdn.discordapp.com/avatars/${input.user.id}/${input.user.avatar}.${format}`;
-        }
+        const tempThumbnail = setThumbnailUrl(input.user);
 
         const user: User = await ctx.prisma.user.upsert({
           where: { discordId: input.user.id },
@@ -125,6 +118,126 @@ export const userRouter = createTRPCRouter({
             user,
           },
         };
+      } catch (err: any) {
+        throw err;
+      }
+    }),
+
+  payCoinsByUserId: publicProcedure
+    .input(
+      z.object({
+        receiver: z.object({
+          id: z.string(),
+          username: z.string(),
+          avatar: z.nullable(z.string()),
+          discriminator: z.string(),
+        }),
+        sender: z.object({
+          id: z.string(),
+          username: z.string(),
+          avatar: z.nullable(z.string()),
+          discriminator: z.string(),
+        }),
+        coins: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        // This function set a temp thumbnail for the user
+        const tempThumbnail = setThumbnailUrl(input.receiver);
+
+        //Check in the user, have a balance for the transaction
+        const sender = await ctx.prisma.user.findUnique({
+          where: { discordId: input.sender.id },
+          select: {
+            coins: true,
+          },
+        });
+
+        //If sender not exist, create a new user and return error becaus your first balance is 0
+        if (!sender) {
+          const createSender: User = await ctx.prisma.user.create({
+            data: {
+              name: input.sender.username,
+              discordId: input.sender.id,
+              discordUserName: input.sender.username,
+              discordDiscriminator: input.sender.discriminator,
+              thumbnail: setThumbnailUrl(input.sender),
+              coins: 0,
+            },
+          });
+
+          if (createSender) {
+            return {
+              status: 'error',
+              message: 'You have no Indie Tokens for this transaction',
+            };
+          } else {
+            return {
+              status: 'error',
+              message: '500 Server error',
+            };
+          }
+        }
+
+        /**
+         * If sender doesn't have coins, not aprove the transaction.
+         * Otherwise, transfer the coins to the receiver and to decrement coins from  the sender's wallet
+         */
+        if (sender.coins <= 0 || sender.coins < input.coins) {
+          return {
+            status: 'error',
+            message: 'You have no Indie Tokens for this transaction',
+          };
+        } else {
+          // Decrement sender's coins to make the transaction
+          const updateSender = await ctx.prisma.user.update({
+            where: { discordId: input.sender.id },
+            data: { coins: { decrement: input.coins } },
+            select: {
+              coins: true,
+            },
+          });
+
+          /**
+           *  If the receiver doesn't exists, create him/her in the DB.
+           * Otherwise, Increment the receiver's coins.
+           */
+
+          if (updateSender) {
+            const updateReceiver: User = await ctx.prisma.user.upsert({
+              where: { discordId: input.receiver.id },
+              update: { coins: { increment: input.coins } },
+              create: {
+                name: input.receiver.username,
+                discordId: input.receiver.id,
+                discordUserName: input.receiver.username,
+                discordDiscriminator: input.receiver.discriminator,
+                thumbnail: tempThumbnail,
+                coins: input.coins,
+              },
+            });
+
+            if (!updateReceiver) {
+              throw new TRPCError({
+                code: 'NOT_FOUND',
+                message: 'User with that ID not found',
+              });
+            }
+
+            return {
+              status: 'success',
+              data: {
+                receiver: updateReceiver,
+              },
+            };
+          } else {
+            return {
+              status: 'error',
+              message: '500 Server error',
+            };
+          }
+        }
       } catch (err: any) {
         throw err;
       }

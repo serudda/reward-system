@@ -12,6 +12,13 @@
       "receiver": "The receiver's username",
       "amount": "Set the amount of coins you want to give.",
       "giveSuccess": "You gave :amount IndieTokens to :user"
+    },
+    "pay": {
+      "pay": "Give indie tokens to a user from her balance",
+      "receiver": "The receiver's username",
+      "amount": "Set the amount of coins you are going to pay.",
+      "autoPay": "It is not possible to send Indie Token to yourself",
+      "paymentSuccess": "{{sender}} pay {{coins}} IndieTokens to {{receiver}}."
     }
   }
 }
