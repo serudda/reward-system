@@ -1,8 +1,10 @@
 version: '3.8'
 services:
-  postgres:
+  db:
+    container_name: db
     image: postgres
     environment:
+      POSTGRES_DB: rewardsdb
       POSTGRES_USER: root
       POSTGRES_PASSWORD: admin
     restart: unless-stopped
@@ -25,6 +27,10 @@ services:
     networks:
       - rewards
     restart: unless-stopped
+    depends_on:
+      - db
+
 networks:
   rewards:
     driver: bridge
+  
