@@ -41,15 +41,23 @@ To set up your environment, please copy the .env.template file and rename it to 
 
 On the other hand, if you are using docker-compose.yml, do not change the variables in the .env file. Instead, modify them in the docker-compose.yml file, as the .env file is only used for local development.
 
-To run the project using Docker Compose, make sure you have Docker and Docker Compose installed on your system. Then, in the terminal, navigate to the directory where you have the docker-compose.yml file and run the following command:
+To run the project using Docker Compose, make sure you have Docker and Docker Compose installed on your system. Then, in the terminal, navigate to the directory where you have the docker-compose.yml file and run the following command
 
-```
-docker-compose up
+The Docker Compose file for the application doesn't require a database docker compose, but the database can be used to avoid creating accounts on external pages. The database will be hosted in a Docker container. It is required first run de Database. to use external Db providers cha de url in app-compose
+
+``` 
+# run the db
+docker compose -f db-compose.yml up -d
+# run the app
+docker compose -f app-compose.yml up -d
 ```
 This will start all the services described in the docker-compose.yml file, including the application, Postgres database, and PgAdmin.
 
 You will need to set the following environment variables in order for the application to run correctly:
 ```
+- SKIP_ENV_VALIDATION_E=
+- DATABASE_URL_E=postgresql://root:admin@db:5432/rewardsdb?connect_timeout=300
+- NEXTAUTH_URL_E=
 - DISCORD_CLIENT_ID
 - DISCORD_CLIENT_SECRET
 - DISCORD_SERVER_ID_E

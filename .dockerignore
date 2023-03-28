@@ -1,5 +1,7 @@
 **/node_modules
 ./node_modules
 ./postgres_data
-./docker-compose.yml
-./docker-compose-template.yml
+./app-compose-template.yml
+./app-compose.yml
+./db-compose-template.yml
+./db-compose.yml

@@ -1,8 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 #Db volumen
 postgres_data
-
 docker-compose-template.yml
+app-compose-template.yml
+db-compose-template.yml
+pnpm-lock.yaml
 
 # dependencies
 node_modules

@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  app:
+      container_name: app
+      build: .
+      environment:
+      - SKIP_ENV_VALIDATION_E=
+      - DATABASE_URL_E=postgresql://root:admin@db:5432/rewardsdb?connect_timeout=300
+      - NEXTAUTH_URL_E=
+      - NEXTAUTH_SECRET_E=
+      - DISCORD_CLIENT_ID=
+      - DISCORD_CLIENT_SECRET=
+      - DISCORD_SERVER_ID_E=
+      - DISCORD_BOT_TOKEN_E=
+      - DISCORD_WEBHOOK_URL_E=
+      command:  bash -c "sleep 20 && pnpm install && pnpm db:push & npm run dev"
+      ports:
+        - 5553:5553
+        - 3000:3000
+      networks:
+        - rewards
+
+networks:
+  rewards:
+    driver: bridge
+  
