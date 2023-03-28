@@ -66,7 +66,7 @@ model User {
     id                   String     @id @default(cuid())
     name                 String?
     email                String?    @unique
-    thumbnail            String?
+    thumbnail            String     @default("")
     discordId            String?    @unique
     discordUserName      String?    @unique
     discordDiscriminator String?    @unique
@@ -85,9 +85,10 @@ model User {
 model Item {
     id          String     @id @default(cuid())
     name        String
-    description String?
-    imageUrl    String?
+    description String     @default("")
+    imageUrl    String     @default("")
     price       Int
+    stock       Int        @default(0)
     store       Store      @relation(fields: [storeId], references: [id])
     storeId     String
     purchases   Purchase[]
@@ -99,8 +100,8 @@ model Item {
 model Store {
     id          String   @id @default(cuid())
     name        String   @unique
-    description String?
-    imageUrl    String?
+    description String   @default("")
+    imageUrl    String   @default("")
     items       Item[]
     isActive    Boolean  @default(true)
     createdAt   DateTime @default(now())
@@ -123,8 +124,8 @@ model Purchase {
 model Coin {
     id          String   @id @default(cuid())
     name        String
-    description String?
-    imageUrl    String?
+    description String   @default("")
+    imageUrl    String   @default("")
     isActive    Boolean  @default(true)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
