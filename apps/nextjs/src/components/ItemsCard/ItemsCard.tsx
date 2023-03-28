@@ -12,7 +12,7 @@ export interface ItemsCardProps {
   /**
    * Specify the cost of the item
    */
-  cost: number;
+  price: number;
 
   /**
    * Set the image url
@@ -27,7 +27,7 @@ export interface ItemsCardProps {
   /**
    * Set the amount available of the item
    */
-  amountAvailable: number;
+  stock: number;
 
   /**
    * Disables the card, disallowing user interaction.
@@ -47,8 +47,8 @@ export const ItemsCard = ({
   className,
   title,
   thumbnailUrl = '/assets/default.png',
-  amountAvailable = 0,
-  cost = 0,
+  stock = 0,
+  price = 0,
   isDisabled = false,
   onActionClick,
 }: ItemsCardProps) => {
@@ -69,10 +69,10 @@ export const ItemsCard = ({
   };
 
   const renderAvailabilityTag = () => {
-    if (amountAvailable === 0) return <Tag variant={TagVariant.white}>out of stock</Tag>;
-    if (amountAvailable === 1) return <Tag variant={TagVariant.error}>last unit</Tag>;
-    if (amountAvailable <= 3) return <Tag variant={TagVariant.warning}>{amountAvailable} units</Tag>;
-    if (amountAvailable > 3) return <Tag variant={TagVariant.neutral}>{amountAvailable} units</Tag>;
+    if (stock === 0) return <Tag variant={TagVariant.white}>out of stock</Tag>;
+    if (stock === 1) return <Tag variant={TagVariant.error}>last unit</Tag>;
+    if (stock <= 3) return <Tag variant={TagVariant.warning}>{stock} units</Tag>;
+    if (stock > 3) return <Tag variant={TagVariant.neutral}>{stock} units</Tag>;
     return null;
   };
 
@@ -86,8 +86,8 @@ export const ItemsCard = ({
             <Tag variant={TagVariant.neutral}>🔥</Tag>
           </div>
 
-          <div className="rounded-full">
-            <Image className="rounded-full" src={thumbnailUrl} alt={title} width={140} height={140} />
+          <div className="relative h-40 w-40 rounded-full">
+            <Image className="rounded-full object-cover" src={thumbnailUrl} alt={title} fill />
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export const ItemsCard = ({
         >
           <div className="flex items-center space-x-2">
             <Image src="/assets/indie-token-icon.png" alt="Platzi" width={20} height={20} />
-            <span className="font-bold">{cost}</span>
+            <span className="font-bold">{price}</span>
           </div>
         </div>
       </div>
