@@ -2,6 +2,8 @@
 #Db volumen
 postgres_data
 
+docker-compose-template.yml
+
 # dependencies
 node_modules
 .pnp
