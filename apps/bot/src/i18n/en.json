@@ -18,7 +18,7 @@
       "receiver": "The receiver's username",
       "amount": "Set the amount of coins you are going to pay.",
       "autoPay": "It is not possible to send Indie Token to yourself",
-      "paymentSuccess": "{{sender}} pay {{coins}} IndieTokens to {{receiver}}.\nYou new balance is :{{balanceSender}}"
+      "paymentSuccess": "{{sender}} pay {{coins}} IndieTokens to {{receiver}}."
     }
   }
 }

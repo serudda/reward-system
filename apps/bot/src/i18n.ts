@@ -1,4 +1,4 @@
-import fs, { readdirSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import path from 'path';
 import i18n from 'i18next';
 import LenguajeDetection from 'i18next-browser-languagedetector';
@@ -20,8 +20,8 @@ const loadLocaleFiles = () => {
   const resources: { [key: string]: JsonInterface<string> } = {};
   for (const locale of locales) {
     const filepath = path.join(localesDir, locale);
-    const fileContent: string = fs.readFileSync(filepath, 'utf-8');
-    const tempResource = { translation: fileContent };
+    const fileContent: string = readFileSync(filepath, 'utf-8');
+    const tempResource = { translation: JSON.parse(fileContent) as string };
     resources[locale.replace('.json', '')] = tempResource;
   }
   return resources;
