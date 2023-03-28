@@ -143,14 +143,10 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        /**
-         * This function set a temp thumbnail for the user
-         */
+        // This function set a temp thumbnail for the user
         const tempThumbnail = setThumbnailUrl(input.receiver);
 
-        /**
-         * Check in the user, have a balance for the transaction
-         */
+        //Check in the user, have a balance for the transaction
         const sender = await ctx.prisma.user.findUnique({
           where: { discordId: input.sender.id },
           select: {
@@ -158,9 +154,7 @@ export const userRouter = createTRPCRouter({
           },
         });
 
-        /**
-         * If sender not exist, create a new user and return error tokens message
-         */
+        //If sender not exist, create a new user and return error becaus your first balance is 0
         if (!sender) {
           const createSender: User = await ctx.prisma.user.create({
             data: {
@@ -190,7 +184,7 @@ export const userRouter = createTRPCRouter({
          * If sender doesn't have coins, not aprove the transaction.
          * Otherwise, transfer the coins to the receiver and to decrement coins from  the sender's wallet
          */
-        if (sender.coins <= 0) {
+        if (sender.coins <= 0 || sender.coins < input.coins) {
           return {
             status: 'error',
             message: 'You have no Indie Tokens for this transaction',
