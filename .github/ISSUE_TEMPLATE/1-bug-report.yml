@@ -12,9 +12,9 @@ body:
   - type: input
     id: contact
     attributes:
-      label: Contact Details
+      label: Discord Username
       description: How can we get in touch with you if we need more information?
-      placeholder: Please provide your email address or other contact details
+      placeholder: Please provide your Discord sername or other contact details
     validations:
       required: false
   - type: dropdown
