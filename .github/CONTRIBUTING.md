@@ -7,11 +7,17 @@ Before contributing, please read and abide by our [Code of Conduct.](https://git
 ## 👉 Quick Guide
 
 1. 🔍 **Look for an issue to work on in the [GitHub issue tracker.](https://github.com/serudda/reward-system/issues)** If you can't find an issue that suits you, create a new issue. [Learn More](#🔍-finding--reporting-issues)
+
 2. 🍴 **Fork the project on GitHub.** [Learn More](#🍴-how-to-fork-the-project)
+
 3. 🌿 **Create a new branch from the develop branch.** This ensures that your changes don't interfere with the main codebase. [Learn More](#📌-commit-guidelines)
+
 4. 🛠️ **Make changes to the code in your local branch.** You can use your favorite code editor to make the necessary changes.
+
 5. 📤 **Push your changes to your forked repository on GitHub.** This updates your forked repository with your changes.
+
 6. 🚀 **Create a pull request (PR) from your branch to the develop branch of the original repository.** This asks the project maintainers to review your changes and merge them into the main codebase. [Learn More](#🚀-creating-a-pull-request)
+
 7. ⏳ **Wait for the maintainers to review and merge your PR.** Be patient and wait for the maintainers to review your changes. They may ask you to make further changes before they merge your changes into the main codebase.
 
 ## 🔍 Finding / Reporting Issues
