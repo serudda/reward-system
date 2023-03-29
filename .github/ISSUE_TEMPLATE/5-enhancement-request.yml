@@ -1,7 +1,7 @@
 name: 🚀➕ Enhancement Request
 description: Suggest an enhancement for this project or improve an existing feature.
 # title: " "
-labels: ["Enhancement"]
+labels: ['Type: Enhancement']
 assignees:
   - octocat
 body:

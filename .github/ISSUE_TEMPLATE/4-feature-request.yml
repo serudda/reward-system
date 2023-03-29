@@ -1,7 +1,7 @@
 name: 🚀🆕 Feature Request
 description: Suggest an idea or possible new feature for this project.
 # title: " "
-# labels: ["Type: Feature"]
+labels: ['Type: Feature']
 assignees:
   - octocat
 body:
