@@ -1,4 +1,13 @@
+<!--
+* CONTRIBUTING.MD version 0.1.0
+* If you make any modifications to this file, please update the Spanish version as well.
+* Originally created by @Zyruks
+* Contributors:
+-->
+
 # Contributing
+
+**¿Hablas español?** ¡Aquí puedes encontrar la guía de cómo contribuir en español! [CONTRIBUTING_ES.md](ES/CONTRIBUTING_ES.md)
 
 Before contributing, please read and abide by our [Code of Conduct.](https://github.com/serudda/reward-system/Code_of_conduct.MD) We take our code of conduct very seriously and expect all contributors to adhere to it.
 
