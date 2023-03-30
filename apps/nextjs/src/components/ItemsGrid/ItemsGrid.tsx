@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import cn from 'classnames';
+import { useSession } from 'next-auth/react';
 
 import { type Item } from '@acme/db';
 
+import { api } from '~/utils/api';
 import { ItemsCard } from '~/components/ItemsCard/ItemsCard';
 
 export interface ItemsGridProps {
@@ -26,11 +28,28 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     container: cn(className, 'e-flex e-items-center'),
   };
 
+  const { mutate: buyItem, error } = api.item.buyItem.useMutation({
+    onSuccess: () => {
+      console.log('success');
+    },
+  });
+
+  const handleBuyItem = async (itemId: string) => {
+    const response = await buyItem({ itemId });
+  };
+
   const renderItems = () => {
     if (items.length === 0) return <div>This store doesn&lsquo;t have items yet.</div>;
 
     return items.map((item) => (
-      <ItemsCard key={item.id} thumbnailUrl={item.imageUrl} title={item.name} price={item.price} stock={item.stock} />
+      <ItemsCard
+        key={item.id}
+        thumbnailUrl={item.imageUrl}
+        title={item.name}
+        price={item.price}
+        stock={item.stock}
+        onActionClick={() => handleBuyItem(item.id)}
+      />
     ));
   };
 

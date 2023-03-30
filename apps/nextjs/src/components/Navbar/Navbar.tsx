@@ -1,5 +1,7 @@
 import cn from 'classnames';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
+import { Catalog, Icon, Style } from '~/components/Icon/Icon';
 import { Logo, LogoType } from '~/components/Logo/Logo';
 
 export interface NavbarProps {
@@ -15,6 +17,35 @@ export interface NavbarProps {
 export const Navbar = ({ className }: NavbarProps) => {
   const classes = {
     navbar: cn(className, 'flex flex-row items-center gap-6 border-b border-slate-800 p-4'),
+  };
+
+  const { data: sessionData } = useSession();
+
+  const handleLogInClick = () => void signIn();
+  const handleLogOutClick = () => void signOut();
+
+  const renderLogInButton = () => {
+    // User is logged in
+    if (sessionData)
+      return (
+        <button
+          className="flex items-center justify-center whitespace-nowrap rounded-md bg-slate-200/20 px-4 py-2 text-sm font-semibold text-slate-50 transition hover:bg-slate-200/30"
+          onClick={handleLogOutClick}
+        >
+          <span className="mr-1">Log Out</span>
+        </button>
+      );
+
+    // User is not logged in
+    return (
+      <button
+        className="bg-primary-200/20 text-primary-50 hover:bg-primary-200/30 flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold transition"
+        onClick={handleLogInClick}
+      >
+        <span className="mr-1">Log In</span>
+        <Icon icon={Catalog.longArrowRight} width="16px" height="16px" iconStyle={Style.regular} />
+      </button>
+    );
   };
 
   /* Render JSX */
@@ -33,30 +64,17 @@ export const Navbar = ({ className }: NavbarProps) => {
 
       {/* Nav Options */}
       <nav className="flex items-center space-x-8">
-        <a className="hidden transform text-sm font-medium text-slate-300 hover:text-white sm:block" href="#pricing">
+        <a className="hidden transform text-sm font-medium text-slate-300 hover:text-white" href="#pricing">
           Pricing
         </a>
         <a
-          className="hidden transform whitespace-nowrap text-sm font-medium text-slate-300 hover:text-white sm:block"
+          className="hidden transform whitespace-nowrap text-sm font-medium text-slate-300 hover:text-white"
           href="/signup"
         >
           Sign up
         </a>
-        <a
-          className="bg-primary-200/20 text-primary-50 hover:bg-primary-200/30 flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold transition"
-          href="/login"
-        >
-          <span className="mr-1">Sign in</span>
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4">
-            <path
-              d="M9.75 4.75 13.25 8m0 0-3.5 3.25M13.25 8H2.75"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
-        </a>
+
+        {renderLogInButton()}
       </nav>
 
       <div className="flex items-center border-l-2 border-slate-700 pl-6">
@@ -65,6 +83,7 @@ export const Navbar = ({ className }: NavbarProps) => {
           href="https://github.com/serudda/reward-system"
           target="_blank"
         >
+          {/* TODO: Move to the assets folder */}
           <svg
             className="h-5 w-5"
             viewBox="0 0 24 24"

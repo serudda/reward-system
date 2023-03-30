@@ -30,11 +30,6 @@ export interface ItemsCardProps {
   stock: number;
 
   /**
-   * Disables the card, disallowing user interaction.
-   */
-  isDisabled?: boolean;
-
-  /**
    * Provide a handler that is called when the action button was clicked.
    */
   onActionClick?: () => void;
@@ -49,9 +44,10 @@ export const ItemsCard = ({
   thumbnailUrl = '/assets/default.png',
   stock = 0,
   price = 0,
-  isDisabled = false,
   onActionClick,
 }: ItemsCardProps) => {
+  const isDisabled = stock === 0;
+
   const classes = {
     container: cn(className),
     imageContainer: cn('relative flex items-center justify-center rounded-t-lg bg-slate-800 p-6', {

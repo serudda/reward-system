@@ -109,6 +109,7 @@ model Store {
 }
 
 model Purchase {
+    id        String   @id @default(cuid())
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
     item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
@@ -117,8 +118,6 @@ model Purchase {
     isActive  Boolean  @default(true)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@id([userId, itemId])
 }
 
 model Coin {
