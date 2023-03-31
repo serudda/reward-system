@@ -32,15 +32,7 @@ declare module 'next-auth' {
  * @see https://next-auth.js.org/configuration/options
  **/
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
-      }
-      return session;
-    },
-  },
+  debug: true,
   adapter: PrismaAdapter(prisma),
   providers: [
     DiscordProvider<DiscordProfile>({
@@ -76,4 +68,65 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      **/
   ],
+  callbacks: {
+    async signIn(discordProfile): Promise<boolean> {
+      const { account, user } = discordProfile;
+
+      //Find account data to check if account exists
+      const findAccountUser = await prisma.account.findUnique({
+        where: {
+          provider_providerAccountId: {
+            provider: 'discord',
+            providerAccountId: account?.providerAccountId,
+          },
+        },
+      });
+      if (findAccountUser) return true;
+
+      //Find user data to check if user exists
+      const findUserByDiscordUsername = await prisma.user.findUnique({
+        where: { discordUserName: user?.name },
+        select: {
+          id: true,
+          discordUserName: true,
+        },
+      });
+
+      if (findUserByDiscordUsername) {
+        const updateUserDiscordIdAndEmail = await prisma.user.update({
+          where: { discordUserName: findUserByDiscordUsername.discordUserName },
+          data: {
+            discordId: user?.id,
+            email: user?.email,
+          },
+        });
+
+        if (updateUserDiscordIdAndEmail) {
+          const createAccount = await prisma.account.create({
+            data: {
+              userId: findUserByDiscordUsername.id,
+              type: account?.type,
+              provider: account?.provider,
+              providerAccountId: account?.providerAccountId,
+            },
+          });
+
+          if (!createAccount) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      return true;
+    },
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        // session.user.role = user.role; <-- put other properties on the session here
+      }
+      return session;
+    },
+  },
 };
