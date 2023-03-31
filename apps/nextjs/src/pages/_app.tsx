@@ -4,11 +4,16 @@ import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 
 import { api } from '~/utils/api';
+import { ToastProvider } from '~/common';
+import { ToastContainer, ToastPlacement } from '~/components';
 
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <ToastProvider>
+        <ToastContainer placement={ToastPlacement.top} />
+        <Component {...pageProps} />
+      </ToastProvider>
     </SessionProvider>
   );
 };

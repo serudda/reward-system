@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import cn from 'classnames';
-import { useSession } from 'next-auth/react';
 
 import { type Item } from '@acme/db';
 
 import { api } from '~/utils/api';
-import { ItemsCard } from '~/components/ItemsCard/ItemsCard';
+import { useToast } from '~/common';
+import { ItemsCard, ToastVariant } from '~/components';
 
 export interface ItemsGridProps {
   /**
@@ -28,15 +28,28 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     container: cn(className, 'e-flex e-items-center'),
   };
 
-  const { mutate: buyItem, error } = api.item.buyItem.useMutation({
+  const { addToast } = useToast();
+
+  const { mutate: buyItem } = api.item.buyItem.useMutation({
     onSuccess: () => {
-      console.log('success');
+      addToast({
+        variant: ToastVariant.success,
+        title: 'La transaccion se realizo con exito',
+      });
+    },
+    onError: (error) => {
+      const errorMsg = error.message;
+      console.log('errorMsg: ', errorMsg);
+
+      addToast({
+        variant: ToastVariant.error,
+        title: 'La transaccion fallo. Intente nuevamente.',
+        dismissInterval: 5000,
+      });
     },
   });
 
-  const handleBuyItem = async (itemId: string) => {
-    const response = await buyItem({ itemId });
-  };
+  const handleBuyItem = async (itemId: string) => await buyItem({ itemId });
 
   const renderItems = () => {
     if (items.length === 0) return <div>This store doesn&lsquo;t have items yet.</div>;

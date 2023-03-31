@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import cn from 'classnames';
 
 import { useToast } from '~/common';
-import { Button, ButtonSize, ButtonVariant, Catalog as IconCatalog } from '~/components';
+import { Button, ButtonSize, ButtonVariant, Icon, Catalog as IconCatalog } from '~/components';
 
 export type ActionType = {
   /**
@@ -25,9 +25,9 @@ export enum ToastVariant {
 
 const Variants: Record<ToastVariant, string> = {
   [ToastVariant.neutral]: 'bg-primary-900 border border-primary-500',
-  [ToastVariant.success]: 'bg-success-900 border border-success-800',
-  [ToastVariant.warning]: 'bg-warning-800 border border-warning-500',
-  [ToastVariant.error]: 'bg-error-800 border border-error-500',
+  [ToastVariant.success]: 'bg-green-800 border border-green-500 text-green-50',
+  [ToastVariant.warning]: 'bg-yellow-800 border border-warning-500 text-yellow-50',
+  [ToastVariant.error]: 'bg-red-800 border border-red-500 text-red-50',
 };
 
 export interface ToastProps {
@@ -134,14 +134,14 @@ export const Toast = ({
       tabIndex={0}
     >
       {/* CONTENT */}
-      <div className="e-flex e-items-center e-flex-col">
+      <div className="flex flex-col items-center">
         {/* TITLE */}
-        <div id={`title-${id}`} className="e-text-sm e-font-semi-bold e-text-neutral-50">
+        <div id={`title-${id}`} className="text-sm font-bold">
           {title}
         </div>
       </div>
 
-      <div className="e-flex e-items-center e-space-x-3 e-ml-auto">
+      <div className="ml-auto flex items-center space-x-3">
         {/* ACTION */}
         {action && (
           <Button variant={ButtonVariant.secondary} size={ButtonSize.xs} onClick={handleActionBtnClick}>
@@ -150,12 +150,15 @@ export const Toast = ({
         )}
         {/* CLOSE BTN */}
         {hasCloseBtn && (
-          <Button
-            variant={ButtonVariant.ghost}
-            size={ButtonSize.xs}
+          <div
+            className="p-2 text-white"
+            role="button"
+            tabIndex={0}
             onClick={handleCloseBtnClick}
-            startIcon={IconCatalog.close}
-          />
+            onKeyDown={handleCloseBtnClick}
+          >
+            <Icon icon={IconCatalog.close} width="12px" height="12px" />
+          </div>
         )}
       </div>
     </div>
