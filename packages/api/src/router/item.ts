@@ -1,6 +1,8 @@
+import { Prisma } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import { PrismaErrorCode, TRPCErrorCode } from '../constants';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 export const itemRouter = createTRPCRouter({
@@ -28,7 +30,7 @@ export const itemRouter = createTRPCRouter({
         // Check if user and item exist
         if (!user || !item) {
           throw new TRPCError({
-            code: 'NOT_FOUND',
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
             message: `Usuario o ítem no encontrado`,
           });
         }
@@ -36,7 +38,7 @@ export const itemRouter = createTRPCRouter({
         // Check if user has enough coins
         if (user.coins < item.price) {
           throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
             message: `Saldo insuficiente`,
           });
         }
@@ -44,7 +46,7 @@ export const itemRouter = createTRPCRouter({
         // Check if item has enough stock
         if (item.stock === 0) {
           throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
             message: `Stock insuficiente`,
           });
         }
@@ -67,8 +69,19 @@ export const itemRouter = createTRPCRouter({
             },
           }),
         ]);
-      } catch (err: any) {
-        throw err;
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
+            throw new TRPCError({
+              code: TRPCErrorCode.CONFLICT,
+              message: 'User already exists',
+            });
+          }
+        }
+        throw new TRPCError({
+          code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+          message: 'Something went wrong',
+        });
       }
     }),
 });
