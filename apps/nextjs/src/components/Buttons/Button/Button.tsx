@@ -42,11 +42,11 @@ export enum ButtonVariant {
 }
 
 const Variants: Record<ButtonVariant, string> = {
-  [ButtonVariant.primary]: 'bg-primary-500 hover:bg-primary-600 text-base-white',
+  [ButtonVariant.primary]: 'bg-primary-200/20 text-primary-50 hover:bg-primary-200/30',
   [ButtonVariant.secondary]: 'bg-transparent hover:bg-base-white/20 border border-r-primary-50 text-base-white',
   [ButtonVariant.tertiary]: 'bg-neutral-700 hover:bg-neutral-600 text-primary-300',
   [ButtonVariant.ghost]: 'bg-transparent hover:bg-neutral-600 text-primary-300',
-  [ButtonVariant.destructive]: 'bg-error-600 hover:bg-error-700 text-base-white',
+  [ButtonVariant.destructive]: 'bg-red-600 hover:bg-red-700 text-red-50',
 };
 
 const DisabledVariants: Record<ButtonVariant, string> = {
@@ -122,9 +122,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Buttons are used to initialize an action. Button labels express what action will occur when the user interacts with it.
- * @author Sergio Ruiz<sergioruizdavila@gmail.com>
- * Created at 2022-05-24
+ * Buttons are used to initialize an action.
+ * Button labels express what action will occur when the user interacts with it.
  */
 export const Button = ({
   children,
@@ -160,6 +159,7 @@ export const Button = ({
       isDisabled ? DisabledVariants[variant] : Variants[variant],
       {
         'w-full': isFullWidth,
+        'cursor-default opacity-30': isDisabled,
       },
     ),
     startIcon: cn({

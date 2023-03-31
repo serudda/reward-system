@@ -53,10 +53,14 @@ export const ItemsCard = ({
     imageContainer: cn('relative flex items-center justify-center rounded-t-lg bg-slate-800 p-6', {
       'cursor-default opacity-50': isDisabled,
     }),
-    action: cn('bg-primary-200/20 text-primary-50', 'flex items-center justify-center', 'rounded-b-lg p-2', {
-      'hover:bg-primary-200/30': !isDisabled,
-      'cursor-default opacity-30': isDisabled,
-    }),
+    action: cn(
+      'bg-primary-200/20 hover:bg-primary-200/30 text-primary-50',
+      'flex items-center justify-center',
+      'rounded-b-lg p-2',
+      {
+        'cursor-default opacity-30 pointer-events-none': isDisabled,
+      },
+    ),
   };
 
   const handleActionClick = () => {
