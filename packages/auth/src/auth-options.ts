@@ -83,7 +83,7 @@ export const authOptions: NextAuthOptions = {
         where: {
           provider_providerAccountId: {
             provider: 'discord',
-            providerAccountId: account?.providerAccountId,
+            providerAccountId: account?.providerAccountId as string,
           },
         },
       });
@@ -93,7 +93,7 @@ export const authOptions: NextAuthOptions = {
 
       //Find user data to check if user exists
       const findUserByDiscordUsername = await prisma.user.findUnique({
-        where: { discordUserName: user?.name },
+        where: { discordUserName: user?.name as string },
         select: {
           id: true,
           discordUserName: true,
@@ -103,7 +103,7 @@ export const authOptions: NextAuthOptions = {
       //If user exists, update user data and create account
       if (findUserByDiscordUsername) {
         const updateUserDiscordIdAndEmail = await prisma.user.update({
-          where: { discordUserName: findUserByDiscordUsername.discordUserName },
+          where: { discordUserName: findUserByDiscordUsername.discordUserName as string },
           data: {
             discordId: user?.id,
             email: user?.email,
@@ -115,9 +115,9 @@ export const authOptions: NextAuthOptions = {
           const createAccount = await prisma.account.create({
             data: {
               userId: findUserByDiscordUsername.id,
-              type: account?.type,
-              provider: account?.provider,
-              providerAccountId: account?.providerAccountId,
+              type: account?.type as string,
+              provider: account?.provider as string,
+              providerAccountId: account?.providerAccountId as string,
             },
           });
 
