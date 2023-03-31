@@ -49,9 +49,9 @@ const Store: NextPage = () => {
                 <path
                   d="M9.75 4.75 13.25 8m0 0-3.5 3.25M13.25 8H2.75"
                   stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </a>
