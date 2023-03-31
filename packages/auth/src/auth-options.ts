@@ -69,6 +69,12 @@ export const authOptions: NextAuthOptions = {
      **/
   ],
   callbacks: {
+    /**
+     * The callback -> signIn() is a function to next-auth
+     * that permits you to customize the sign in process.
+     * @param discordProfile
+     * @returns
+     */
     async signIn(discordProfile): Promise<boolean> {
       const { account, user } = discordProfile;
 
@@ -81,6 +87,8 @@ export const authOptions: NextAuthOptions = {
           },
         },
       });
+
+      //If account exists, return true and sign in
       if (findAccountUser) return true;
 
       //Find user data to check if user exists
@@ -92,6 +100,7 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
+      //If user exists, update user data and create account
       if (findUserByDiscordUsername) {
         const updateUserDiscordIdAndEmail = await prisma.user.update({
           where: { discordUserName: findUserByDiscordUsername.discordUserName },
@@ -101,6 +110,7 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
+        //If user data is updated, create account
         if (updateUserDiscordIdAndEmail) {
           const createAccount = await prisma.account.create({
             data: {
