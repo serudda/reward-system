@@ -13,11 +13,11 @@ Introducing the perfect companion for your Discord community! 💻🚀 This rewa
 
 ## Table of Contents
 
-- [Prerequisites](#pre-requisites)
+- [Pre-requisites](#pre-requisites)
 - [Project File Tree](#project-file-tree)
 - [Installation](#installation)
   - [Run the Main Project](#run-the-main-project)
-- [Quick Start](#quick-start)
+- [Usage](#usage)
   - [Setup .ENV](#setup-env)
   - [Configure DB (SUPABASE)](#configure-db-supabase)
   - [Configure DISCORD BOT](#configure-discord-bot)
@@ -29,6 +29,7 @@ Introducing the perfect companion for your Discord community! 💻🚀 This rewa
   - [Read the Contribution Guidelines](#read-the-contribution-guidelines)
   - [Security](#security)
 - [License](#license)
+- [Contributors](#contributors)
 
 # Getting Started
 
@@ -78,6 +79,8 @@ packages
 
 As the project uses Turborepo, you could run the following commands on the root, and it will run every inner same command.
 
+> **Note** Ensure you have set the [enviorimental variables](#setup-env) before running the project
+
 ## Run the Main Project
 
 1. Install the project dependencies by running `pnpm install`.
@@ -86,32 +89,39 @@ As the project uses Turborepo, you could run the following commands on the root,
 
 > **Note** `pnpm dev` will run discord and nextjs project
 
+<details>
+<summary>Example:</summary>
+
+![installation](https://user-images.githubusercontent.com/14036522/229316191-7ad59c83-f175-47ad-8faf-1e2454fb1df8.gif)
+
+</details>
+
 <div align="right">
 
 [ [ ↑ to top ↑ ] ](#reward-system)
 
 </div>
 
-## Usage
+# Usage
 
 To get it running, follow the steps below:
 
-# Quick Start
-
 ## Setup .ENV
 
-```
-DATABASE_URL="your_database_url"
-
-NEXTAUTH_SECRET="your_nextauth_secret"
-NEXTAUTH_URL="your_localhost."
-
-DISCORD_CLIENT_ID="your_client_id_here"
-DISCORD_CLIENT_SECRET="your_client_secret_here"
-DISCORD_BOT_TOKEN="your_bot_token_here"
-DISCORD_WEBHOOK_URL="your_discord_server_webhook_url"
+You will need to create a `.env` file in your project's root directory and set the following environment variables:
 
 ```
+DATABASE_URL="your_database_url_here"
+NEXTAUTH_SECRET="your_nextauth_secret_here"
+NEXTAUTH_URL="your_localhost_here"
+DISCORD_CLIENT_ID="your_discord_client_id_here"
+DISCORD_CLIENT_SECRET="your_discord_client_secret_here"
+DISCORD_BOT_TOKEN="your_discord_bot_token_here"
+DISCORD_WEBHOOK_URL="your_discord_server_webhook_url_here"
+
+```
+
+> **Warning** Make sure to replace the placeholders with the actual values for each variable.
 
 <details>
 <summary>Explanation of Required Environment Variables for Discord OAuth2 and Bot Authentication</summary>
@@ -133,6 +143,15 @@ These are environment variables that you need to set in order to use Discord's O
 - `DISCORD_WEBHOOK_URL`: This is the webhook URL for your Discord server. You can create a webhook in your server settings and get the URL from there.
 
 </details>
+
+<details>
+<summary> .env example </summary>
+
+![image](https://user-images.githubusercontent.com/14036522/229316530-96e18277-15c0-48c8-8bc0-516b785bd2f7.png)
+
+</details>
+
+Once you have set these environment variables in your `.env` file, you are ready to run the project.
 
 ## Configure DB (SUPABASE)
 
@@ -219,28 +238,48 @@ For more details on setting up your Supabase database, check out the Supabase
 
 ### Configure DISCORD KEYS
 
-1. Navigate to the "OAuth2" section in the [Discord Developer Portal](https://discord.com/developers/applications) and select your bot name
+To configure your Discord keys and enable your application to access the Discord API, follow the steps below:
+
+<details>
+<summary>
+1. Navigate to the "OAuth2" section in the  Discord Developer Portal and select your bot name.
+</summary>
+
+![firefox_mppRClcVUZ](https://user-images.githubusercontent.com/14036522/229315332-f0cf0cc2-a714-4964-b18e-20d3afd7a968.png)
+
+</details>
+
+```
+Client ID: DISCORD_CLIENT_ID="your_client_id_here"
+```
 
 <details>
 <summary>
 2. Under the "CLIENT ID" section, copy the client ID.
 </summary>
 
-![Token](https://res.cloudinary.com/dwtba7bmh/image/upload/v1678759900/qxbzfxoseuesr8eza5ic.png 'Token')
+![firefox_LveLM7Di8L](https://user-images.githubusercontent.com/14036522/229315577-e2dca258-0f5a-4405-b7d2-fbc92481bf64.png)
 
 </details>
 
-`DISCORD_CLIENT_ID="1xxxxxxxxx"`
+```
+Client Secret: DISCORD_CLIENT_SECRET="your_client_secret_here"
+```
 
+<details>
+<summary>
 3. Click the blue “Reset Secret” button.
+</summary>
+
+![firefox_BgpIxRB20C](https://user-images.githubusercontent.com/14036522/229315614-2881ce5c-3dc6-4681-8fb3-d59e164bef7e.png)
+
+</details>
 
 4. Click “YES” button.
 
 5. You’ll also see a “Token” and a blue link you can click called “Copy”.
 
-`DISCORD_CLIENT_SECRET="SECRET_TOKEN"`
-
-These steps will configure your Discord keys and enable your application to access the Discord API. If you need additional help, consult the Discord Developer Documentation or contact Discord support.
+If you need additional help, consult the [Discord Developer Documentation](https://discord.com/developers/docs/intro).
 
 ## Configure Discord WEBHOOKS
 
@@ -323,7 +362,7 @@ Test the Github GraphQL schema [**here**](https://studio.apollographql.com/publi
 
 ---
 
-<h2 id="contributors">Contributors</h2>
+## Contributors
 
 <a href="https://github.com/serudda/reward-system/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=serudda/reward-system" />
