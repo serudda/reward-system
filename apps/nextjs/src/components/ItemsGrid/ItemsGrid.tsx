@@ -61,7 +61,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
   const handleBuyItem = (itemId: string) => void buyItem({ itemId });
 
   const renderItems = () => {
-    if (items.length !== 0)
+    if (items.length === 0)
       return (
         <div className="flex w-full items-center justify-center py-20">
           <span className="text-lg text-slate-300">{t('app.nextjs.component.itemsGrid.message.empty')}</span>

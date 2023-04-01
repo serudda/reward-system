@@ -1,6 +1,5 @@
 import React, { type ButtonHTMLAttributes, type ReactNode } from 'react';
 import cn from 'classnames';
-
 import { Icon, type Catalog as IconCatalog } from '~/components';
 
 export enum ButtonSize {
@@ -44,7 +43,7 @@ export enum ButtonVariant {
 const Variants: Record<ButtonVariant, string> = {
   [ButtonVariant.primary]: 'bg-primary-200/20 text-primary-50 hover:bg-primary-200/30',
   [ButtonVariant.secondary]: 'bg-transparent hover:bg-base-white/20 border border-r-primary-50 text-base-white',
-  [ButtonVariant.tertiary]: 'bg-neutral-700 hover:bg-neutral-600 text-primary-300',
+  [ButtonVariant.tertiary]: 'bg-slate-200/20 text-slate-50 hover:bg-slate-200/30',
   [ButtonVariant.ghost]: 'bg-transparent hover:bg-neutral-600 text-primary-300',
   [ButtonVariant.destructive]: 'bg-red-600 hover:bg-red-700 text-red-50',
 };

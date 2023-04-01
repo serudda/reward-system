@@ -1,8 +1,7 @@
 import getConfig from 'next/config';
 import cn from 'classnames';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { Catalog, Icon, Style } from '~/components/Icon/Icon';
-import { Logo, LogoType } from '~/components/Logo/Logo';
+import { Button, ButtonSize, ButtonVariant, Logo, LogoType } from '~/components';
 
 export interface NavbarProps {
   /**
@@ -19,8 +18,9 @@ export const Navbar = ({ className }: NavbarProps) => {
     navbar: cn(className, 'flex flex-row items-center gap-6 border-b border-slate-800 p-4'),
   };
 
-  const { publicRuntimeConfig } = getConfig();
-  const { version } = publicRuntimeConfig.version;
+  // NOTE: This method does not have a type definition
+  const { publicRuntimeConfig } = getConfig(); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+  const { version } = publicRuntimeConfig.version; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
   const { data: sessionData } = useSession();
 
@@ -31,23 +31,16 @@ export const Navbar = ({ className }: NavbarProps) => {
     // User is logged in
     if (sessionData)
       return (
-        <button
-          className="flex items-center justify-center whitespace-nowrap rounded-md bg-slate-200/20 px-4 py-2 text-sm font-semibold text-slate-50 transition hover:bg-slate-200/30"
-          onClick={handleLogOutClick}
-        >
-          <span className="mr-1">Log Out</span>
-        </button>
+        <Button variant={ButtonVariant.tertiary} size={ButtonSize.xs} onClick={handleLogOutClick}>
+          Log Out
+        </Button>
       );
 
     // User is not logged in
     return (
-      <button
-        className="bg-primary-200/20 text-primary-50 hover:bg-primary-200/30 flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold transition"
-        onClick={handleLogInClick}
-      >
-        <span className="mr-1">Log In</span>
-        <Icon icon={Catalog.longArrowRight} width="16px" height="16px" iconStyle={Style.regular} />
-      </button>
+      <Button variant={ButtonVariant.primary} size={ButtonSize.xs} onClick={handleLogInClick}>
+        Log In
+      </Button>
     );
   };
 
