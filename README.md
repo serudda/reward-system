@@ -13,13 +13,10 @@ Introducing the perfect companion for your Discord community! 💻🚀 This rewa
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
+- [Prerequisites](#pre-requisites)
 - [Project File Tree](#project-file-tree)
 - [Installation](#installation)
-
   - [Run the Main Project](#run-the-main-project)
-  - [Run the Bot](#run-the-bot)
-
 - [Quick Start](#quick-start)
   - [Setup .ENV](#setup-env)
   - [Configure DB (SUPABASE)](#configure-db-supabase)
@@ -27,8 +24,10 @@ Introducing the perfect companion for your Discord community! 💻🚀 This rewa
   - [Configure DISCORD KEYS](#configure-discord-keys)
   - [Configure Discord WEBHOOKS](#configure-discord-webhooks)
 - [How can I contribute?](#how-can-i-contribute)
+  - [Support](#support)
   - [Join Our Community](#join-our-community)
   - [Read the Contribution Guidelines](#read-the-contribution-guidelines)
+  - [Security](#security)
 - [License](#license)
 
 # Getting Started
@@ -97,7 +96,9 @@ As the project uses Turborepo, you could run the following commands on the root,
 
 To get it running, follow the steps below:
 
-### Setup .ENV
+# Quick Start
+
+## Setup .ENV
 
 ```
 DATABASE_URL="your_database_url"
@@ -133,7 +134,7 @@ These are environment variables that you need to set in order to use Discord's O
 
 </details>
 
-### Configure DB (SUPABASE)
+## Configure DB (SUPABASE)
 
 To use Supabase as your database provider, you'll need to create a new project in Supabase and obtain your connection string URI. Here's how:
 
@@ -146,7 +147,7 @@ To use Supabase as your database provider, you'll need to create a new project i
 For more details on setting up your Supabase database, check out the Supabase
 [documentation.](https://supabase.com/docs/guides/database/overview)
 
-### Configure DISCORD BOT
+## Configure DISCORD BOT
 
 1. [Go to the Discord Developer Portal](https://discordapp.com/developers/applications/).
 
@@ -218,7 +219,7 @@ For more details on setting up your Supabase database, check out the Supabase
 
 ### Configure DISCORD KEYS
 
-1. Navigate to the "OAuth2" section in the Discord Developer Portal and select the "GENERAL" tab.
+1. Navigate to the "OAuth2" section in the [Discord Developer Portal](https://discord.com/developers/applications) and select your bot name
 
 <details>
 <summary>
@@ -241,7 +242,7 @@ For more details on setting up your Supabase database, check out the Supabase
 
 These steps will configure your Discord keys and enable your application to access the Discord API. If you need additional help, consult the Discord Developer Documentation or contact Discord support.
 
-### Configure Discord WEBHOOKS
+## Configure Discord WEBHOOKS
 
 1. Go to your Discord server where you want to add the webhook.
 

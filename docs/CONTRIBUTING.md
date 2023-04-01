@@ -11,7 +11,7 @@
 
 Before contributing, please read and abide by our [Code of Conduct.](https://github.com/serudda/reward-system/Code_of_conduct.MD) We take our code of conduct very seriously and expect all contributors to adhere to it.
 
-📖 **Check out the project's README for more information.** The README contains more detailed information on how to run the project. To access the README, simply click on the link provided:: [README](https://github.com/serudda/reward-system/blob/main/README.md)
+📖 **Check out the project's README for more information.** The README contains more detailed information on how to run the project. To access the README, simply click on the link provided:: [README](../README.md)
 
 ## 👉 Quick Guide
 
