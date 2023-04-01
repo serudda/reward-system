@@ -39,7 +39,8 @@ If you want to contribute to the project, please check out our [contributing gui
 
 If you have any questions, comments, or feedback, please don't hesitate to contact us:
 
-- :100: **Discord:** [Join our community on Discord!](https://discord.gg/Qncuxgcgsn)
+- :octocat: **Github** : [INDIE CREATORS HQ](https://github.com/Indie-Creator-Community)
+- :100: **Discord:** [Join our community on Discord!](https://discord.gg/77guznJ8mZ)
 - 🐦 **Twitter:** [@IndieCreatorsHQ](https://twitter.com/IndieCreatorsHQ)
 
 We're always happy to hear from you!

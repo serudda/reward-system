@@ -40,7 +40,8 @@ Si quieres contribuir al proyecto, por favor revisa nuestras [directrices para c
 
 Si tienes alguna pregunta, comentario o sugerencia, por favor no dudes en contactarnos:
 
-- :100: **Discord:** [¡Únete a nuestra comunidad en Discord!](https://discord.gg/Qncuxgcgsn)
+- :octocat: **Github** : [INDIE CREATORS HQ](https://github.com/Indie-Creator-Community)
+- :100: **Discord:** [Join our community on Discord!](https://discord.gg/77guznJ8mZ)
 - 🐦 **Twitter:** [@IndieCreatorsHQ](https://twitter.com/IndieCreatorsHQ)
 
 ¡Siempre estamos felices de escucharte!
