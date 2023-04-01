@@ -65,7 +65,7 @@ void i18n
       caches: ['cookie'],
       lookupCookie: 'lenguaje',
     },
-    debug: true,
+    debug: false,
     // resources: loadLocaleFiles(),
   });
 
