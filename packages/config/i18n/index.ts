@@ -36,7 +36,7 @@ interface JsonInterface<T> {
  */
 
 const fallbackLng = 'en';
-const availableLanguages = ['es', 'en'];
+const availableLanguages = ['en'];
 
 void i18n
   .use(i18nextMiddleware.LanguageDetector)
@@ -65,6 +65,7 @@ void i18n
       caches: ['cookie'],
       lookupCookie: 'lenguaje',
     },
+    debug: true,
     // resources: loadLocaleFiles(),
   });
 

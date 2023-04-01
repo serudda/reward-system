@@ -5,7 +5,9 @@
     "close": "Close",
     "message": {
       "error": {
-        "internalError": "Something went wrong"
+        "internalError": "Something went wrong",
+        "unauthorized": "Please Log In to continue",
+        "userNotFound": "User not found"
       }
     }
   },
@@ -30,11 +32,11 @@
           }
         },
         "pay": {
-          "description": "Give indie tokens to a user from her balance",
+          "description": "Give indie tokens to a user from his/her balance",
           "receiver": "The receiver's username",
           "amount": "Set the amount of coins you are going to pay.",
           "success": {
-            "pay": "{{sender}} has payed {{coins}} Indie Tokens to {{receiver}}."
+            "pay": "{{sender}} has paid {{coins}} Indie Tokens to {{receiver}}."
           },
           "error": {
             "autoPay": "It is not possible to send Indie Token to yourself"
@@ -92,6 +94,12 @@
         "sendCoinsByUserId": {
           "error": {
             "notFound": "User not found"
+          }
+        },
+        "payCoinsByUserId": {
+          "error": {
+            "insufficientBalance": "You don't have enough Indie Tokens for this transaction",
+            "userUpdateNotFound": "User to update not found"
           }
         }
       }
