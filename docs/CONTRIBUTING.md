@@ -200,28 +200,6 @@ Also, describe how you tested your changes in detail. Include details of your te
 
 Finally, indicate the types of changes your code introduces by checking the relevant boxes. If you're unsure about any of these, don't hesitate to ask for help.
 
-<details>
-<summary style="color: #6366F1; font-weight:bold">Types of changes:</summary>
-
-```
-- [ ] Docs change / refactoring / dependency upgrade
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change (fix or feature that would cause existing functionality to change)
-```
-
-</details>
-<details>
-<summary style="color: #6366F1; font-weight:bold">Maintaining or improving the quality of the project:</summary>
-
-```
-- [ ] My code follows the code style this project.
-- [ ] I have added tests to cover my changes.
-- [ ] All new and existing tests passed.
-```
-
-</details>
-
 ---
 
 <details>

@@ -199,30 +199,6 @@ También, describa cómo probó sus cambios en detalle. Incluya detalles de su e
 
 Finalmente, indique los tipos de cambios que introduce su código marcando las casillas relevantes. Si no está seguro acerca de alguno de estos, no dude en pedir ayuda.
 
-<details>
-<summary style="color: #6366F1; font-weight:bold">Tipos de cambios:</summary>
-
-```
-- [ ] Docs change / refactoring / dependency upgrade
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change (fix or feature that would cause existing functionality to change)
-```
-
-</details>
-
-<details>
-<summary style="color: #6366F1; font-weight:bold">Mantener o mejorar la calidad del proyecto:
-</summary>
-
-```
-- [ ] My code follows the code style this project.
-- [ ] I have added tests to cover my changes.
-- [ ] All new and existing tests passed.
-```
-
-</details>
-
 ---
 
 <details>
