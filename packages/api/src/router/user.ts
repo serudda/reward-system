@@ -2,6 +2,9 @@ import { type User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import i18n from '@acme/i18n';
+
+import { PrismaErrorCode, TRPCErrorCode } from '../constants';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { setThumbnailUrl } from '../utils/functions';
 
@@ -59,10 +62,12 @@ export const userRouter = createTRPCRouter({
           },
         });
 
+        // Check if user exist
         if (!user) {
+          const message = i18n.t('package.api.user.sendCoinsByUserId.error.notFound');
           throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: 'USer with that ID not found',
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
           });
         }
 

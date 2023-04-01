@@ -74,7 +74,7 @@ export const itemRouter = createTRPCRouter({
             },
           }),
         ]);
-      } catch (error) {
+      } catch (error: unknown) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
           if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
             const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
@@ -84,11 +84,21 @@ export const itemRouter = createTRPCRouter({
             });
           }
         }
-        const message = i18n.t('common.message.error.internalError');
-        throw new TRPCError({
-          code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
-          message,
-        });
+
+        if (error instanceof z.ZodError) {
+          const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+          throw new TRPCError({
+            code: TRPCErrorCode.BAD_REQUEST,
+            message,
+          });
+        }
+
+        if (error instanceof TRPCError) {
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message: error.message,
+          });
+        }
       }
     }),
 });
