@@ -1,0 +1,12 @@
+{
+  "name": "@acme/i18n",
+  "version": "0.1.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "i18next": "^22.4.13",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-middleware": "3.3.0"
+  }
+}

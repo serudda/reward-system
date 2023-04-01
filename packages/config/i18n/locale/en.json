@@ -1,0 +1,38 @@
+{
+  "common": {},
+  "app": {
+    "bot": {
+      "command": {
+        "wallet": {
+          "create": "Create your wallet :moneybag:",
+          "show": "Show my wallet's balance",
+          "description": "This is the amount of Indie Tokens in your wallet",
+          "connectDiscord": "Connect with Discord",
+          "error": {
+            "noWallet": "You don't have a wallet yet, please connect with Discord to create one"
+          }
+        },
+        "giveCoins": {
+          "give": "Give Indie Tokens to an User",
+          "receiver": "The receiver's username",
+          "amount": "Set the amount of coins you want to give.",
+          "success": {
+            "give": "{{sender}} has added {{coins}} Indie Tokens to {{receiver}}'s wallet."
+          }
+        },
+        "pay": {
+          "description": "Give indie tokens to a user from her balance",
+          "receiver": "The receiver's username",
+          "amount": "Set the amount of coins you are going to pay.",
+          "success": {
+            "pay": "{{sender}} has payed {{coins}} Indie Tokens to {{receiver}}."
+          },
+          "error": {
+            "autoPay": "It is not possible to send Indie Token to yourself"
+          }
+        }
+      }
+    }
+  },
+  "package": {}
+}

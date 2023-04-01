@@ -15,7 +15,7 @@ interface JsonInterface<T> {
  * @returns json content
  */
 const loadLocaleFiles = () => {
-  const localesDir = path.join(__dirname, 'i18n');
+  const localesDir = path.join(__dirname, 'locale');
   const locales = readdirSync(localesDir);
   const resources: { [key: string]: JsonInterface<string> } = {};
   for (const locale of locales) {
@@ -34,11 +34,16 @@ const loadLocaleFiles = () => {
  * @returns i18n object
  */
 
+const fallbackLng = 'en';
+const availableLanguages = ['es', 'en'];
+
 void i18n
   .use(i18nextMiddleware.LanguageDetector)
   .use(LenguajeDetection)
   .init({
-    fallbackLng: 'en',
+    fallbackLng: fallbackLng,
+    preload: availableLanguages,
+    supportedLngs: availableLanguages,
     interpolation: {
       escapeValue: false, // This line, pemit the injection of discord markdown in the translations.
     },
