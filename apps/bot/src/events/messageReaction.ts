@@ -1,5 +1,4 @@
 import { type MessageReaction, type PartialMessageReaction, type PartialUser, type User } from 'discord.js';
-
 import { api } from '../api';
 import { type BotEvent } from '../types';
 
@@ -25,7 +24,7 @@ const event: BotEvent = {
       }
     }
 
-    // Check if the emoji is the one we want
+    // Check if the emoji is the one we want // TODO: Move this ID to a config file
     if (reaction.emoji.id !== '1079571995160744007') return;
 
     // Get the user who reacted
@@ -33,13 +32,13 @@ const event: BotEvent = {
     const member = await reaction.message.guild.members.fetch(user.id);
     if (!member) return;
 
-    // Check if the user has the role Admin
+    // Check if the user has the role Admin // TODO: Move this ID to a config file
     if (!member.permissions.has('972596676227366972')) return;
 
     // Update or Create User
     await api.user.sendCoinsByUserId.mutate({
       user: reaction.message.author as User,
-      coins: 340,
+      coins: 200, // TODO: Move this number to a config file
     });
 
     // Send a message to the Discord channel
@@ -47,7 +46,7 @@ const event: BotEvent = {
       `
     :mega:
   ---------------
-  **${user.username}** has added 340 Indie Tokens :gem: to ${reaction.message.author}'s wallet
+  **${user.username}** has added 200 Indie Tokens :gem: to ${reaction.message.author}'s wallet
   → For sharing the following valuable message:
     ${reaction.message.url}
   ---------------
