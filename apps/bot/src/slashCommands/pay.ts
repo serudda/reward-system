@@ -1,7 +1,5 @@
 import { SlashCommandBuilder, type CacheType, type CommandInteraction, type User as UserDiscord } from 'discord.js';
-
 import i18n from '@acme/i18n';
-
 import { api } from '../api';
 import { type SlashCommand } from '../types';
 
@@ -38,7 +36,10 @@ const command: SlashCommand = {
     if (interaction.user === receiver) {
       const message = i18n.t('app.bot.command.pay.error.autoPay');
       await interaction.reply(message);
-    } else {
+      return;
+    }
+
+    try {
       // Update or Create User
       const response = await api.user.payCoinsByUserId.mutate({
         receiver: receiver as UserDiscord,
@@ -46,9 +47,12 @@ const command: SlashCommand = {
         coins: parseInt(coins),
       });
 
-      if (response.status === 'error') await interaction.reply({ content: response.message });
-
-      if (response.data) showSentCoinsMsg(interaction, coins);
+      if (response?.data) showSentCoinsMsg(interaction, coins);
+    } catch (error: any) {
+      if (!error) return;
+      await interaction.reply({
+        content: error?.message ? error.message : i18n.t('common.message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+      });
     }
   },
   cooldown: 10,

@@ -10,9 +10,10 @@ import { TRPCError, initTRPC } from '@trpc/server';
 import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
-
 import { getServerSession, type Session } from '@acme/auth';
 import { prisma } from '@acme/db';
+import i18n from '@acme/i18n';
+import { TRPCErrorCode } from './constants';
 
 /**
  * 1. CONTEXT
@@ -106,7 +107,11 @@ export const publicProcedure = t.procedure;
  */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+    const message = i18n.t('common.message.error.unauthorized');
+    throw new TRPCError({
+      code: TRPCErrorCode.UNAUTHORIZED,
+      message,
+    });
   }
   return next({
     ctx: {

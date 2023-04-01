@@ -1,7 +1,5 @@
 import { SlashCommandBuilder, type CacheType, type CommandInteraction, type User as UserDiscord } from 'discord.js';
-
 import i18n from '@acme/i18n';
-
 import { api } from '../api';
 import { type SlashCommand } from '../types';
 

@@ -7,9 +7,7 @@ import {
   type CacheType,
   type CommandInteraction,
 } from 'discord.js';
-
 import i18n from '@acme/i18n';
-
 import { api } from '../api';
 import { type SlashCommand } from '../types';
 
@@ -17,6 +15,7 @@ const showUserWalletMsg = (interaction: CommandInteraction<CacheType>, coins: st
   const message = i18n.t('app.bot.command.wallet.description');
   void interaction.reply({
     embeds: [new EmbedBuilder().setAuthor({ name: message }).setDescription(coins)],
+    ephemeral: true,
   });
 };
 

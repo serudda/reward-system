@@ -1,9 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-
 import i18n from '@acme/i18n';
-
 import { PrismaErrorCode, TRPCErrorCode } from '../constants';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
@@ -75,6 +73,7 @@ export const itemRouter = createTRPCRouter({
           }),
         ]);
       } catch (error: unknown) {
+        // Prisma error (Database issue)
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
           if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
             const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
@@ -85,6 +84,7 @@ export const itemRouter = createTRPCRouter({
           }
         }
 
+        // Zod error (Invalid input)
         if (error instanceof z.ZodError) {
           const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
           throw new TRPCError({
@@ -93,7 +93,16 @@ export const itemRouter = createTRPCRouter({
           });
         }
 
+        // TRPC error (Custom error)
         if (error instanceof TRPCError) {
+          if (error.code === TRPCErrorCode.UNAUTHORIZED) {
+            const message = i18n.t('common.message.error.unauthorized');
+            throw new TRPCError({
+              code: TRPCErrorCode.UNAUTHORIZED,
+              message,
+            });
+          }
+
           throw new TRPCError({
             code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
             message: error.message,
