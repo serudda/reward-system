@@ -15,21 +15,21 @@ Antes de contribuir, por favor lee y sigue nuestro [Código de Conducta](./CODE_
 
 ## 👉 Guía rápida
 
-1. 🔍 **Busca un problema en el [rastreador de problemas de GitHub.](https://github.com/serudda/reward-system/issues)** Si no encuentras un problema que se adapte a tus necesidades, crea uno nuevo. [Aprende más](#🔍-encontrar--informar-problemas)
+1. 🔍 **Busca un problema en el [rastreador de problemas de GitHub.](https://github.com/serudda/reward-system/issues)** Si no encuentras un problema que se adapte a tus necesidades, crea uno nuevo. [Aprende más](#encontrar-e-informar-problemas)
 
-2. 🍴 **Haz fork al proyecto en GitHub.** [Aprende más](#🍴-cómo-hacer-fork-del-proyecto)
+2. 🍴 **Haz fork al proyecto en GitHub.** [Aprende más](#cómo-hacer-fork-del-proyecto)
 
-3. 🌿 **Crea una nueva rama a partir de la rama develop.** Esto asegura que tus cambios no interfieran con el código base principal. [Aprende más](#📌-pautas-para-commits)
+3. 🌿 **Crea una nueva rama a partir de la rama develop.** Esto asegura que tus cambios no interfieran con el código base principal. [Aprende más](#creando-una-nueva-rama)
 
 4. 🛠️ **Realiza cambios en el código en tu rama local.** Puedes usar tu editor de código favorito para realizar los cambios necesarios.
 
 5. 📤 **Haz push de tus cambios a tu versión de repositorio en GitHub.** Esto actualiza tu repositorio clonado con tus cambios.
 
-6. 🚀 **Crea una `PULL REQUEST` desde tu rama hacia la rama develop del repositorio original.** Esto pide a los mantenedores del proyecto que revisen tus cambios y los fusionen con el código base principal. [Aprende más](#🚀-crear-una-solicitud-de-extracción)
+6. 🚀 **Crea una `PULL REQUEST` desde tu rama hacia la rama develop del repositorio original.** Esto pide a los mantenedores del proyecto que revisen tus cambios y los fusionen con el código base principal. [Aprende más](#creando-un-pull-request)
 
 7. ⏳ **Espera a que los mantenedores revisen y fusionen tu PR.** Ten paciencia y espera a que los mantenedores revisen tus cambios. Pueden pedirte que hagas más cambios antes de fusionar tus cambios con el código base principal.
 
-## 🔍 Encontrar / Informar Problemas
+## Encontrar e Informar Problemas
 
 Si encuentras un error o tienes una solicitud de función, puedes informarla abriendo un problema en el [rastreador de problemas de GitHub.](https://github.com/serudda/reward-system/issues)
 
@@ -39,7 +39,7 @@ Cuando crees un nuevo problema, trata de proporcionar tanta información como se
 
 Incluir estos detalles ayudará a los mantenedores del proyecto a entender el problema y responder de manera más efectiva. Gracias por tu contribución al proyecto reward-system.
 
-## 🍴 Cómo hacer Fork del proyecto
+## Cómo hacer Fork del proyecto
 
 1. Navega hasta el repositorio que deseas forkear en GitHub.
 2. Haz clic en el botón "Fork" en la esquina superior derecha de la página.
@@ -57,7 +57,7 @@ Ejemplo de Fork:
 
 Una vez que hayas forkeado el repositorio, tendrás una copia del repositorio original en tu propia cuenta de GitHub en la que puedes trabajar sin afectar el repositorio original. Ahora puedes proceder a clonar el repositorio en tu máquina local y hacer cambios.
 
-## 🌿 Creando una nueva rama
+## Creando una nueva rama
 
 1. Antes de crear una nueva rama a partir de la rama `develop`, es una buena práctica asegurarse de que tu rama `develop` local esté actualizada con los últimos cambios del repositorio original. Para hacer esto, puedes ejecutar el siguiente comando:
 
@@ -101,7 +101,7 @@ Donde `XX` es el número del problema en el que estás trabajando y `description
 git push -u origin RS-XX-description
 ```
 
-## 📌 Guia de Commit
+## Guia de Commit
 
 Utilizamos el formato de commit convencional [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) para todos los commits. Esto nos ayuda a mantener nuestros mensajes de commit consistentes y fáciles de entender.
 
@@ -154,7 +154,7 @@ Si no estás seguro acerca del tipo o alcance de tu commit, no dudes en solicita
 
 </details>
 
-## 🚀 Creando un Pull Request
+## Creando un Pull Request
 
 Una vez que hayas hecho cambios y los hayas confirmado en tu rama, es hora de crear un pull request (PR) para fusionar tus cambios en la rama principal develop del repositorio original. Aquí están los pasos:
 

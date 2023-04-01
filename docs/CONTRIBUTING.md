@@ -15,21 +15,21 @@ Before contributing, please read and abide by our [Code of Conduct.](https://git
 
 ## 👉 Quick Guide
 
-1. 🔍 **Look for an issue to work on in the [GitHub issue tracker.](https://github.com/serudda/reward-system/issues)** If you can't find an issue that suits you, create a new issue. [Learn More](#🔍-finding--reporting-issues)
+1. 🔍 **Look for an issue to work on in the [GitHub issue tracker.](https://github.com/serudda/reward-system/issues)** If you can't find an issue that suits you, create a new issue. [Learn More](#finding-and-reporting-issues)
 
-2. 🍴 **Fork the project on GitHub.** [Learn More](#🍴-how-to-fork-the-project)
+2. 🍴 **Fork the project on GitHub.** [Learn More](#how-to-fork-the-project)
 
-3. 🌿 **Create a new branch from the develop branch.** This ensures that your changes don't interfere with the main codebase. [Learn More](#📌-commit-guidelines)
+3. 🌿 **Create a new branch from the develop branch.** This ensures that your changes don't interfere with the main codebase. [Learn More](#commit-guidelines)
 
 4. 🛠️ **Make changes to the code in your local branch.** You can use your favorite code editor to make the necessary changes.
 
 5. 📤 **Push your changes to your forked repository on GitHub.** This updates your forked repository with your changes.
 
-6. 🚀 **Create a pull request (PR) from your branch to the develop branch of the original repository.** This asks the project maintainers to review your changes and merge them into the main codebase. [Learn More](#🚀-creating-a-pull-request)
+6. 🚀 **Create a pull request (PR) from your branch to the develop branch of the original repository.** This asks the project maintainers to review your changes and merge them into the main codebase. [Learn More](#creating-a-pull-request)
 
 7. ⏳ **Wait for the maintainers to review and merge your PR.** Be patient and wait for the maintainers to review your changes. They may ask you to make further changes before they merge your changes into the main codebase.
 
-## 🔍 Finding / Reporting Issues
+## Finding and Reporting Issues
 
 If you encounter a bug or have a feature request, you can report it by opening an issue on the [GitHub issue tracker.](https://github.com/serudda/reward-system/issues)
 
@@ -39,7 +39,7 @@ When you create a new issue, try to provide as much detail as possible about the
 
 Including these details will help the maintainers of the project understand the issue and respond more effectively. Thank you for your contribution to the reward-system project.
 
-## 🍴 How to Fork the project
+## How to Fork the project
 
 1. Navigate to the repository you want to fork on GitHub.
 2. Click the "Fork" button in the top right corner of the page.
@@ -57,7 +57,7 @@ Fork Example:
 
 Once you have forked the repository, you will have a copy of the original repository in your own GitHub account that you can work on without affecting the original repository. You can now proceed to clone the repository to your local machine and make changes.
 
-## 🌿 Creating a new branch
+## Creating a new branch
 
 1. Before creating a new branch from the develop branch, it's a good practice to make sure that your local develop branch is up-to-date with the latest changes from the original repository. To do this, you can run the following command:
 
@@ -101,7 +101,7 @@ Where `XX` is the number of the issue you are working on and `description` is a 
 git push -u origin RS-XX-description
 ```
 
-## 📌 Commit Guidelines
+## Commit Guidelines
 
 We use the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format for all commits. This helps us keep our commit messages consistent and easy to understand.
 
@@ -154,7 +154,7 @@ If you're unsure about the type or scope of your commit, feel free to ask for fe
 
 </details>
 
-## 🚀 Creating a Pull Request
+## Creating a Pull Request
 
 Once you've made changes and committed them to your branch, it's time to create a pull request (PR) to merge your changes into the main develop branch of the original repository. Here are the steps:
 
