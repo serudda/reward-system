@@ -45,7 +45,14 @@
     "nextjs": {
       "component": {
         "itemsGrid": {
+          "body": {
+            "title": "All Items"
+          },
+          "footer": {
+            "itemsAvailable": "{{amount}} items available"
+          },
           "message": {
+            "empty": "This store doesn't have items yet.",
             "success": {
               "boughtItem": "The transaction was successful"
             },
@@ -76,7 +83,15 @@
             "notFound": "User or item not found",
             "insufficientBalance": "Insufficient balance",
             "insufficientStock": "Insufficient stock",
-            "userAlreadyExists": "User already exists"
+            "userAlreadyExists": "User already exists",
+            "invalidItemId": "Invalid item id"
+          }
+        }
+      },
+      "user": {
+        "sendCoinsByUserId": {
+          "error": {
+            "notFound": "User not found"
           }
         }
       }
