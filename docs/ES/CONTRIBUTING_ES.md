@@ -9,23 +9,23 @@
 
 **Do you speak English?** Here's the guide on how to contribute in English! [CONTRIBUTING.MD](../CONTRIBUTING.md)
 
-Antes de contribuir, por favor lee y sigue nuestro [Código de Conducta](https://github.com/serudda/reward-system/Code_of_conduct.MD). Nos tomamos muy en serio el código de conducta y esperamos que todos los colaboradores lo sigan.
+Antes de contribuir, por favor lee y sigue nuestro [Código de Conducta](./CODE_OF_CONDUCT_ES.md). Nos tomamos muy en serio el código de conducta y esperamos que todos los colaboradores lo sigan.
 
-📖 **Revisa el archivo README del proyecto para más información.** El archivo README contiene información más detallada sobre cómo ejecutar el proyecto. Para acceder al archivo README, simplemente haz clic en el siguiente enlace: [README](https://github.com/serudda/reward-system/blob/main/README.md)
+📖 **Revisa el archivo README del proyecto para más información.** El archivo README contiene información más detallada sobre cómo ejecutar el proyecto. Para acceder al archivo README, simplemente haz clic en el siguiente enlace: [README](../../README.md)
 
 ## 👉 Guía rápida
 
 1. 🔍 **Busca un problema en el [rastreador de problemas de GitHub.](https://github.com/serudda/reward-system/issues)** Si no encuentras un problema que se adapte a tus necesidades, crea uno nuevo. [Aprende más](#🔍-encontrar--informar-problemas)
 
-2. 🍴 **Bifurca el proyecto en GitHub.** [Aprende más](#🍴-cómo-bifurcar-el-proyecto)
+2. 🍴 **Haz fork al proyecto en GitHub.** [Aprende más](#🍴-cómo-hacer-fork-del-proyecto)
 
 3. 🌿 **Crea una nueva rama a partir de la rama develop.** Esto asegura que tus cambios no interfieran con el código base principal. [Aprende más](#📌-pautas-para-commits)
 
 4. 🛠️ **Realiza cambios en el código en tu rama local.** Puedes usar tu editor de código favorito para realizar los cambios necesarios.
 
-5. 📤 **Haz push de tus cambios a tu repositorio bifurcado en GitHub.** Esto actualiza tu repositorio bifurcado con tus cambios.
+5. 📤 **Haz push de tus cambios a tu versión de repositorio en GitHub.** Esto actualiza tu repositorio clonado con tus cambios.
 
-6. 🚀 **Crea una solicitud de extracción (PR) desde tu rama hacia la rama develop del repositorio original.** Esto pide a los mantenedores del proyecto que revisen tus cambios y los fusionen con el código base principal. [Aprende más](#🚀-crear-una-solicitud-de-extracción)
+6. 🚀 **Crea una `PULL REQUEST` desde tu rama hacia la rama develop del repositorio original.** Esto pide a los mantenedores del proyecto que revisen tus cambios y los fusionen con el código base principal. [Aprende más](#🚀-crear-una-solicitud-de-extracción)
 
 7. ⏳ **Espera a que los mantenedores revisen y fusionen tu PR.** Ten paciencia y espera a que los mantenedores revisen tus cambios. Pueden pedirte que hagas más cambios antes de fusionar tus cambios con el código base principal.
 
@@ -95,7 +95,7 @@ Donde `XX` es el número del problema en el que estás trabajando y `description
 
 1. Una vez que hayas creado tu rama, puedes hacer tus cambios y confirmarlos como de costumbre. Recuerda actualizar regularmente tu rama de desarrollo original para mantener tu código actualizado.
 
-2. Una vez que tus cambios estén completos, envía tu rama a tu repositorio bifurcado(fork):
+2. Una vez que tus cambios estén completos, envía tu rama a tu propia copia del repositorio:
 
 ```
 git push -u origin RS-XX-description
