@@ -1,8 +1,9 @@
-import { type User } from '@prisma/client';
+import { Prisma, type User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import i18n from '@acme/i18n';
+import { PrismaErrorCode, Response, TRPCErrorCode } from '../constants';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 import { setThumbnailUrl } from '../utils/functions';
 
 export const userRouter = createTRPCRouter({
@@ -59,21 +60,57 @@ export const userRouter = createTRPCRouter({
           },
         });
 
+        // Check if user exist
         if (!user) {
+          const message = i18n.t('common.message.error.userNotFound');
           throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: 'USer with that ID not found',
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
           });
         }
 
         return {
-          status: 'success',
+          status: Response.SUCCESS,
           data: {
             user,
           },
         };
-      } catch (err: any) {
-        throw err;
+      } catch (error: unknown) {
+        // Prisma error (Database issue)
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
+            const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+            throw new TRPCError({
+              code: TRPCErrorCode.CONFLICT,
+              message,
+            });
+          }
+        }
+
+        // Zod error (Invalid input)
+        if (error instanceof z.ZodError) {
+          const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+          throw new TRPCError({
+            code: TRPCErrorCode.BAD_REQUEST,
+            message,
+          });
+        }
+
+        // TRPC error (Custom error)
+        if (error instanceof TRPCError) {
+          if (error.code === TRPCErrorCode.UNAUTHORIZED) {
+            const message = i18n.t('common.message.error.unauthorized');
+            throw new TRPCError({
+              code: TRPCErrorCode.UNAUTHORIZED,
+              message,
+            });
+          }
+
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message: error.message,
+          });
+        }
       }
     }),
 
@@ -106,20 +143,55 @@ export const userRouter = createTRPCRouter({
         });
 
         if (!user) {
+          const message = i18n.t('common.message.error.userNotFound');
           throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: 'User with that ID not found',
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
           });
         }
 
         return {
-          status: 'success',
+          status: Response.SUCCESS,
           data: {
             user,
           },
         };
-      } catch (err: any) {
-        throw err;
+      } catch (error: unknown) {
+        // Prisma error (Database issue)
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
+            const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+            throw new TRPCError({
+              code: TRPCErrorCode.CONFLICT,
+              message,
+            });
+          }
+        }
+
+        // Zod error (Invalid input)
+        if (error instanceof z.ZodError) {
+          const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+          throw new TRPCError({
+            code: TRPCErrorCode.BAD_REQUEST,
+            message,
+          });
+        }
+
+        // TRPC error (Custom error)
+        if (error instanceof TRPCError) {
+          if (error.code === TRPCErrorCode.UNAUTHORIZED) {
+            const message = i18n.t('common.message.error.unauthorized');
+            throw new TRPCError({
+              code: TRPCErrorCode.UNAUTHORIZED,
+              message,
+            });
+          }
+
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message: error.message,
+          });
+        }
       }
     }),
 
@@ -143,20 +215,17 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        // This function set a temp thumbnail for the user
-        const tempThumbnail = setThumbnailUrl(input.receiver);
-
-        //Check in the user, have a balance for the transaction
-        const sender = await ctx.prisma.user.findUnique({
+        //Check if the sender user has enough balance for the transaction
+        const senderBalance = await ctx.prisma.user.findUnique({
           where: { discordId: input.sender.id },
           select: {
             coins: true,
           },
         });
 
-        //If sender not exist, create a new user and return error becaus your first balance is 0
-        if (!sender) {
-          const createSender: User = await ctx.prisma.user.create({
+        // If senderBalance is null, it means that the user doesn't exist in the database. Create the sender user.
+        if (!senderBalance) {
+          const newUser: User = await ctx.prisma.user.create({
             data: {
               name: input.sender.username,
               discordId: input.sender.id,
@@ -167,83 +236,112 @@ export const userRouter = createTRPCRouter({
             },
           });
 
-          if (createSender) {
-            return {
-              status: 'error',
-              message: 'You have no Indie Tokens for this transaction',
-            };
-          } else {
-            return {
-              status: 'error',
-              message: '500 Server error',
-            };
-          }
+          // After created the user, notify the user that he doesn't have enough balance
+          const message = newUser
+            ? i18n.t('package.api.user.payCoinsByUserId.error.insufficientBalance')
+            : i18n.t('common.message.error.internalError');
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
+          });
         }
+
+        // If sender doesn't have coins, reject the transaction.
+        if (senderBalance.coins <= 0 || senderBalance.coins < input.coins) {
+          const message = i18n.t('package.api.user.payCoinsByUserId.error.insufficientBalance');
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
+          });
+        }
+
+        // Decrement sender's coins to make the transaction
+        const newSenderBalance = await ctx.prisma.user.update({
+          where: { discordId: input.sender.id },
+          data: { coins: { decrement: input.coins } },
+          select: {
+            coins: true,
+          },
+        });
+
+        if (!newSenderBalance) {
+          const message = i18n.t('common.message.error.internalError');
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
+          });
+        }
+
+        // This function set a temp thumbnail for the user
+        const tempThumbnail = setThumbnailUrl(input.receiver);
 
         /**
-         * If sender doesn't have coins, not aprove the transaction.
-         * Otherwise, transfer the coins to the receiver and to decrement coins from  the sender's wallet
+         *  If the receiver doesn't exists, create him/her in the DB.
+         * Otherwise, Increment the receiver's coins.
          */
-        if (sender.coins <= 0 || sender.coins < input.coins) {
-          return {
-            status: 'error',
-            message: 'You have no Indie Tokens for this transaction',
-          };
-        } else {
-          // Decrement sender's coins to make the transaction
-          const updateSender = await ctx.prisma.user.update({
-            where: { discordId: input.sender.id },
-            data: { coins: { decrement: input.coins } },
-            select: {
-              coins: true,
-            },
+        const updatedReceiver: User = await ctx.prisma.user.upsert({
+          where: { discordId: input.receiver.id },
+          update: { coins: { increment: input.coins } },
+          create: {
+            name: input.receiver.username,
+            discordId: input.receiver.id,
+            discordUserName: input.receiver.username,
+            discordDiscriminator: input.receiver.discriminator,
+            thumbnail: tempThumbnail,
+            coins: input.coins,
+          },
+        });
+
+        if (!updatedReceiver) {
+          const message = i18n.t('package.api.user.payCoinsByUserId.error.userUpdateNotFound');
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message,
           });
+        }
 
-          /**
-           *  If the receiver doesn't exists, create him/her in the DB.
-           * Otherwise, Increment the receiver's coins.
-           */
-
-          if (updateSender) {
-            const updateReceiver: User = await ctx.prisma.user.upsert({
-              where: { discordId: input.receiver.id },
-              update: { coins: { increment: input.coins } },
-              create: {
-                name: input.receiver.username,
-                discordId: input.receiver.id,
-                discordUserName: input.receiver.username,
-                discordDiscriminator: input.receiver.discriminator,
-                thumbnail: tempThumbnail,
-                coins: input.coins,
-              },
+        return {
+          status: Response.SUCCESS,
+          data: {
+            receiver: updatedReceiver,
+          },
+        };
+      } catch (error: unknown) {
+        // Prisma error (Database issue)
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
+            const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+            throw new TRPCError({
+              code: TRPCErrorCode.CONFLICT,
+              message,
             });
-
-            if (!updateReceiver) {
-              throw new TRPCError({
-                code: 'NOT_FOUND',
-                message: 'User with that ID not found',
-              });
-            }
-
-            return {
-              status: 'success',
-              data: {
-                receiver: updateReceiver,
-              },
-            };
-          } else {
-            return {
-              status: 'error',
-              message: '500 Server error',
-            };
           }
         }
-      } catch (err: any) {
-        throw err;
+
+        // Zod error (Invalid input)
+        if (error instanceof z.ZodError) {
+          const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+          throw new TRPCError({
+            code: TRPCErrorCode.BAD_REQUEST,
+            message,
+          });
+        }
+
+        // TRPC error (Custom error)
+        if (error instanceof TRPCError) {
+          if (error.code === TRPCErrorCode.UNAUTHORIZED) {
+            const message = i18n.t('common.message.error.unauthorized');
+            throw new TRPCError({
+              code: TRPCErrorCode.UNAUTHORIZED,
+              message,
+            });
+          }
+
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message: error.message,
+          });
+        }
       }
     }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return 'you can now see this secret message!';
-  }),
 });

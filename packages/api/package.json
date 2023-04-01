@@ -13,6 +13,7 @@
   "dependencies": {
     "@acme/auth": "*",
     "@acme/db": "*",
+    "@acme/i18n": "*",
     "@trpc/client": "^10.14.0",
     "@trpc/server": "^10.14.0",
     "superjson": "1.9.1",
