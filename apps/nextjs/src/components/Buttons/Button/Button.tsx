@@ -1,7 +1,7 @@
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import React, { type ButtonHTMLAttributes, type ReactNode } from 'react';
 import cn from 'classnames';
 
-import { Icon, Catalog as IconCatalog } from '~/components';
+import { Icon, type Catalog as IconCatalog } from '~/components';
 
 export enum ButtonSize {
   xs = 'xs',
@@ -101,11 +101,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 
   /**
-   * Set a diferent loading text for your button.
-   */
-  loadingText?: string;
-
-  /**
    * Extends the button to 100% width.
    */
   isFullWidth?: boolean;
@@ -132,7 +127,6 @@ export const Button = ({
   endIcon,
   isDisabled = false,
   isLoading = false,
-  loadingText,
   isFullWidth = false,
   variant = ButtonVariant.primary,
   htmlType = HtmlType.button,

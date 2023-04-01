@@ -108,6 +108,7 @@ export const Toast = ({
     }, dismissInterval);
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCloseBtnClick = () => {
@@ -131,7 +132,6 @@ export const Toast = ({
       aria-label={ariaLabel}
       aria-labelledby={`title-${id}`}
       aria-describedby={`description-${id}`}
-      tabIndex={0}
     >
       {/* CONTENT */}
       <div className="flex flex-col items-center">
