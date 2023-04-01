@@ -1,5 +1,14 @@
 {
-  "common": {},
+  "common": {
+    "create": "Create",
+    "delete": "Delete",
+    "close": "Close",
+    "message": {
+      "error": {
+        "internalError": "Something went wrong"
+      }
+    }
+  },
   "app": {
     "bot": {
       "command": {
@@ -32,6 +41,21 @@
           }
         }
       }
+    },
+    "nextjs": {
+      "component": {
+        "itemsGrid": {
+          "message": {
+            "success": {
+              "boughtItem": "The transaction was successful"
+            },
+            "error": {
+              "boughtItem": "The transaction failed. Please try again"
+            }
+          }
+        }
+      },
+      "store": {}
     }
   },
   "package": {
@@ -43,6 +67,16 @@
           "error": {
             "webhookNotFound": "Webhook URL not found: {{url}}",
             "internalError": "An internal error has occurred"
+          }
+        }
+      },
+      "item": {
+        "buyItem": {
+          "error": {
+            "notFound": "User or item not found",
+            "insufficientBalance": "Insufficient balance",
+            "insufficientStock": "Insufficient stock",
+            "userAlreadyExists": "User already exists"
           }
         }
       }

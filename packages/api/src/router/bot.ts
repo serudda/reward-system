@@ -20,6 +20,7 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
+        // TODO: Remove after testing i18n format
         //         const data = {
         //           username: DISCORD_BOT_USERNAME,
         //           content: `\n
