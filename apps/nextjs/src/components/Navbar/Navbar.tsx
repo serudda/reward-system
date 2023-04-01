@@ -1,6 +1,6 @@
+import getConfig from 'next/config';
 import cn from 'classnames';
 import { signIn, signOut, useSession } from 'next-auth/react';
-
 import { Catalog, Icon, Style } from '~/components/Icon/Icon';
 import { Logo, LogoType } from '~/components/Logo/Logo';
 
@@ -18,6 +18,9 @@ export const Navbar = ({ className }: NavbarProps) => {
   const classes = {
     navbar: cn(className, 'flex flex-row items-center gap-6 border-b border-slate-800 p-4'),
   };
+
+  const { publicRuntimeConfig } = getConfig();
+  const { version } = publicRuntimeConfig.version;
 
   const { data: sessionData } = useSession();
 
@@ -55,7 +58,7 @@ export const Navbar = ({ className }: NavbarProps) => {
       <div className="flex flex-row items-center gap-4 text-white">
         <Logo type={LogoType.symbol} />
         <a className="text-lg font-semibold transition hover:opacity-80" href="/">
-          Reward System <span className="ml-2 text-sm text-slate-500">v0.1.0</span>
+          Reward System <span className="ml-2 text-sm text-slate-500">v{version}</span>
         </a>
       </div>
 

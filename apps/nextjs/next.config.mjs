@@ -1,3 +1,5 @@
+import version from './package.json' assert { type: 'json' };
+
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds and Linting.
@@ -13,6 +15,9 @@ const config = {
   typescript: { ignoreBuildErrors: !!process.env.CI },
   images: {
     domains: ['yt3.googleusercontent.com', 'www.zonamovilidad.es'],
+  },
+  publicRuntimeConfig: {
+    version,
   },
 };
 
