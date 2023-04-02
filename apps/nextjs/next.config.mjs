@@ -14,7 +14,7 @@ const config = {
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
   images: {
-    domains: ['yt3.googleusercontent.com', 'www.zonamovilidad.es'],
+    domains: ['res.cloudinary.com'],
   },
   publicRuntimeConfig: {
     version,
