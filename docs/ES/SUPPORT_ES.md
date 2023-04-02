@@ -34,7 +34,7 @@ Nuestro proyecto tiene una comunidad vibrante de usuarios y colaboradores. Si es
 
 Tenemos un Código de Conducta que se espera que todos los miembros de la comunidad sigan. Por favor, léelo antes de contribuir.
 
-Si quieres contribuir al proyecto, por favor revisa nuestras [directrices para contribuir](CONTRIBUTING.md) para más información.
+Si quieres contribuir al proyecto, por favor revisa nuestras [directrices para contribuir](CONTRIBUTING_ES.md) para más información.
 
 ## 💬 Contáctanos
 

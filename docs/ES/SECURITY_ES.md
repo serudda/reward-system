@@ -44,4 +44,4 @@ Si sigue estos principios y nos da un tiempo razonable para abordar el problema 
 
 ## 🤝 Contribuciones
 
-Si desea contribuir a la seguridad de nuestro proyecto, siga el mismo proceso que para las contribuciones de código (consulte [CONTRIBUTING.md](CONTRIBUTING.md)). Agradecemos sugerencias para mejoras de seguridad y cambios de código que mejoren la postura de seguridad de nuestro proyecto.
+Si desea contribuir a la seguridad de nuestro proyecto, siga el mismo proceso que para las contribuciones de código (consulte [CONTRIBUTING.md](CONTRIBUTING_ES.md)). Agradecemos sugerencias para mejoras de seguridad y cambios de código que mejoren la postura de seguridad de nuestro proyecto.
