@@ -1,7 +1,7 @@
 name: 📚 Documentation or README.md issue report
 description: Report an issue in the project's documentation or README.md file.
-title: "[DOC]"
-labels: ["Documentation"]
+title: '[DOC]'
+labels: ['Documentation']
 assignees:
   - octocat
 body:
