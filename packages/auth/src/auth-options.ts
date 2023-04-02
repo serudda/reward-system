@@ -1,5 +1,4 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { createId } from '@paralleldrive/cuid2';
 import { type DefaultSession, type NextAuthOptions } from 'next-auth';
 import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
 import { prisma } from '@acme/db';
@@ -81,7 +80,7 @@ export const authOptions: NextAuthOptions = {
         const newAccount = await prisma.account.upsert({
           where: {
             provider_providerAccountId: {
-              providerAccountId: account?.providerAccountId as string,
+              providerAccountId: account?.providerAccountId,
               provider: account.provider,
             },
           },
