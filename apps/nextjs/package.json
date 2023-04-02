@@ -2,6 +2,7 @@
   "name": "@acme/nextjs",
   "version": "0.1.0",
   "private": true,
+  "author": "Indie Creators HQ",
   "scripts": {
     "build": "next build",
     "clean": "git clean -xdf .next .turbo node_modules",
