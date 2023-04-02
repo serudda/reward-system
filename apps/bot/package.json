@@ -13,7 +13,7 @@
     "type-check": "tsc --noEmit"
   },
   "keywords": [],
-  "author": "Indie Creators Community",
+  "author": "Indie Creators HQ",
   "license": "ISC",
   "dependencies": {
     "@acme/api": "*",

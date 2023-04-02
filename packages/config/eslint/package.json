@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": "Indie Creators HQ",
   "dependencies": {
     "@types/eslint": "^8.21.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",

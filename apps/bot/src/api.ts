@@ -1,13 +1,13 @@
 import { createTRPCProxyClient, httpBatchLink, loggerLink } from '@trpc/client';
 import superjson from 'superjson';
-
 import { type AppRouter } from '@acme/api';
 
-const getBaseUrl = () => {
-  if (typeof window !== 'undefined') return ''; // browser should use relative url
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
-  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
-};
+// TODO: Use this function to validate the API_URL env var
+// const getBaseUrl = () => {
+//   if (typeof window !== 'undefined') return ''; // browser should use relative url
+//   if (process.env.API_URL) return `https://${process.env.API_URL}`; // SSR should use vercel url
+//   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
+// };
 
 export const api = createTRPCProxyClient<AppRouter>({
   /**
@@ -28,7 +28,7 @@ export const api = createTRPCProxyClient<AppRouter>({
         process.env.NODE_ENV === 'development' || (opts.direction === 'down' && opts.result instanceof Error),
     }),
     httpBatchLink({
-      url: `${getBaseUrl()}/api/trpc`,
+      url: `${process.env.API_URL}/api/trpc`,
     }),
   ],
 });

@@ -1,5 +1,6 @@
 {
   "name": "create-t3-turbo",
+  "author": "Indie Creators HQ",
   "private": true,
   "engines": {
     "node": ">=18.0.0"
