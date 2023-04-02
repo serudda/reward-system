@@ -29,15 +29,22 @@ const command: SlashCommand = {
     try {
       const user = interaction.options.getUser('user');
       // TODO: Fix an Type issue with .getString, it is not recognized as a function
-      const coins: string = (interaction.options as any).getString('coins'); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+      const coins: number = parseInt((interaction.options as any).getString('coins')); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
       // Update or Create User
       const response = await api.user.sendCoinsByUserId.mutate({
         user: user as UserDiscord,
-        coins: parseInt(coins),
+        coins: coins,
       });
 
-      if (response?.data) showSentCoinsMsg(interaction, coins);
+
+      if (coins > 0) {
+      if (response?.data) showSentCoinsMsg(interaction, coins.toString());
+    } else {
+      // Send error messages 
+      void interaction.reply('El valor de coins debe ser mayor que 0.');
+    }
+
     } catch (error: any) {
       if (!error) return;
       await interaction.reply({
