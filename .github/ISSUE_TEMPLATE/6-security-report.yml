@@ -1,7 +1,7 @@
 name: 🚨 Security Report
 description: Report an issue to help the project improve.
 # title: " "
-# labels: "Type: Security" Need to create label Security
+labels: ['Type: Security']
 assignees:
   - octocat
 body:

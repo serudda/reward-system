@@ -1,7 +1,7 @@
 name: ❓ Question or Support Request
 description: Questions and requests for support.
-title: "Seeking assistance with [brief description of the issue]"
-labels: ["Question"]
+title: 'Seeking assistance with [brief description of the issue]'
+labels: ['Type: Question']
 assignees:
   - octocat
 body:

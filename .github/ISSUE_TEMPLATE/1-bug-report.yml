@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: File a bug report
-title: "[Bug]: "
-labels: ["Bug"]
+title: '[Bug]: '
+labels: ['Type: Bug']
 assignees:
   - octocat
 body:
@@ -12,9 +12,9 @@ body:
   - type: input
     id: contact
     attributes:
-      label: Contact Details
+      label: Discord Username
       description: How can we get in touch with you if we need more information?
-      placeholder: Please provide your email address or other contact details
+      placeholder: Please provide your Discord sername or other contact details
     validations:
       required: false
   - type: dropdown
@@ -34,7 +34,7 @@ body:
       label: Description of the Bug
       description: Please describe what happened and what you were expecting to happen instead
       placeholder: Please describe the bug you encountered
-      value: "A bug happened!"
+      value: 'A bug happened!'
     validations:
       required: true
   - type: dropdown
