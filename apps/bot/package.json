@@ -13,16 +13,17 @@
     "type-check": "tsc --noEmit"
   },
   "keywords": [],
-  "author": "Indie Creators Community",
+  "author": "Indie Creators HQ",
   "license": "ISC",
   "dependencies": {
+    "@acme/api": "*",
+    "@acme/i18n": "*",
     "@trpc/client": "^10.14.0",
     "@trpc/server": "^10.14.0",
     "discord.js": "^14.7.1",
     "superjson": "1.9.1"
   },
   "devDependencies": {
-    "@acme/api": "*",
     "@types/node": "^18.11.18",
     "eslint": "^8.34.0",
     "eslint-config-acme": "0.0.0",

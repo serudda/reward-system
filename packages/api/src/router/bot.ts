@@ -1,7 +1,9 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-import translate from '../i18n/en.json';
+import i18n from '@acme/i18n';
+
+import { TRPCErrorCode } from '../constants';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
 const DISCORD_BOT_USERNAME = 'Reward System';
@@ -18,22 +20,36 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
+        // TODO: Remove after testing i18n format
+        //         const data = {
+        //           username: DISCORD_BOT_USERNAME,
+        //           content: `\n
+        // :mega:
+        // ---------------
+        // **${input.username}** has been rewarded with **${input.coins}** Indie Tokens :gem:.
+        // → For merging the following pull request in Develop:
+        //   ${input.prUrl}
+        // ---------------
+        //           `,
+        //         };
+
         const data = {
           username: DISCORD_BOT_USERNAME,
-          content: `
-:mega:
----------------
-**${input.username}** has been rewarded with **${input.coins}** Indie Tokens :gem:.
-→ For merging the following pull request in Develop:
-${input.prUrl}
----------------
-          `,
+          content: i18n.t('package.api.bot.sendDiscordMsg.payload', {
+            username: input.username,
+            coins: input.coins,
+            url: input.prUrl,
+          }),
         };
 
         if (!input.webhookDiscordUrl) {
+          const message = i18n.t('package.api.bot.sendDiscordMsg.error.webhookNotFound', {
+            url: input.webhookDiscordUrl,
+          });
+
           throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: `Webhook URL not found: ${input.webhookDiscordUrl}`,
+            code: TRPCErrorCode.NOT_FOUND,
+            message,
           });
         }
 
@@ -42,8 +58,8 @@ ${input.prUrl}
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         })
-          .then(() => console.log(translate.bot.sendDiscordMsg.success))
-          .catch((error) => console.error(translate.bot.sendDiscordMsg.error, error));
+          .then(() => console.log(i18n.t('package.api.bot.sendDiscordMsg.success')))
+          .catch((error) => console.error(i18n.t('package.api.bot.sendDiscordMsg.error.internalError'), error));
       } catch (err: any) {
         throw err;
       }

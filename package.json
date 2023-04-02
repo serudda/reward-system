@@ -1,5 +1,6 @@
 {
   "name": "create-t3-turbo",
+  "author": "Indie Creators HQ",
   "private": true,
   "engines": {
     "node": ">=18.0.0"
@@ -16,9 +17,12 @@
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
     "type-check": "turbo type-check",
-    "with-env": "dotenv -e .env --"
+    "with-env": "dotenv -e .env --",
+    "prepare": "npx husky install"
   },
   "dependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
     "@manypkg/cli": "^0.20.0",
     "@paralleldrive/cuid2": "^2.2.0",
@@ -26,6 +30,8 @@
     "dotenv-cli": "^7.0.0",
     "eslint": "^8.34.0",
     "eslint-config-acme": "0.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
     "prettier-plugin-prisma": "^4.10.0",
     "prettier-plugin-tailwindcss": "^0.2.4",
