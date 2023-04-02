@@ -2,7 +2,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { createId } from '@paralleldrive/cuid2';
 import { type DefaultSession, type NextAuthOptions } from 'next-auth';
 import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
-
 import { prisma } from '@acme/db';
 
 /**
@@ -32,39 +31,11 @@ declare module 'next-auth' {
  * @see https://next-auth.js.org/configuration/options
  **/
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
-      }
-      return session;
-    },
-  },
   adapter: PrismaAdapter(prisma),
   providers: [
     DiscordProvider<DiscordProfile>({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
-
-      profile(profile) {
-        if (profile.avatar === null) {
-          const defaultAvatarNumber = parseInt(profile.discriminator) % 5;
-          profile.image_url = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
-        } else {
-          const format = profile.avatar.startsWith('a_') ? 'gif' : 'png';
-          profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`;
-        }
-        return {
-          id: createId(),
-          name: profile.username,
-          email: profile.email,
-          discordId: profile.id,
-          discordUserName: profile.username,
-          discordDiscriminator: profile.discriminator,
-          thumbnail: profile.image_url,
-        };
-      },
     }),
     /**
      * ...add more providers here
@@ -76,4 +47,77 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      **/
   ],
+  callbacks: {
+    /**
+     * The callback -> signIn() is a function to next-auth
+     * that permits you to customize the sign in process.
+     */
+    async signIn({ account, profile }): Promise<boolean> {
+      if (account?.provider === 'discord') {
+        const { id, username, discriminator, image_url, email } = profile as DiscordProfile;
+
+        // Create the user if they don't exist or update the user if they do
+        const newUser = await prisma.user.upsert({
+          where: { discordId: id },
+          update: {
+            discordUserName: username,
+            discordDiscriminator: discriminator,
+            thumbnail: image_url,
+            email,
+          },
+          create: {
+            name: username,
+            email: email ?? '',
+            discordId: id,
+            discordUserName: username,
+            discordDiscriminator: discriminator,
+            thumbnail: image_url,
+          },
+        });
+
+        if (!newUser) return false;
+
+        // After creating the user, we need to create/update the account
+        const newAccount = await prisma.account.upsert({
+          where: {
+            provider_providerAccountId: {
+              providerAccountId: account?.providerAccountId as string,
+              provider: account.provider,
+            },
+          },
+          update: {
+            access_token: account.access_token,
+            refresh_token: account.refresh_token,
+            expires_at: account.expires_at,
+            scope: account.scope,
+          },
+          create: {
+            type: account.type,
+            access_token: account.access_token,
+            refresh_token: account.refresh_token,
+            expires_at: account.expires_at,
+            providerAccountId: id,
+            provider: account.provider,
+            token_type: account.token_type,
+            scope: account.scope,
+            id_token: account.id_token,
+            session_state: account.session_state,
+            userId: newUser.id,
+          },
+        });
+
+        if (!newAccount) return false;
+      }
+
+      return true;
+    },
+
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        // session.user.role = user.role; <-- put other properties on the session here
+      }
+      return session;
+    },
+  },
 };
