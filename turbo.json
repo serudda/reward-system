@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalDependencies": ["**/.env"],
+  "globalDependencies": ["**/.env", "**/.env.development", "**/.env.local"],
   "pipeline": {
     "db:generate": {
       "inputs": ["prisma/schema.prisma"],
@@ -43,7 +43,6 @@
     "DISCORD_WEBHOOK_URL",
     "NEXTAUTH_SECRET",
     "NEXTAUTH_URL",
-    "SERVER_URL",
     "NODE_ENV",
     "SKIP_ENV_VALIDATION",
     "VERCEL",
