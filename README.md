@@ -275,6 +275,8 @@ For more details on setting up your Supabase database, check out the Supabase
 
 </details>
 
+<br/>
+
 <details>
 <summary>
 9. In the “Scopes” section, you’ll want to select the “bot” checkbox.
@@ -284,11 +286,40 @@ For more details on setting up your Supabase database, check out the Supabase
 
 </details>
 
-10. “Bot Permissions” section. This is where you choose what permissions to give your bot, and what it can and can’t do.
+<br/>
 
-11. After you’ve selected your permissions, scroll up a little bit and look at the URL that was generated.
+<details>
+<summary>
+10. “Bot Permissions” section. This is where you choose what permissions to give your bot, and what it can and can’t do. If this is a Bot to test new features o commmands, you could assign the "Administrator" permission.
+</summary>
 
+![permissions](https://user-images.githubusercontent.com/10075532/229674060-8ae8647a-1be5-4b66-a743-6db234a21f93.png)
+
+</details>
+
+<br/>
+
+<details>
+<summary>
+11. After you’ve selected your permissions, scroll down to the bottom and look at the URL that was generated.
+</summary>
+
+![Screenshot 2023-04-03 at 9 44 10 PM](https://user-images.githubusercontent.com/10075532/229673435-4a1f5508-653c-4715-a755-4cd72c5daebb.png)
+
+</details>
+
+<br/>
+
+<details>
+<summary>
 12. Click the blue “Copy” button on the right side. This is the URL you’ll navigate to in order to add your bot to a server.
+</summary>
+
+![add-bot-to-server](https://user-images.githubusercontent.com/10075532/229676212-295e7a63-5a43-45a5-b943-95c21b91e769.gif)
+
+</details>
+
+<br/>
 
 ### Configure DISCORD KEYS
 

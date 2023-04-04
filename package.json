@@ -17,7 +17,7 @@
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
     "type-check": "turbo type-check",
-    "with-env": "dotenv -e .env --",
+    "with-env": "dotenv -e .env.${NODE_ENV:-local} --",
     "prepare": "npx husky install"
   },
   "dependencies": {
