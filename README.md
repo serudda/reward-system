@@ -108,46 +108,100 @@ To get it running, follow the steps below:
 
 ## Setup .ENV
 
-You will need to create a `.env` file in your project's root directory and set the following environment variables:
-
-```
-DATABASE_URL="your_database_url_here"
-NEXTAUTH_SECRET="your_nextauth_secret_here"
-NEXTAUTH_URL="your_localhost_here"
-DISCORD_CLIENT_ID="your_discord_client_id_here"
-DISCORD_CLIENT_SECRET="your_discord_client_secret_here"
-DISCORD_BOT_TOKEN="your_discord_bot_token_here"
-DISCORD_WEBHOOK_URL="your_discord_server_webhook_url_here"
-
-```
-
-> **Warning** Make sure to replace the placeholders with the actual values for each variable.
+You will find a `.env.example` file in your project's root directory. Use it as a template for your own `.env`.
 
 <details>
-<summary>Explanation of Required Environment Variables for Discord OAuth2 and Bot Authentication</summary>
+<summary>Explanation of Required Environment Variables for Database, Discord OAuth2 and Bot Authentication</summary>
 <br/>
 
 These are environment variables that you need to set in order to use Discord's OAuth2 API and to authenticate your bot with Discord.
 
-- `DATABASE_URL:` This is the URL for your database. You need to replace it with the actual URL for your database.
+<details>
+<summary><code>DATABASE_URL:</code> This is the URL for your database. You need to replace it with the actual URL for your database. </summary>
+<br/>
 
-- `NEXTAUTH_SECRET:` This is a secret key used by NextAuth.js for secure session cookies and CSRF protection. You should generate a new secret key and replace it with the placeholder.
-
-- `NEXTAUTH_URL:` This is the URL for your application. Replace it with the actual URL where your application will be hosted.
-- DISCORD_CLIENT_ID: This is the client ID of your Discord application. You can get it from the Discord Developer Portal.
-
-- `DISCORD_CLIENT_SECRET:` This is the client secret of your Discord application. You can get it from the Discord Developer Portal.
-
-- `DISCORD_BOT_TOKEN:` This is the bot token for your Discord bot. You need to create a bot in the Discord Developer Portal and get the token from there.
-
-- `DISCORD_WEBHOOK_URL`: This is the webhook URL for your Discord server. You can create a webhook in your server settings and get the URL from there.
+![database-url](https://user-images.githubusercontent.com/10075532/229640763-664c84f1-0cc2-4ea1-be09-dc2544a98478.gif)
 
 </details>
 
-<details>
-<summary> .env example </summary>
+<br/>
 
-![image](https://user-images.githubusercontent.com/14036522/229316530-96e18277-15c0-48c8-8bc0-516b785bd2f7.png)
+<details>
+<summary><code>NEXTAUTH_SECRET:</code> This is a secret key used by NextAuth.js for secure session cookies and CSRF protection. You should generate a new secret key and replace it with the placeholder. </summary>
+<br/>
+
+![nextauth-secret](https://user-images.githubusercontent.com/10075532/229642940-287c89d9-99e3-4efd-9bf2-d41681e3e210.gif)
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>NEXTAUTH_URL:</code> When deploying to production, set the NEXTAUTH_URL environment variable to the canonical URL of your site. if you are working locally, replace with "http://localhost:3000" </summary>
+<br/>
+
+![image](https://user-images.githubusercontent.com/10075532/229643178-e8144d10-f4a4-4eb8-879b-56450ad47fdc.png)
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DISCORD_CLIENT_ID:</code> This is the client ID of your Discord application. You can get it from the Discord Developer Portal. </summary>
+<br/>
+
+![Discord-client-ID](https://user-images.githubusercontent.com/10075532/229629382-bd8eab3f-fe39-4e7c-bda8-e8aa9b1f73f8.gif)
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DISCORD_CLIENT_SECRET:</code> This is the client secret of your Discord application. You can get it from the Discord Developer Portal. </summary>
+<br/>
+
+![discord-client-secret](https://user-images.githubusercontent.com/10075532/229640609-7ed193e5-05e6-4f28-beca-5460307ff3dc.gif)
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DISCORD_SERVER_ID:</code> This is the Discord server ID. You can get it from your own Discord server. </summary>
+<br/>
+
+![discord-server-id](https://user-images.githubusercontent.com/10075532/229645001-fe803ef8-cc00-46a3-b7f7-8fd8f11f0965.gif)
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DISCORD_BOT_TOKEN:</code> This is the bot token for your Discord bot. You need to create a bot in the Discord Developer Portal and get the token from there. </summary>
+<br/>
+
+![discord-bot-token](https://user-images.githubusercontent.com/10075532/229641003-c9f3596f-8c80-492c-9de9-c11124a3a877.gif)
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DISCORD_WEBHOOK_URL:</code> This is the webhook URL for your Discord server. You can create a webhook in your server settings and get the URL from there. </summary>
+<br/>
+
+![discord-webhook-url](https://user-images.githubusercontent.com/10075532/229641185-dc3ca964-e537-4bdc-8bbf-b579b85d744d.gif)
+
+</details>
+
+</details>
+
+<br/>
+
+<details>
+<summary> <strong>.env example</strong> </summary>
+
+![image](https://user-images.githubusercontent.com/10075532/229646160-790c15b0-d77e-4631-b5c7-a90d2c5d3dda.png)
 
 </details>
 
@@ -221,6 +275,8 @@ For more details on setting up your Supabase database, check out the Supabase
 
 </details>
 
+<br/>
+
 <details>
 <summary>
 9. In the “Scopes” section, you’ll want to select the “bot” checkbox.
@@ -230,11 +286,40 @@ For more details on setting up your Supabase database, check out the Supabase
 
 </details>
 
-10. “Bot Permissions” section. This is where you choose what permissions to give your bot, and what it can and can’t do.
+<br/>
 
-11. After you’ve selected your permissions, scroll up a little bit and look at the URL that was generated.
+<details>
+<summary>
+10. “Bot Permissions” section. This is where you choose what permissions to give your bot, and what it can and can’t do. If this is a Bot to test new features o commmands, you could assign the "Administrator" permission.
+</summary>
 
+![permissions](https://user-images.githubusercontent.com/10075532/229674060-8ae8647a-1be5-4b66-a743-6db234a21f93.png)
+
+</details>
+
+<br/>
+
+<details>
+<summary>
+11. After you’ve selected your permissions, scroll down to the bottom and look at the URL that was generated.
+</summary>
+
+![Screenshot 2023-04-03 at 9 44 10 PM](https://user-images.githubusercontent.com/10075532/229673435-4a1f5508-653c-4715-a755-4cd72c5daebb.png)
+
+</details>
+
+<br/>
+
+<details>
+<summary>
 12. Click the blue “Copy” button on the right side. This is the URL you’ll navigate to in order to add your bot to a server.
+</summary>
+
+![add-bot-to-server](https://user-images.githubusercontent.com/10075532/229676212-295e7a63-5a43-45a5-b943-95c21b91e769.gif)
+
+</details>
+
+<br/>
 
 ### Configure DISCORD KEYS
 
