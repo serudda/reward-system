@@ -1,0 +1,13 @@
+name: Send Message to Discord
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  send-message-to-channel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR info
+        run: |
+          PR_TITLE=${{ github.event.pull_request.title }}
+          README_CONTENT=$(cat README.md)
