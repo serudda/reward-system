@@ -21,6 +21,7 @@
     "prepare": "npx husky install"
   },
   "dependencies": {
+    "@acme/eslint-config": "*",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
@@ -29,7 +30,6 @@
     "@types/prettier": "^2.7.2",
     "dotenv-cli": "^7.0.0",
     "eslint": "^8.34.0",
-    "eslint-config-acme": "0.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
