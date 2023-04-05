@@ -11,3 +11,6 @@ jobs:
         run: |
           PR_TITLE=${{ github.event.pull_request.title }}
           README_CONTENT=$(cat README.md)
+          echo "PR Title: $PR_TITLE"
+          echo "README Content:"
+          echo "$README_CONTENT"
