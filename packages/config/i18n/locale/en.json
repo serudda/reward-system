@@ -13,6 +13,11 @@
   },
   "app": {
     "bot": {
+      "common": {
+        "error": {
+          "invalidAmount": "You can not give less than 1 coin"
+        }
+      },
       "command": {
         "wallet": {
           "create": "Create your wallet :moneybag:",

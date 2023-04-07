@@ -39,6 +39,13 @@ const command: SlashCommand = {
       return;
     }
 
+    // Check if user is trying to send less than 1 coins
+    if (parseInt(coins) < 1) {
+      const message = i18n.t('app.bot.common.error.invalidAmount');
+      await interaction.reply(message);
+      return;
+    }
+
     try {
       // Update or Create User
       const response = await api.user.payCoinsByUserId.mutate({
