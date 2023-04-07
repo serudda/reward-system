@@ -1,5 +1,4 @@
 import { type Client } from 'discord.js';
-
 import { type BotEvent } from '../types';
 
 /*

@@ -1,7 +1,7 @@
 {
-  "name": "create-t3-turbo",
+  "name": "monorepo-starter-template",
   "author": "Indie Creators HQ",
-  "version": "0.1.0-alpha.3",
+  "version": "0.0.0",
   "private": true,
   "engines": {
     "node": ">=18.0.0"
