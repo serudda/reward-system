@@ -47,6 +47,9 @@
             "autoPay": "It is not possible to send Indie Token to yourself"
           }
         }
+      },
+      "messageReaction": {
+        "success": ":mega:\n---------------\n<@{{userId}}> has added **{{coins}}** Indie Tokens :gem: to <@{{author}}>'s wallet\n→ For sharing the following valuable message:\n{{url}}\n---------------"
       }
     },
     "nextjs": {

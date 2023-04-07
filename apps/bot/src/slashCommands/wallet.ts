@@ -19,6 +19,7 @@ const showUserWalletMsg = (interaction: CommandInteraction<CacheType>, coins: st
   });
 };
 
+// TODO: Pensar que hacer con esta url... si loguearlo desde Discord, o llevarlo a la Landing de RS
 const showInviteLink = (interaction: CommandInteraction<CacheType>) => {
   // Button
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
