@@ -1,8 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-
 import i18n from '@acme/i18n';
-
 import { TRPCErrorCode } from '../constants';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
@@ -20,19 +18,6 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        // TODO: Remove after testing i18n format
-        //         const data = {
-        //           username: DISCORD_BOT_USERNAME,
-        //           content: `\n
-        // :mega:
-        // ---------------
-        // **${input.username}** has been rewarded with **${input.coins}** Indie Tokens :gem:.
-        // → For merging the following pull request in Develop:
-        //   ${input.prUrl}
-        // ---------------
-        //           `,
-        //         };
-
         const data = {
           username: DISCORD_BOT_USERNAME,
           content: i18n.t('package.api.bot.sendDiscordMsg.payload', {

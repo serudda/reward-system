@@ -3,7 +3,6 @@ import superjson from 'superjson';
 import type { AppRouter } from '@acme/api';
 
 const getBaseUrl = () => {
-  console.log('👀 process.env.NODE_ENV =>', process.env.NODE_ENV);
   console.log('👀 process.env.API_URL =>', process.env.API_URL);
   if (typeof window !== 'undefined') return ''; // browser should use relative url
   if (process.env.API_URL) return process.env.API_URL; // SSR should use vercel url
