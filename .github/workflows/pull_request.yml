@@ -27,6 +27,8 @@ jobs:
       - name: Get Reward from Github Issue
         uses: octokit/graphql-action@v2.x
         id: get_reward
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_TOKEN }}
         with:
           query: |
             query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!, $field: String!) {
