@@ -22,11 +22,7 @@
         "wallet": {
           "create": "Create your wallet :moneybag:",
           "show": "Show my wallet's balance",
-          "description": "This is the amount of Indie Tokens in your wallet",
-          "connectDiscord": "Connect with Discord",
-          "error": {
-            "noWallet": "You don't have a wallet yet, please connect with Discord to create one"
-          }
+          "description": "This is the amount of Indie Tokens in your wallet"
         },
         "giveCoins": {
           "give": "Give Indie Tokens to an User",
@@ -47,6 +43,9 @@
             "autoPay": "It is not possible to send Indie Token to yourself"
           }
         }
+      },
+      "messageReaction": {
+        "success": ":mega:\n---------------\n<@{{userId}}> has added **{{coins}}** Indie Tokens :gem: to <@{{author}}>'s wallet\n→ For sharing the following valuable message:\n{{url}}\n---------------"
       }
     },
     "nextjs": {

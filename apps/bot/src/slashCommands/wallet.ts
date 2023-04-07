@@ -1,12 +1,4 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  EmbedBuilder,
-  SlashCommandBuilder,
-  type CacheType,
-  type CommandInteraction,
-} from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder, type CacheType, type CommandInteraction } from 'discord.js';
 import i18n from '@acme/i18n';
 import { api } from '../api';
 import { type SlashCommand } from '../types';
@@ -19,32 +11,33 @@ const showUserWalletMsg = (interaction: CommandInteraction<CacheType>, coins: st
   });
 };
 
-const showInviteLink = (interaction: CommandInteraction<CacheType>) => {
-  // Button
-  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-    new ButtonBuilder()
-      .setLabel(i18n.t('app.bot.command.wallet.connectDiscord'))
-      .setStyle(ButtonStyle.Link)
-      .setURL('http://localhost:3000/api/auth/signin?callbackUrl=http://localhost:3000'),
-  );
-
-  // Message
-  const embed = new EmbedBuilder()
-    .setColor('#5865F2')
-    .setTitle(i18n.t('app.bot.command.wallet.create'))
-    .setDescription(i18n.t('app.bot.command.wallet.noWallet'));
-
-  void interaction.reply({ ephemeral: true, embeds: [embed], components: [row] });
-};
-
 /** Main command */
 const command: SlashCommand = {
   command: new SlashCommandBuilder().setName('wallet').setDescription(i18n.t('app.bot.command.wallet.show')),
   execute: async (interaction) => {
-    const user = await api.user.getByDiscordId.query({ discordId: interaction.user.id });
+    try {
+      const user = await api.user.getByDiscordId.query({ discordId: interaction.user.id });
 
-    if (user) showUserWalletMsg(interaction, user.coins.toString());
-    else showInviteLink(interaction);
+      // Create User
+      if (!user) {
+        const thumbnailUrl = interaction.user.avatarURL();
+
+        const response = await api.user.create.mutate({
+          name: interaction.user.username,
+          discordId: interaction.user.id,
+          discordUserName: interaction.user.username,
+          discordDiscriminator: interaction.user.discriminator,
+          thumbnail: thumbnailUrl ?? '',
+        });
+
+        if (response?.data) showUserWalletMsg(interaction, response.data.user.coins.toString());
+      } else showUserWalletMsg(interaction, user.coins.toString());
+    } catch (error: any) {
+      if (!error) return;
+      await interaction.reply({
+        content: error?.message ? error.message : i18n.t('common.message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+      });
+    }
   },
   cooldown: 10,
 };

@@ -1,5 +1,13 @@
-import { type MessageReaction, type PartialMessageReaction, type PartialUser, type User } from 'discord.js';
+import {
+  type MessageReaction,
+  type PartialMessageReaction,
+  type PartialUser,
+  type PermissionResolvable,
+  type User,
+} from 'discord.js';
+import i18n from '@acme/i18n';
 import { api } from '../api';
+import { config } from '../common/constants';
 import { type BotEvent } from '../types';
 
 /**
@@ -18,40 +26,38 @@ const event: BotEvent = {
         await reaction.fetch();
         await user.fetch();
       } catch (error) {
-        console.error('Something went wrong when fetching the message:', error);
+        console.error(i18n.t('common.message.error.internalError'), error);
         // Return as `reaction.message.author` may be undefined/null
         return;
       }
     }
 
-    // Check if the emoji is the one we want // TODO: Move this ID to a config file
-    if (reaction.emoji.id !== '1079571995160744007') return;
+    // Check if the emoji is the one we want
+    if (reaction.emoji.id !== config.reactionEmojiId) return;
 
     // Get the user who reacted
     if (reaction.message.guild === null) return;
     const member = await reaction.message.guild.members.fetch(user.id);
     if (!member) return;
 
-    // Check if the user has the role Admin // TODO: Move this ID to a config file
-    if (!member.permissions.has('972596676227366972')) return;
+    // Check if the user has the role Admin
+    if (!member.permissions.has(config.roleAdminId as PermissionResolvable)) return;
 
     // Update or Create User
     await api.user.sendCoinsByUserId.mutate({
       user: reaction.message.author as User,
-      coins: 200, // TODO: Move this number to a config file
+      coins: config.reactionCoins,
+    });
+
+    const message = i18n.t('app.bot.messageReaction.success', {
+      userId: user.id,
+      coins: config.reactionCoins,
+      author: reaction.message.author,
+      url: reaction.message.url,
     });
 
     // Send a message to the Discord channel
-    void reaction.message.channel.send(
-      `
-    :mega:
-  ---------------
-  **${user.username}** has added 200 Indie Tokens :gem: to ${reaction.message.author}'s wallet
-  → For sharing the following valuable message:
-    ${reaction.message.url}
-  ---------------
-              `,
-    );
+    void reaction.message.channel.send(message);
   },
 };
 
