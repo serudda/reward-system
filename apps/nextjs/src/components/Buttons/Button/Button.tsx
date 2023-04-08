@@ -90,6 +90,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   endIcon?: IconCatalog;
 
   /**
+   * If set to true, the icon will be solid.
+   */
+  iconIsSolid?: boolean;
+
+  /**
    * Disables the button, disallowing user interaction.
    */
   isDisabled?: boolean;
@@ -124,6 +129,7 @@ export const Button = ({
   size = ButtonSize.base,
   startIcon,
   endIcon,
+  iconIsSolid = false,
   isDisabled = false,
   isLoading = false,
   isFullWidth = false,
@@ -187,17 +193,10 @@ export const Button = ({
       onClick={onClick}
       {...restOfProps}
     >
-      {startIcon && (
-        <Icon
-          className={classes.startIcon}
-          icon={startIcon}
-          width={ButtonIconSize[size]}
-          height={ButtonIconSize[size]}
-        />
-      )}
+      {startIcon && <Icon className={classes.startIcon} icon={startIcon} isSolid={iconIsSolid} />}
       <span>{children}</span>
       {isLoading && <span className={classes.loading}></span>}
-      {endIcon && <Icon className={classes.endIcon} icon={endIcon} />}
+      {endIcon && <Icon className={classes.endIcon} icon={endIcon} isSolid={iconIsSolid} />}
     </button>
   );
 };

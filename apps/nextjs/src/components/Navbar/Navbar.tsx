@@ -1,7 +1,19 @@
 import Link from 'next/link';
 import cn from 'classnames';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { Button, ButtonSize, ButtonVariant, Icon, IconCatalog, Logo, LogoType } from '~/components';
+import {
+  Avatar,
+  AvatarSize,
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  DropdownMenu,
+  Icon,
+  IconCatalog,
+  Logo,
+  LogoType,
+  PopoverPlacement,
+} from '~/components';
 
 export interface NavbarProps {
   /**
@@ -23,13 +35,28 @@ export const Navbar = ({ className }: NavbarProps) => {
   const handleLogInClick = () => void signIn();
   const handleLogOutClick = () => void signOut();
 
-  const renderLogInButton = () => {
+  const renderNavOptions = () => {
     // User is logged in
     if (sessionData)
       return (
-        <Button variant={ButtonVariant.tertiary} size={ButtonSize.sm} onClick={handleLogOutClick}>
-          Log Out
-        </Button>
+        <DropdownMenu
+          menuPlacement={PopoverPlacement.bottomEnd}
+          trigger={
+            <div role="button" tabIndex={0}>
+              <Avatar imgUrl={sessionData.user.thumbnail} size={AvatarSize.xs} />
+            </div>
+          }
+          menu={
+            <DropdownMenu.Menu>
+              <DropdownMenu.Option>
+                <Link href="/setting">Account Settings</Link>
+              </DropdownMenu.Option>
+              <DropdownMenu.Option className="border-t border-slate-700/50" onClick={handleLogOutClick}>
+                <span className="text-red-500">Logout</span>
+              </DropdownMenu.Option>
+            </DropdownMenu.Menu>
+          }
+        ></DropdownMenu>
       );
 
     // User is not logged in
@@ -60,29 +87,27 @@ export const Navbar = ({ className }: NavbarProps) => {
       <div className="flex-grow"></div>
 
       {/* Nav Options */}
-      <nav className="flex items-center space-x-8">
+      <nav className="flex items-center space-x-9">
         <a className="hidden transform text-sm font-medium text-slate-300 hover:text-white" href="#pricing">
           Pricing
         </a>
-        <a
-          className="hidden transform whitespace-nowrap text-sm font-medium text-slate-300 hover:text-white"
-          href="/signup"
-        >
-          Sign up
+        <a className="transform whitespace-nowrap text-sm font-semibold text-slate-300 hover:text-white" href="/signup">
+          Docs
+        </a>
+        <a className="transform whitespace-nowrap text-sm font-semibold text-slate-300 hover:text-white" href="/signup">
+          Help
         </a>
 
-        {renderLogInButton()}
-      </nav>
-
-      <div className="flex items-center border-l-2 border-slate-700 pl-6">
         <Link
           className="hidden transform text-sm font-medium text-slate-300 hover:text-white sm:block"
           href="https://github.com/serudda/reward-system"
           target="_blank"
         >
-          <Icon icon={IconCatalog.gitHub} className="h-6 w-6" />
+          <Icon icon={IconCatalog.gitHub} className="h-6 w-6" isSolid />
         </Link>
-      </div>
+      </nav>
+
+      <div className="flex items-center border-l-2 border-slate-700 pl-6">{renderNavOptions()}</div>
     </div>
   );
 };

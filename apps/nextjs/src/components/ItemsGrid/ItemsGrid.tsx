@@ -102,7 +102,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
           <div className="flex items-center">
             <div className="flex items-center space-x-4">
               <Image className="rounded-md" src={storeImageUrl} alt={storeName} width={32} height={32} />
-              <div className="text-lg text-slate-500">{storeName}</div>
+              <div className="text-lg text-slate-400">{storeName}</div>
             </div>
             <div className="ml-auto font-semibold text-slate-600">
               {t('app.nextjs.component.itemsGrid.footer.itemsAvailable', { amount: items.length })}
