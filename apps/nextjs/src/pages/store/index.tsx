@@ -1,6 +1,5 @@
 import { type NextPage } from 'next';
 import Head from 'next/head';
-
 import { api } from '~/utils/api';
 import { ItemsGrid } from '~/components/ItemsGrid/ItemsGrid';
 import { Navbar } from '~/components/Navbar/Navbar';
@@ -9,7 +8,8 @@ const Store: NextPage = () => {
   const { data: stores, isLoading, isError } = api.store.getAllWithItems.useQuery();
 
   const renderStores = () => {
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+      return <div className="flex h-52 items-center justify-center text-xl font-bold text-slate-50">Loading...</div>;
     if (isError) return <div>Error</div>;
 
     return stores.map((store) => (
