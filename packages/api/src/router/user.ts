@@ -31,6 +31,71 @@ export const userRouter = createTRPCRouter({
     return ctx.prisma.user.findMany();
   }),
 
+  create: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        email: z.string().optional(),
+        discordId: z.string().optional(),
+        discordUserName: z.string().optional(),
+        discordDiscriminator: z.string().optional(),
+        thumbnail: z.string().default(''),
+        coins: z.number().positive().default(0).optional(),
+        githubUsername: z.string().optional(),
+        githubUserId: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const user = await ctx.prisma.user.create({
+          data: { ...input },
+        });
+
+        return {
+          status: Response.SUCCESS,
+          data: {
+            user,
+          },
+        };
+      } catch (error: unknown) {
+        // Prisma error (Database issue)
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
+            const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+            throw new TRPCError({
+              code: TRPCErrorCode.CONFLICT,
+              message,
+            });
+          }
+        }
+
+        // Zod error (Invalid input)
+        if (error instanceof z.ZodError) {
+          const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+          throw new TRPCError({
+            code: TRPCErrorCode.BAD_REQUEST,
+            message,
+          });
+        }
+
+        // TRPC error (Custom error)
+        if (error instanceof TRPCError) {
+          if (error.code === TRPCErrorCode.UNAUTHORIZED) {
+            const message = i18n.t('common.message.error.unauthorized');
+            throw new TRPCError({
+              code: TRPCErrorCode.UNAUTHORIZED,
+              message,
+            });
+          }
+
+          throw new TRPCError({
+            code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
+            message: error.message,
+          });
+        }
+      }
+    }),
+
   sendCoinsByUserId: publicProcedure
     .input(
       z.object({
