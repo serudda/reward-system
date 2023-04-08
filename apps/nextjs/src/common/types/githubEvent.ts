@@ -1,5 +1,16 @@
+export enum IssueActions {
+  opened = 'opened',
+  closed = 'closed',
+  edited = 'edited',
+}
+
+export enum IssueColors {
+  opened = '238636',
+  closed = '9000933',
+}
+
 export interface IssueEventResponse {
-  action: string;
+  action: IssueActions;
   issue: Issue;
   assignee: Assignee;
   repository: Repository;

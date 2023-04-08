@@ -1,2 +1,2 @@
 export * from './input';
-export * from './IssueEvent';
+export * from './githubEvent';
