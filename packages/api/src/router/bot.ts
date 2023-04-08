@@ -47,7 +47,6 @@ export const botRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        console.log(input);
         const data = {
           embeds: [
             {

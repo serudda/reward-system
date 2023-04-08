@@ -4,7 +4,11 @@ import { IssueActions, IssueColors, type IssueEventResponse } from '~/common';
 type Override<T1, T2> = Omit<T1, keyof T2> & T2;
 
 type GithubEventRequest = Override<NextApiRequest, { body: IssueEventResponse }>;
-
+/**
+ * Handles GitHub events and sends a message to a Discord channel.
+ * @param {GithubEventRequest} req - The GitHub event request.
+ * @param {NextApiResponse} res - The API response.
+ */
 export default async function handler(req: GithubEventRequest, res: NextApiResponse) {
   try {
     const { issue, action, repository } = req.body;
