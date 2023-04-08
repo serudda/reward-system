@@ -1,15 +1,12 @@
-import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-
 import i18n from '@acme/i18n';
-
-import { TRPCErrorCode } from '../constants';
 import { createTRPCRouter, publicProcedure } from '../trpc';
+import { sendDiscordMsg } from '../utils/functions';
 
 const DISCORD_BOT_USERNAME = 'Reward System';
 
 export const botRouter = createTRPCRouter({
-  sendDiscordMsg: publicProcedure
+  sendRewardMsg: publicProcedure
     .input(
       z.object({
         username: z.string(),
@@ -41,26 +38,46 @@ export const botRouter = createTRPCRouter({
             url: input.prUrl,
           }),
         };
-
-        if (!input.webhookDiscordUrl) {
-          const message = i18n.t('package.api.bot.sendDiscordMsg.error.webhookNotFound', {
-            url: input.webhookDiscordUrl,
-          });
-
-          throw new TRPCError({
-            code: TRPCErrorCode.NOT_FOUND,
-            message,
-          });
-        }
-
-        await fetch(input.webhookDiscordUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        })
-          .then(() => console.log(i18n.t('package.api.bot.sendDiscordMsg.success')))
-          .catch((error) => console.error(i18n.t('package.api.bot.sendDiscordMsg.error.internalError'), error));
-      } catch (err: any) {
+        await sendDiscordMsg(input.webhookDiscordUrl, data);
+      } catch (err) {
+        throw err;
+      }
+    }),
+  sendIssueMsg: publicProcedure
+    .input(
+      z.object({
+        author: z.object({
+          name: z.string(),
+          url: z.string(),
+          icon_url: z.string(),
+        }),
+        title: z.string(),
+        content: z.string(),
+        url: z.string(),
+        color: z.string(),
+        webhookDiscordUrl: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      try {
+        console.log(input);
+        const data = {
+          embeds: [
+            {
+              title: input.title,
+              url: input.url,
+              description: `${input.content}`,
+              author: input.author,
+              color: input.color,
+              // TODO: Add Indie Tokens property
+              // footer: {
+              //   text: `💎${input.coins} Indie Tokens`,
+              // },
+            },
+          ],
+        };
+        await sendDiscordMsg(input.webhookDiscordUrl, data);
+      } catch (err) {
         throw err;
       }
     }),
