@@ -1,10 +1,10 @@
-import { type NextPage } from 'next';
+import type { ReactElement } from 'react';
 import Head from 'next/head';
 import { api } from '~/utils/api';
-import { ItemsGrid } from '~/components/ItemsGrid/ItemsGrid';
-import { Navbar } from '~/components/Navbar/Navbar';
+import { ItemsGrid, RootLayout } from '~/components';
+import type { NextPageWithLayout } from '../_app';
 
-const Store: NextPage = () => {
+const Store: NextPageWithLayout = () => {
   const { data: stores, isLoading, isError } = api.store.getAllWithItems.useQuery();
 
   const renderStores = () => {
@@ -22,17 +22,12 @@ const Store: NextPage = () => {
       <Head>
         <title>Reward System - Store </title>
         <meta name="description" content="Reward System - Store" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="relative mx-auto min-h-screen max-w-screen-xl px-6 pb-20 sm:px-8">
-        {/* Navbar */}
-        <Navbar />
-
-        {/* Main Content */}
-        <div className="pt-20">{renderStores()}</div>
-      </div>
+      <div className="pt-20">{renderStores()}</div>
     </>
   );
 };
+
+Store.getLayout = (page: ReactElement) => <RootLayout>{page}</RootLayout>;
 
 export default Store;
