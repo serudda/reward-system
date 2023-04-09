@@ -5,6 +5,7 @@ export * from './Icon/Icon';
 export * from './ItemsCard/ItemsCard';
 export * from './ItemsGrid/ItemsGrid';
 export * from './Logo/Logo';
+export * from './Navbar/Navbar';
 export * from './Notifications';
 export * from './Overlays';
 export * from './Tag/Tag';
