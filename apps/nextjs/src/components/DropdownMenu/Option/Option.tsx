@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import cn from 'classnames';
 
 export interface OptionProps {
@@ -20,7 +20,7 @@ export interface OptionProps {
   /**
    * Callback when the option was clicked
    */
-  onClick?: (event: React.MouseEvent) => void;
+  onClick?: () => void;
 }
 
 /**
@@ -34,13 +34,20 @@ export const Option = ({ className, children, isDisabled, onClick }: OptionProps
     'hover:bg-slate-900/50': !isDisabled,
   });
 
-  const handleClick = (event: React.MouseEvent) => {
-    if (onClick) onClick(event);
+  const handleClick = () => {
+    if (onClick) onClick();
   };
 
   /* Render JSX */
   return (
-    <div role="option" tabIndex={0} className={classes} onClick={handleClick}>
+    <div
+      role="option"
+      aria-selected={true}
+      tabIndex={0}
+      className={classes}
+      onClick={handleClick}
+      onKeyDown={handleClick}
+    >
       {children}
     </div>
   );

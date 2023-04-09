@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Popover, PopoverPlacement, PopoverProps } from '../Overlays/Popover/Popover';
+import React, { type ReactNode } from 'react';
+import { Popover, PopoverPlacement, type PopoverProps } from '../Overlays/Popover/Popover';
 import { Menu } from './Menu/Menu';
 import { Option } from './Option/Option';
 
