@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const appendChild = (containerEl: HTMLDivElement): HTMLDivElement => document.body.appendChild(containerEl);
@@ -14,7 +14,7 @@ export interface PortalProps {
 /**
  * The Portal component is used to render a component outside of the DOM hierarchy of the parent component.
  */
-const Portal: React.FC<PortalProps> = ({ children }) => {
+const Portal = ({ children }: PortalProps) => {
   const [containerEl] = useState(document.createElement('div'));
 
   useEffect(() => {

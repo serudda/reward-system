@@ -12,6 +12,7 @@ body,
 #root {
   @apply bg-slate-900;
   @apply font-sans;
+  @apply text-slate-50;
   height: 100%;
 }
 * {

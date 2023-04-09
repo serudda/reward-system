@@ -1,4 +1,4 @@
-import React, { Children, ReactNode, cloneElement, useEffect, useRef, useState } from 'react';
+import React, { Children, cloneElement, useEffect, useRef, useState, type ReactNode } from 'react';
 import cn from 'classnames';
 import { usePopper } from 'react-popper';
 import { hasProp, useOnClickOutside } from '../../../common';
