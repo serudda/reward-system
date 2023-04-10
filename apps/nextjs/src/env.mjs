@@ -22,6 +22,8 @@ const server = z.object({
   DISCORD_SERVER_ID: z.string().min(1),
   DISCORD_BOT_TOKEN: z.string().min(1),
   DISCORD_WEBHOOK_URL: z.string().url().min(1),
+  GITHUB_CLIENT_ID: z.string().min(1),
+  GITHUB_CLIENT_SECRET: z.string().min(1),
   PREFIX: z.string(),
 });
 
@@ -50,6 +52,8 @@ const processEnv = {
   DISCORD_SERVER_ID: process.env.DISCORD_SERVER_ID,
   DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
   DISCORD_WEBHOOK_URL: process.env.DISCORD_WEBHOOK_URL,
+  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   PREFIX: process.env.PREFIX,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };

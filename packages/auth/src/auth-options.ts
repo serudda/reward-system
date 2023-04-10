@@ -1,6 +1,7 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { type DefaultSession, type NextAuthOptions } from 'next-auth';
+import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
+import GithubProvider, { type GithubProfile } from 'next-auth/providers/github';
 import { prisma } from '@acme/db';
 
 /**
@@ -38,6 +39,10 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider<DiscordProfile>({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+    }),
+    GithubProvider<GithubProfile>({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
     /**
      * ...add more providers here
@@ -99,6 +104,60 @@ export const authOptions: NextAuthOptions = {
             refresh_token: account.refresh_token,
             expires_at: account.expires_at,
             providerAccountId: id,
+            provider: account.provider,
+            token_type: account.token_type,
+            scope: account.scope,
+            id_token: account.id_token,
+            session_state: account.session_state,
+            userId: newUser.id,
+          },
+        });
+
+        if (!newAccount) return false;
+      }
+
+      if (account?.provider === 'github') {
+        const { id, login, name, avatar_url, email } = profile as GithubProfile;
+
+        // Create the user if they don't exist or update the user if they do
+        const newUser = await prisma.user.upsert({
+          where: { githubId: id.toString() },
+          update: {
+            githubUserName: login,
+            thumbnail: avatar_url,
+            email,
+          },
+          create: {
+            name: name ?? login,
+            email: email ?? '',
+            githubId: id.toString(),
+            githubUserName: login,
+            thumbnail: avatar_url,
+          },
+        });
+
+        if (!newUser) return false;
+
+        // After creating the user, we need to create/update the account
+        const newAccount = await prisma.account.upsert({
+          where: {
+            provider_providerAccountId: {
+              providerAccountId: account?.providerAccountId,
+              provider: account.provider,
+            },
+          },
+          update: {
+            access_token: account.access_token,
+            refresh_token: account.refresh_token,
+            expires_at: account.expires_at,
+            scope: account.scope,
+          },
+          create: {
+            type: account.type,
+            access_token: account.access_token,
+            refresh_token: account.refresh_token,
+            expires_at: account.expires_at,
+            providerAccountId: id.toString(),
             provider: account.provider,
             token_type: account.token_type,
             scope: account.scope,
