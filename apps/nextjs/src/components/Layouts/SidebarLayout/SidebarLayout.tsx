@@ -1,51 +1,17 @@
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { Avatar, AvatarSize, Icon, IconCatalog } from '~/components';
+import { AccountSidebar } from '~/components';
 
 export interface SidebarLayoutProps {
   children: React.ReactNode;
 }
 
 export const SidebarLayout = ({ children }: SidebarLayoutProps) => {
-  const { data: sessionData } = useSession();
   return (
-    <>
+    <div className="mt-12 mb-24 block space-y-4 md:flex md:space-x-5 md:space-y-0">
       {/* Sidebar */}
-      <div className=" flex w-60 flex-col items-start space-y-4">
-        <aside className="h-max w-full md:sticky md:top-4 md:w-auto md:min-w-[200px]">
-          {/* Sidebar Header */}
-          <div className="mb-6 flex w-full items-center space-x-3 truncate border-b border-slate-800 p-4">
-            <Avatar imgUrl={sessionData?.user.thumbnail} size={AvatarSize.base} />
-            <div className="flex flex-col items-start">
-              <p className="mb-1 font-semibold">{sessionData?.user.name}</p>
-              <p className="text-xs font-medium text-slate-500">Personal Account</p>
-            </div>
-          </div>
-
-          {/* Sidebar Menu */}
-          <div className="mb-6">
-            <nav>
-              <ul>
-                <li>
-                  <Link
-                    className="group relative mx-1 mb-2 flex items-center space-x-4 rounded py-2 text-slate-400 md:px-3 md:hover:bg-slate-800"
-                    href="/account"
-                  >
-                    <Icon
-                      className="text-primary-300 h-6 w-6 group-hover:text-slate-200"
-                      icon={IconCatalog.adjustmentsHorizontal}
-                    />
-                    <p className="text-base group-hover:text-slate-200">General</p>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </aside>
-      </div>
+      <AccountSidebar />
 
       {/* Section */}
-      {children}
-    </>
+      <main className="flex w-full min-w-0 flex-col items-center border-l border-slate-800 py-3 pl-12">{children}</main>
+    </div>
   );
 };

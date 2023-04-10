@@ -33,7 +33,7 @@ export interface ItemsGridProps {
  */
 export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: ItemsGridProps) => {
   const classes = {
-    container: cn(className, 'e-flex e-items-center'),
+    container: cn(className),
   };
 
   const { t } = i18n;
