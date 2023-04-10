@@ -1,8 +1,16 @@
 import type { ReactElement } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { ConnectAccountCard, IconCatalog, RootLayout, SidebarLayout } from '~/components';
 import type { NextPageWithLayout } from '../_app';
 
 const Account: NextPageWithLayout = () => {
+  const { status } = useSession({ required: true });
+
+  if (status === 'loading')
+    return <div className="flex h-52 items-center justify-center text-xl font-bold text-slate-50">Loading...</div>;
+
+  const handleGitHubConnectClick = () => signIn('github');
+
   return (
     <section className="flex w-full flex-grow flex-col first:mt-0 last:mb-0">
       {/* Section Header */}
@@ -24,6 +32,7 @@ const Account: NextPageWithLayout = () => {
               disconnectedText="Connect your GitHub account to your account to enable GitHub integration."
               connectedText="You're connected as serudda"
               isConnected={false}
+              onConnectClick={handleGitHubConnectClick}
             />
 
             <ConnectAccountCard

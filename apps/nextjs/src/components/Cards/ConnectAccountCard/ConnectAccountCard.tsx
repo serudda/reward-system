@@ -48,11 +48,16 @@ export const ConnectAccountCard = ({
   connectedText,
   disconnectedText,
   isConnected = false,
+  onConnectClick,
 }: ConnectAccountCardProps) => {
   const classes = cn('flex flex-col justify-between space-y-6 rounded-lg border p-6', className, {
     'border-slate-800': isConnected,
     'border-slate-600': !isConnected,
   });
+
+  const handleConnectClick = () => {
+    if (onConnectClick) onConnectClick();
+  };
 
   /* Render JSX */
   return (
@@ -65,7 +70,7 @@ export const ConnectAccountCard = ({
         {isConnected ? (
           <Button variant={ButtonVariant.destructive} endIcon={IconCatalog.trash} size={ButtonSize.xs} />
         ) : (
-          <Button variant={ButtonVariant.primary} size={ButtonSize.sm}>
+          <Button variant={ButtonVariant.primary} size={ButtonSize.sm} onClick={handleConnectClick}>
             Connect
           </Button>
         )}
