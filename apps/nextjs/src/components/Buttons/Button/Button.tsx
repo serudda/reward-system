@@ -42,10 +42,10 @@ export enum ButtonVariant {
 
 const Variants: Record<ButtonVariant, string> = {
   [ButtonVariant.primary]: 'bg-primary-200/20 text-primary-50 hover:bg-primary-200/30',
-  [ButtonVariant.secondary]: 'bg-transparent hover:bg-base-white/20 border border-r-primary-50 text-base-white',
+  [ButtonVariant.secondary]: 'bg-transparent hover:bg-white/20 border border-r-primary-50 text-white',
   [ButtonVariant.tertiary]: 'bg-slate-200/20 text-slate-50 hover:bg-slate-200/30',
   [ButtonVariant.ghost]: 'bg-transparent hover:bg-neutral-600 text-primary-300',
-  [ButtonVariant.destructive]: 'bg-red-600 hover:bg-red-700 text-red-50',
+  [ButtonVariant.destructive]: 'bg-red-400/20 hover:bg-red-400/40 text-red-50',
 };
 
 const DisabledVariants: Record<ButtonVariant, string> = {
