@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import cn from 'classnames';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarSize, Icon, IconCatalog } from '~/components';
 
 export interface AccountSidebarProps {
@@ -19,6 +19,8 @@ export const AccountSidebar = ({ className }: AccountSidebarProps) => {
   };
 
   const { data: sessionData } = useSession();
+
+  const handleLogOutClick = () => void signOut();
 
   /* Render JSX */
   return (
@@ -50,16 +52,19 @@ export const AccountSidebar = ({ className }: AccountSidebarProps) => {
                 </Link>
               </li>
               <li>
-                <Link
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={handleLogOutClick}
+                  onKeyDown={handleLogOutClick}
                   className="group relative mx-1 mb-2 flex items-center space-x-4 rounded py-2 text-slate-400 md:px-3 md:hover:bg-slate-800"
-                  href="/account"
                 >
                   <Icon
                     className="h-5 w-5 text-slate-400 group-hover:text-slate-200"
                     icon={IconCatalog.arrowRightOnRectangle}
                   />
                   <p className="text-base group-hover:text-slate-200">Log out</p>
-                </Link>
+                </div>
               </li>
             </ul>
           </nav>

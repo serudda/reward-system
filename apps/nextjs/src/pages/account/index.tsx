@@ -1,14 +1,5 @@
 import type { ReactElement } from 'react';
-import {
-  Button,
-  ButtonSize,
-  ButtonVariant,
-  ConnectAccountCard,
-  Icon,
-  IconCatalog,
-  RootLayout,
-  SidebarLayout,
-} from '~/components';
+import { ConnectAccountCard, IconCatalog, RootLayout, SidebarLayout } from '~/components';
 import type { NextPageWithLayout } from '../_app';
 
 const Account: NextPageWithLayout = () => {

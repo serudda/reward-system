@@ -49,7 +49,7 @@ export const Navbar = ({ className }: NavbarProps) => {
           menu={
             <DropdownMenu.Menu>
               <DropdownMenu.Option>
-                <Link href="/setting">Account Settings</Link>
+                <Link href="/account">Account Settings</Link>
               </DropdownMenu.Option>
               <DropdownMenu.Option className="border-t border-slate-700/50" onClick={handleLogOutClick}>
                 <span className="text-red-500">Logout</span>
