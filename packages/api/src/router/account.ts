@@ -28,7 +28,7 @@ export const accountRouter = createTRPCRouter({
         type: z.string(),
         provider: z.string(),
         providerAccountId: z.string(),
-        providerUserName: z.string().optional(),
+        providerUsername: z.string().optional(),
         userId: z.string(),
       }),
     )
@@ -38,7 +38,7 @@ export const accountRouter = createTRPCRouter({
           data: {
             provider: input.provider,
             providerAccountId: input.providerAccountId,
-            providerUserName: input.providerUserName,
+            providerUsername: input.providerUsername,
             type: input.type,
             user: {
               connect: { id: input.userId },
