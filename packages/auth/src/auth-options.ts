@@ -55,6 +55,127 @@ export const authOptions: NextAuthOptions = {
      **/
   ],
   callbacks: {
+    /**
+     * The callback -> signIn() is a function to next-auth
+     * that permits you to customize the sign in process.
+     */
+    async signIn({ account, profile, user: newUser }): Promise<boolean> {
+      if (account?.provider === 'discord') {
+        const { username, image_url, email } = profile as DiscordProfile;
+        const {
+          provider,
+          type,
+          providerAccountId,
+          access_token,
+          expires_at,
+          refresh_token,
+          scope,
+          token_type,
+          id_token,
+          session_state,
+        } = account;
+        const { name } = newUser;
+
+        // Find the user by their providerAccountId and provider
+        const user = await prisma.user.findFirst({
+          where: {
+            accounts: {
+              some: {
+                providerAccountId,
+                provider,
+              },
+            },
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        // If the user already exists, update their account, otherwise create a new user
+        if (user) {
+          const userAccount = await prisma.account.findFirst({
+            where: {
+              userId: user.id,
+              providerAccountId,
+              provider,
+            },
+            select: {
+              id: true,
+            },
+          });
+
+          /**
+           * If the user already has an account with the same provider and providerAccountId,
+           * update the account. Otherwise, create a new account for the user.
+           */
+          if (userAccount) {
+            await prisma.account.update({
+              where: {
+                id: userAccount.id,
+              },
+              data: {
+                type,
+                providerUsername: username,
+                refresh_token,
+                access_token,
+                expires_at,
+                token_type,
+                scope,
+                id_token,
+                session_state,
+              },
+            });
+          } else {
+            await prisma.account.create({
+              data: {
+                type,
+                provider,
+                providerAccountId,
+                providerUsername: username,
+                refresh_token,
+                access_token,
+                expires_at,
+                token_type,
+                scope,
+                id_token,
+                session_state,
+                user: {
+                  connect: {
+                    id: user.id,
+                  },
+                },
+              },
+            });
+          }
+        } else {
+          await prisma.user.create({
+            data: {
+              name,
+              email,
+              image: image_url,
+              accounts: {
+                create: {
+                  type,
+                  provider,
+                  providerAccountId,
+                  providerUsername: username,
+                  refresh_token,
+                  access_token,
+                  expires_at,
+                  token_type,
+                  scope,
+                  id_token,
+                  session_state,
+                },
+              },
+            },
+          });
+        }
+      }
+
+      return true;
+    },
+
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
