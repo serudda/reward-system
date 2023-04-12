@@ -33,6 +33,11 @@ export interface ConnectAccountCardProps {
   isConnected?: boolean;
 
   /**
+   * Set the loading state for the card
+   */
+  isLoading?: boolean;
+
+  /**
    * Provide a handler that is called when the connect button was clicked.
    */
   onConnectClick?: () => void;
@@ -48,6 +53,7 @@ export const ConnectAccountCard = ({
   connectedText,
   disconnectedText,
   isConnected = false,
+  isLoading = false,
   onConnectClick,
 }: ConnectAccountCardProps) => {
   const classes = cn('flex flex-col justify-between space-y-6 rounded-lg border p-6', className, {
@@ -62,26 +68,34 @@ export const ConnectAccountCard = ({
   /* Render JSX */
   return (
     <div className={classes}>
-      <div className="flex h-8 items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <Icon className="h-8 w-8 text-slate-50" icon={icon} isSolid />
-          <p className="text-xl font-semibold">{title}</p>
-        </div>
-        {isConnected ? (
-          <Button variant={ButtonVariant.destructive} endIcon={IconCatalog.trash} size={ButtonSize.xs} />
-        ) : (
-          <Button variant={ButtonVariant.primary} size={ButtonSize.sm} onClick={handleConnectClick}>
-            Connect
-          </Button>
-        )}
-      </div>
-      {isConnected ? (
-        <div className="flex items-center space-x-3">
-          <Icon className="h-6 w-6 text-green-500" icon={IconCatalog.checkCircle} />
-          <p className="font-medium leading-relaxed">{connectedText}</p>
-        </div>
+      {!isLoading ? (
+        <>
+          <div className="flex h-8 items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Icon className="h-8 w-8 text-slate-50" icon={icon} isSolid />
+              <p className="text-xl font-semibold">{title}</p>
+            </div>
+            {isConnected ? (
+              <Button variant={ButtonVariant.destructive} endIcon={IconCatalog.trash} size={ButtonSize.xs} />
+            ) : (
+              <Button variant={ButtonVariant.primary} size={ButtonSize.sm} onClick={handleConnectClick}>
+                Connect
+              </Button>
+            )}
+          </div>
+          {isConnected ? (
+            <div className="flex items-center space-x-3">
+              <Icon className="h-6 w-6 text-green-500" icon={IconCatalog.checkCircle} />
+              <p className="font-medium leading-relaxed">{connectedText}</p>
+            </div>
+          ) : (
+            <p className="font-medium leading-relaxed text-slate-500">{disconnectedText}</p>
+          )}
+        </>
       ) : (
-        <p className="font-medium leading-relaxed text-slate-500">{disconnectedText}</p>
+        <div className="flex h-20 items-center justify-center">
+          <span className="text-lg font-bold">Loading...</span>
+        </div>
       )}
     </div>
   );

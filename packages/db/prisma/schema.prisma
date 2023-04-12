@@ -20,7 +20,6 @@ model Account {
     userId            String   @map("user_id")
     type              String
     provider          String
-    providerUserName  String?  @map("provider_user_name")
     providerAccountId String   @map("provider_account_id")
     refresh_token     String?  @db.Text
     access_token      String?  @db.Text

@@ -5,6 +5,23 @@ import { Response, TRPCErrorCode } from '../constants';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const accountRouter = createTRPCRouter({
+  getAllProvidersByUserId: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.account.findMany({
+        where: {
+          userId: input.userId,
+        },
+        select: {
+          provider: true,
+        },
+      });
+    }),
+
   create: publicProcedure
     .input(
       z.object({

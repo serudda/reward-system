@@ -1,15 +1,22 @@
 import type { ReactElement } from 'react';
 import { signIn, useSession } from 'next-auth/react';
+import { api } from '~/utils/api';
 import { ConnectAccountCard, IconCatalog, RootLayout, SidebarLayout } from '~/components';
 import type { NextPageWithLayout } from '../_app';
 
 const Account: NextPageWithLayout = () => {
-  const { status } = useSession({ required: true });
+  const { status, data: sessionData } = useSession({ required: true });
+
+  const { data: providers, isLoading } = api.account.getAllProvidersByUserId.useQuery({
+    userId: sessionData?.user.id ?? '',
+  });
+
+  const hasGitHubProvider = providers?.some((provider) => provider.provider === 'github');
+
+  const handleGitHubConnectClick = () => signIn('github');
 
   if (status === 'loading')
     return <div className="flex h-52 items-center justify-center text-xl font-bold text-slate-50">Loading...</div>;
-
-  const handleGitHubConnectClick = () => signIn('github');
 
   return (
     <section className="flex w-full flex-grow flex-col first:mt-0 last:mb-0">
@@ -31,16 +38,9 @@ const Account: NextPageWithLayout = () => {
               title="GitHub"
               disconnectedText="Connect your GitHub account to your account to enable GitHub integration."
               connectedText="You're connected as serudda"
-              isConnected={false}
+              isConnected={hasGitHubProvider}
               onConnectClick={handleGitHubConnectClick}
-            />
-
-            <ConnectAccountCard
-              icon={IconCatalog.discord}
-              title="Discord"
-              disconnectedText="Connect your GitHub account to your account to enable GitHub integration."
-              connectedText="You're connected as serudda"
-              isConnected
+              isLoading={isLoading}
             />
           </div>
         </div>

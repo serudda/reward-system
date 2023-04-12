@@ -55,18 +55,6 @@ export const authOptions: NextAuthOptions = {
      **/
   ],
   callbacks: {
-    /**
-     * The callback -> signIn() is a function to next-auth
-     * that permits you to customize the sign in process.
-     */
-    async signIn({ account }): Promise<boolean> {
-      console.log('account', account);
-      if (account?.provider === 'discord') {
-        // TODO: Si el usuario ya existe... busque el account del user con provider 'discord'. Y actualicelo con todos los datos.
-      }
-      return true;
-    },
-
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
