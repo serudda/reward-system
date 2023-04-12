@@ -43,7 +43,7 @@ export const Navbar = ({ className }: NavbarProps) => {
           menuPlacement={PopoverPlacement.bottomEnd}
           trigger={
             <div role="button" tabIndex={0}>
-              <Avatar imgUrl={sessionData.user.thumbnail} size={AvatarSize.xs} />
+              <Avatar imgUrl={sessionData.user.image} size={AvatarSize.xs} />
             </div>
           }
           menu={

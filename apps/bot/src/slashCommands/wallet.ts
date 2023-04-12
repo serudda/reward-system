@@ -22,15 +22,30 @@ const command: SlashCommand = {
       if (!user) {
         const thumbnailUrl = interaction.user.avatarURL();
 
-        const response = await api.user.create.mutate({
+        // const response = await api.user.create.mutate({
+        //   name: interaction.user.username,
+        //   discordId: interaction.user.id,
+        //   discordUserName: interaction.user.username,
+        //   discordDiscriminator: interaction.user.discriminator,
+        //   thumbnail: thumbnailUrl ?? '',
+        // });
+
+        const newUser = await api.user.create.mutate({
           name: interaction.user.username,
-          discordId: interaction.user.id,
-          discordUserName: interaction.user.username,
-          discordDiscriminator: interaction.user.discriminator,
-          thumbnail: thumbnailUrl ?? '',
+          image: thumbnailUrl ?? '',
         });
 
-        if (response?.data) showUserWalletMsg(interaction, response.data.user.coins.toString());
+        if (!newUser?.data) return;
+
+        const response = await api.account.create.mutate({
+          provider: 'discord',
+          providerAccountId: interaction.user.id,
+          providerUserName: interaction.user.username,
+          type: 'oauth',
+          userId: newUser.data.user.id,
+        });
+
+        if (response?.data) showUserWalletMsg(interaction, newUser.data.user.coins.toString());
       } else showUserWalletMsg(interaction, user.coins.toString());
     } catch (error: any) {
       if (!error) return;

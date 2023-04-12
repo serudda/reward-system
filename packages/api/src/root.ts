@@ -1,3 +1,4 @@
+import { accountRouter } from './router/account';
 import { authRouter } from './router/auth';
 import { botRouter } from './router/bot';
 import { itemRouter } from './router/item';
@@ -6,6 +7,7 @@ import { userRouter } from './router/user';
 import { createTRPCRouter } from './trpc';
 
 export const appRouter = createTRPCRouter({
+  account: accountRouter,
   auth: authRouter,
   bot: botRouter,
   user: userRouter,

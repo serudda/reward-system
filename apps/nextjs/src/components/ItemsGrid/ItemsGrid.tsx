@@ -71,7 +71,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     const itemsList = items.map((item) => (
       <ItemsCard
         key={item.id}
-        thumbnailUrl={item.imageUrl}
+        thumbnailUrl={item.image}
         title={item.name}
         price={item.price}
         stock={item.stock}

@@ -28,7 +28,7 @@ export const AccountSidebar = ({ className }: AccountSidebarProps) => {
       <aside className="h-max w-full pr-6 md:sticky md:top-4 md:w-auto md:min-w-[200px]">
         {/* Sidebar Header */}
         <div className="mb-6 flex w-full items-center space-x-3 truncate border-b border-slate-800 p-4">
-          <Avatar imgUrl={sessionData?.user.thumbnail} size={AvatarSize.base} />
+          <Avatar imgUrl={sessionData?.user.image} size={AvatarSize.base} />
           <div className="flex flex-col items-start">
             <p className="mb-1 font-semibold">{sessionData?.user.name}</p>
             <p className="text-xs font-medium text-slate-500">Personal Account</p>

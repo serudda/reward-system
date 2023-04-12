@@ -13,7 +13,7 @@ const Store: NextPageWithLayout = () => {
     if (isError) return <div>Error</div>;
 
     return stores.map((store) => (
-      <ItemsGrid key={store.id} storeName={store.name} storeImageUrl={store.imageUrl} items={store.items} />
+      <ItemsGrid key={store.id} storeName={store.name} storeImageUrl={store.image} items={store.items} />
     ));
   };
 
