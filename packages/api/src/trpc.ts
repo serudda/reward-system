@@ -13,7 +13,7 @@ import { ZodError } from 'zod';
 import { getServerSession, type Session } from '@acme/auth';
 import { prisma } from '@acme/db';
 import i18n from '@acme/i18n';
-import { TRPCErrorCode } from './constants';
+import { TRPCErrorCode } from './common';
 
 /**
  * 1. CONTEXT
