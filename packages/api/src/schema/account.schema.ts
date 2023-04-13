@@ -9,6 +9,13 @@ export type GetAllProvidersByUserIdInputType = TypeOf<typeof getAllProvidersByUs
 
 /*------------------------------------*/
 
+export const getGithubUsernameByUserIdInput = z.object({
+  userId: z.string(),
+});
+export type GetGithubUsernameByUserIdInputType = TypeOf<typeof getGithubUsernameByUserIdInput>;
+
+/*------------------------------------*/
+
 export const createAccountInput = z.object({
   type: z.string(),
   provider: z.string(),

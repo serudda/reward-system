@@ -2,15 +2,28 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import i18n from '@acme/i18n';
 import { Response, TRPCErrorCode, type Params } from '../common';
-import { CreateAccountInputType, GetAllProvidersByUserIdInputType } from '../schema/account.schema';
+import {
+  CreateAccountInputType,
+  GetAllProvidersByUserIdInputType,
+  GetGithubUsernameByUserIdInputType,
+} from '../schema/account.schema';
 
 export const getAllProvidersByUserIdHandler = async ({ ctx, input }: Params<GetAllProvidersByUserIdInputType>) => {
   return ctx.prisma.account.findMany({
     where: {
       userId: input.userId,
     },
+  });
+};
+
+export const getGithubUsernameByUserIdHandler = async ({ ctx, input }: Params<GetGithubUsernameByUserIdInputType>) => {
+  return await ctx.prisma.account.findFirst({
+    where: {
+      userId: input.userId,
+      provider: 'github',
+    },
     select: {
-      provider: true,
+      providerUsername: true,
     },
   });
 };

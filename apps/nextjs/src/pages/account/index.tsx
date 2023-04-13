@@ -11,7 +11,7 @@ const Account: NextPageWithLayout = () => {
     userId: sessionData?.user.id ?? '',
   });
 
-  const hasGitHubProvider = providers?.some((provider) => provider.provider === 'github');
+  const githubProvider = providers?.find((provider) => provider.provider === 'github');
 
   const handleGitHubConnectClick = () => signIn('github');
 
@@ -37,8 +37,8 @@ const Account: NextPageWithLayout = () => {
               icon={IconCatalog.gitHub}
               title="GitHub"
               disconnectedText="Connect your GitHub account to your account to enable GitHub integration."
-              connectedText="You're connected as serudda"
-              isConnected={hasGitHubProvider}
+              connectedText={`You're connected as ${githubProvider?.providerUsername}`}
+              isConnected={Boolean(githubProvider)}
               onConnectClick={handleGitHubConnectClick}
               isLoading={isLoading}
             />
