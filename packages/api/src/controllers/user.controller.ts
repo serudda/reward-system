@@ -1,6 +1,5 @@
-import { Prisma, PrismaClient, type User } from '@prisma/client';
+import { Prisma, type User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
-import { Session } from 'next-auth';
 import { z } from 'zod';
 import i18n from '@acme/i18n';
 import { PrismaErrorCode, Response, TRPCErrorCode, setThumbnailUrl, type Ctx, type Params } from '../common';
@@ -8,6 +7,7 @@ import {
   CreateUserInputType,
   GetUserByDiscordIdInputType,
   GetUserByEmailInputType,
+  GetUserByProviderInputType,
   GetUserInputType,
   PayCoinsByUserIdInputType,
   SendCoinsByGithubIdInputType,
@@ -24,6 +24,22 @@ export const getUserByDiscordIdHandler = async ({ ctx, input }: Params<GetUserBy
         some: {
           providerAccountId: input.discordId,
           provider: 'discord',
+        },
+      },
+    },
+    include: {
+      accounts: true,
+    },
+  });
+};
+
+export const getUserByProviderHandler = async ({ ctx, input }: Params<GetUserByProviderInputType>) => {
+  return ctx.prisma.user.findFirst({
+    where: {
+      accounts: {
+        some: {
+          providerAccountId: input.providerAccountId,
+          provider: input.provider,
         },
       },
     },

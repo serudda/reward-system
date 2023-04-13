@@ -40,7 +40,7 @@ const command: SlashCommand = {
         const response = await api.account.create.mutate({
           provider: 'discord',
           providerAccountId: interaction.user.id,
-          providerUserName: interaction.user.username,
+          providerUsername: interaction.user.username,
           type: 'oauth',
           userId: newUser.data.user.id,
         });

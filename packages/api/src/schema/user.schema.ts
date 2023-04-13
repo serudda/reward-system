@@ -16,6 +16,14 @@ export type GetUserByDiscordIdInputType = TypeOf<typeof getUserByDiscordIdInput>
 
 /*------------------------------------*/
 
+export const getUserByProviderInput = z.object({
+  providerAccountId: z.string(),
+  provider: z.string(),
+});
+export type GetUserByProviderInputType = TypeOf<typeof getUserByProviderInput>;
+
+/*------------------------------------*/
+
 export const getUserByEmailInput = z.object({
   email: z.string(),
 });

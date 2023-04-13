@@ -2,6 +2,7 @@ import {
   createUserHandler,
   getUserByDiscordIdHandler,
   getUserByEmailHandler,
+  getUserByProviderHandler,
   getUserHandler,
   getUsersHandler,
   payCoinsByUserIdHandler,
@@ -12,6 +13,7 @@ import {
   createUserInput,
   getUserByDiscordIdInput,
   getUserByEmailInput,
+  getUserByProviderInput,
   getUserInput,
   payCoinsByUserIdInput,
   sendCoinsByGithubIdInput,
@@ -27,6 +29,10 @@ export const userRouter = createTRPCRouter({
     // return ctx.prisma.user.findUnique({ where: { discordId: input.discordId } });
     return getUserByDiscordIdHandler({ ctx, input });
   }),
+
+  getUserByProvider: publicProcedure
+    .input(getUserByProviderInput)
+    .query(({ ctx, input }) => getUserByProviderHandler({ ctx, input })),
 
   getByEmail: publicProcedure
     .input(getUserByEmailInput)

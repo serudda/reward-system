@@ -1,8 +1,15 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import type { DefaultSession, NextAuthOptions } from 'next-auth';
+import { DefaultSession, NextAuthOptions, getServerSession } from 'next-auth';
 import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
 import GithubProvider, { type GithubProfile } from 'next-auth/providers/github';
 import { prisma } from '@acme/db';
+import {
+  createAccountHandler,
+  createUserHandler,
+  getAccountByUserAndProviderHandler,
+  getUserByEmailHandler,
+  updateAccountHandler,
+} from './utils/api';
 
 /**
  * Module augmentation for `next-auth` types
@@ -39,10 +46,12 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider<DiscordProfile>({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
     }),
     GithubProvider<GithubProfile>({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
     }),
     /**
      * ...add more providers here
@@ -62,114 +71,46 @@ export const authOptions: NextAuthOptions = {
     async signIn({ account, profile, user: newUser }): Promise<boolean> {
       if (account?.provider === 'discord') {
         const { username, image_url, email } = profile as DiscordProfile;
-        const {
-          provider,
-          type,
-          providerAccountId,
-          access_token,
-          expires_at,
-          refresh_token,
-          scope,
-          token_type,
-          id_token,
-          session_state,
-        } = account;
+        const { provider, providerAccountId } = account;
         const { name } = newUser;
 
-        // Find the user by their providerAccountId and provider
-        const user = await prisma.user.findFirst({
-          where: {
-            accounts: {
-              some: {
-                providerAccountId,
-                provider,
-              },
-            },
-          },
-          select: {
-            id: true,
-          },
-        });
+        // Find the user by email
+        const user = await getUserByEmailHandler(email);
 
         // If the user already exists, update their account, otherwise create a new user
         if (user) {
-          const userAccount = await prisma.account.findFirst({
-            where: {
-              userId: user.id,
-              providerAccountId,
-              provider,
-            },
-            select: {
-              id: true,
-            },
-          });
+          const userAccount = await getAccountByUserAndProviderHandler(user.id, providerAccountId, provider);
 
           /**
            * If the user already has an account with the same provider and providerAccountId,
            * update the account. Otherwise, create a new account for the user.
            */
           if (userAccount) {
-            await prisma.account.update({
-              where: {
-                id: userAccount.id,
-              },
-              data: {
-                type,
-                providerUsername: username,
-                refresh_token,
-                access_token,
-                expires_at,
-                token_type,
-                scope,
-                id_token,
-                session_state,
-              },
-            });
+            await updateAccountHandler(userAccount.id, username, account);
           } else {
-            await prisma.account.create({
-              data: {
-                type,
-                provider,
-                providerAccountId,
-                providerUsername: username,
-                refresh_token,
-                access_token,
-                expires_at,
-                token_type,
-                scope,
-                id_token,
-                session_state,
-                user: {
-                  connect: {
-                    id: user.id,
-                  },
-                },
-              },
-            });
+            await createAccountHandler(user.id, username, account);
           }
         } else {
-          await prisma.user.create({
-            data: {
-              name,
-              email,
-              image: image_url,
-              accounts: {
-                create: {
-                  type,
-                  provider,
-                  providerAccountId,
-                  providerUsername: username,
-                  refresh_token,
-                  access_token,
-                  expires_at,
-                  token_type,
-                  scope,
-                  id_token,
-                  session_state,
-                },
-              },
-            },
-          });
+          await createUserHandler(name, username, email, image_url, account);
+        }
+      }
+
+      if (account?.provider === 'github') {
+        const { login, email } = profile as GithubProfile;
+        const { provider, providerAccountId } = account;
+
+        if (!email) return false;
+
+        // Find the user by their providerAccountId and provider
+        const user = await getUserByEmailHandler(email);
+
+        // If the user already exists, update their account, otherwise create a new user
+        if (user) {
+          const userAccount = await getAccountByUserAndProviderHandler(user.id, providerAccountId, provider);
+          if (userAccount) await updateAccountHandler(userAccount.id, login, account);
+          else await createAccountHandler(user.id, login, account);
+        } else {
+          return false;
         }
       }
 
