@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { Session } from 'next-auth';
 import { z } from 'zod';
 import i18n from '@acme/i18n';
-import { PrismaErrorCode, Response, TRPCErrorCode } from '../constants';
+import { PrismaErrorCode, Response, TRPCErrorCode, setThumbnailUrl, type Ctx, type Params } from '../common';
 import {
   CreateUserInputType,
   GetUserByDiscordIdInputType,
@@ -13,17 +13,6 @@ import {
   SendCoinsByGithubIdInputType,
   SendCoinsByUserIdInputType,
 } from '../schema/user.schema';
-import { setThumbnailUrl } from '../utils/functions';
-
-interface Params<T> {
-  ctx: Ctx;
-  input: T;
-}
-
-type Ctx = {
-  prisma: PrismaClient;
-  session: Session | null;
-};
 
 export const getUserHandler = async ({ ctx, input }: Params<GetUserInputType>) =>
   ctx.prisma.user.findUnique({ where: { id: input.id } });

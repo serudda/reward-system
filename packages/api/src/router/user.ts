@@ -20,9 +20,7 @@ import {
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const userRouter = createTRPCRouter({
-  getById: publicProcedure.input(getUserInput).query(({ ctx, input }) => {
-    return getUserHandler({ ctx, input });
-  }),
+  getById: publicProcedure.input(getUserInput).query(({ ctx, input }) => getUserHandler({ ctx, input })),
 
   getByDiscordId: publicProcedure.input(getUserByDiscordIdInput).query(({ ctx, input }) => {
     // TODO: remove when everything works fine
