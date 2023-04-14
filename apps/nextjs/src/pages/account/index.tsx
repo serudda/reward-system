@@ -7,6 +7,7 @@ import type { NextPageWithLayout } from '../_app';
 
 const Account: NextPageWithLayout = () => {
   const { t } = i18n;
+
   const { status, data: sessionData } = useSession({ required: true });
 
   const { data: providers, isLoading } = api.account.getAllProvidersByUserId.useQuery({
@@ -23,6 +24,14 @@ const Account: NextPageWithLayout = () => {
         {t('common.loading')}...
       </div>
     );
+
+  const DISCONNECT_TEXT = t(
+    'app.nextjs.account.sections.general.subsections.integration.connectAccountCard.description.default',
+  );
+  const CONNECT_TEXT = t(
+    'app.nextjs.account.sections.general.subsections.integration.connectAccountCard.description.connected',
+    { username: githubProvider?.providerUsername },
+  );
 
   return (
     <section className="flex w-full flex-grow flex-col first:mt-0 last:mb-0">
@@ -71,17 +80,8 @@ const Account: NextPageWithLayout = () => {
             <ConnectAccountCard
               icon={IconCatalog.gitHub}
               title="GitHub"
-              disconnectedText={
-                t(
-                  'app.nextjs.account.sections.general.subsections.integration.connectAccountCard.description.default',
-                ) as string
-              }
-              connectedText={
-                t(
-                  'app.nextjs.account.sections.general.subsections.integration.connectAccountCard.description.connected',
-                  { username: githubProvider?.providerUsername },
-                ) as string
-              }
+              disconnectedText={DISCONNECT_TEXT}
+              connectedText={CONNECT_TEXT}
               isConnected={Boolean(githubProvider)}
               onConnectClick={handleGitHubConnectClick}
               isLoading={isLoading}
