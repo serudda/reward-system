@@ -9,6 +9,7 @@ const config = {
     'prettier',
   ],
   rules: {
+    'jsx-a11y/media-has-caption': 'off',
     '@next/next/no-html-link-for-pages': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-var-requires': 'off',
