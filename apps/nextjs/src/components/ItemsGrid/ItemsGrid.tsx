@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import cn from 'classnames';
+import { useTranslation } from 'next-i18next';
 import { type Item } from '@acme/db';
-import i18n from '@acme/i18n';
 import { api } from '~/utils/api';
 import { useToast } from '~/common';
 import { ItemsCard, ToastVariant } from '~/components';
@@ -33,10 +33,10 @@ export interface ItemsGridProps {
  */
 export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: ItemsGridProps) => {
   const classes = {
-    container: cn(className, 'e-flex e-items-center'),
+    container: cn(className),
   };
 
-  const { t } = i18n;
+  const { t } = useTranslation(['nextjs']);
 
   const { addToast } = useToast();
 
@@ -44,7 +44,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     onSuccess: () => {
       addToast({
         variant: ToastVariant.success,
-        title: t('app.nextjs.component.itemsGrid.message.success.boughtItem'),
+        title: t('nextjs:component.itemsGrid.message.success.boughtItem'),
         dismissInterval: 5000,
       });
     },
@@ -64,14 +64,14 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     if (items.length === 0)
       return (
         <div className="flex w-full items-center justify-center py-20">
-          <span className="text-lg text-slate-300">{t('app.nextjs.component.itemsGrid.message.empty')}</span>
+          <span className="text-lg text-slate-300">{t('nextjs:component.itemsGrid.message.empty')}</span>
         </div>
       );
 
     const itemsList = items.map((item) => (
       <ItemsCard
         key={item.id}
-        thumbnailUrl={item.imageUrl}
+        thumbnailUrl={item.image}
         title={item.name}
         price={item.price}
         stock={item.stock}
@@ -93,7 +93,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
 
         {/* Body */}
         <div className="p-8 pb-24">
-          <div className="mb-3 font-semibold text-slate-500">{t('app.nextjs.component.itemsGrid.body.title')}</div>
+          <div className="mb-3 font-semibold text-slate-500">{t('nextjs:component.itemsGrid.body.title')}</div>
           {renderItems()}
         </div>
 
@@ -102,10 +102,10 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
           <div className="flex items-center">
             <div className="flex items-center space-x-4">
               <Image className="rounded-md" src={storeImageUrl} alt={storeName} width={32} height={32} />
-              <div className="text-lg text-slate-500">{storeName}</div>
+              <div className="text-lg text-slate-400">{storeName}</div>
             </div>
             <div className="ml-auto font-semibold text-slate-600">
-              {t('app.nextjs.component.itemsGrid.footer.itemsAvailable', { amount: items.length })}
+              {t('nextjs:component.itemsGrid.footer.itemsAvailable', { amount: items.length })}
             </div>
           </div>
         </div>

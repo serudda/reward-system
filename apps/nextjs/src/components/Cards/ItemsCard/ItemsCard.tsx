@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import cn from 'classnames';
-
 import { Tag, TagVariant } from '~/components/Tag/Tag';
 
 export interface ItemsCardProps {
@@ -108,7 +107,7 @@ export const ItemsCard = ({
 
       {/* Item info */}
       <div className="">
-        <p className="mb-1 text-lg font-semibold text-slate-300 line-clamp-2">{title}</p>
+        <p className="mb-2 text-lg font-semibold text-slate-300 line-clamp-2">{title}</p>
         <div className="flex items-center space-x-2">
           <div className="text-sm font-semibold text-slate-500">Amount</div>
           {renderAvailabilityTag()}

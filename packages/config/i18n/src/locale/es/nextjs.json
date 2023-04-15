@@ -1,0 +1,64 @@
+{
+  "component": {
+    "button": {
+      "logInWithDiscord": "Log In with Discord",
+      "goToStore": "Go to the Store"
+    },
+    "itemsGrid": {
+      "body": {
+        "title": "All Items"
+      },
+      "footer": {
+        "itemsAvailable": "{{amount}} items available"
+      },
+      "message": {
+        "empty": "This store doesn't have items yet.",
+        "success": {
+          "boughtItem": "The transaction was successful"
+        },
+        "error": {
+          "boughtItem": "The transaction failed. Please try again"
+        }
+      }
+    },
+    "navbar": {
+      "store": "Store",
+      "accountSettings": "Account Settings"
+    }
+  },
+  "home": {
+    "pov": "A simple way to reward your Community"
+  },
+  "account": {
+    "sections": {
+      "general": {
+        "title": "General Settings",
+        "subsections": {
+          "profile": {
+            "title": "Profile Information",
+            "form": {
+              "email": {
+                "helperText": "Your email is considered your unique identifier. That's why at the moment it is not possible to change it."
+              }
+            }
+          },
+          "integration": {
+            "title": "Account Integrations",
+            "connectAccountCard": {
+              "description": {
+                "default": "Connect your GitHub account to your account to enable GitHub integration.",
+                "connected": "You're connected as {{username}}"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "error": {
+    "gitHubNotConnect": {
+      "description": "The <span className='text-primary-200'>GitHub</span> account you are trying to connect to has a different email address than the default here:"
+    }
+  },
+  "store": {}
+}

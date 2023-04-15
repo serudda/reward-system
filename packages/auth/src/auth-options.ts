@@ -1,7 +1,17 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { type DefaultSession, type NextAuthOptions } from 'next-auth';
+import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
+import GithubProvider, { type GithubProfile } from 'next-auth/providers/github';
 import { prisma } from '@acme/db';
+import {
+  createAccountHandler,
+  createUserHandler,
+  getAccountByProviderHandler,
+  getAccountByUserAndProviderHandler,
+  getUserByEmailHandler,
+  updateAccountHandler,
+  updateProviderUsernameAccountHandler,
+} from './utils/api';
 
 /**
  * Module augmentation for `next-auth` types
@@ -13,15 +23,18 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      image: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession['user'];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    id: string;
+    name: string;
+    email: string;
+    image: string;
+  }
 }
 
 /**
@@ -35,6 +48,10 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider<DiscordProfile>({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+    }),
+    GithubProvider<GithubProfile>({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
     /**
      * ...add more providers here
@@ -51,72 +68,75 @@ export const authOptions: NextAuthOptions = {
      * The callback -> signIn() is a function to next-auth
      * that permits you to customize the sign in process.
      */
-    async signIn({ account, profile }): Promise<boolean> {
+    async signIn({ account, profile, user: newUser }): Promise<boolean | string> {
+      /**
+       * The Discord provider flow
+       */
       if (account?.provider === 'discord') {
-        const { id, username, discriminator, image_url, email } = profile as DiscordProfile;
+        const { username, image_url, email } = profile as DiscordProfile;
+        const { provider, providerAccountId } = account;
+        const { name } = newUser;
 
-        // Create the user if they don't exist or update the user if they do
-        const newUser = await prisma.user.upsert({
-          where: { discordId: id },
-          update: {
-            discordUserName: username,
-            discordDiscriminator: discriminator,
-            thumbnail: image_url,
-            email,
-          },
-          create: {
-            name: username,
-            email: email ?? '',
-            discordId: id,
-            discordUserName: username,
-            discordDiscriminator: discriminator,
-            thumbnail: image_url,
-          },
-        });
+        // Find the user by email
+        const user = await getUserByEmailHandler(email);
 
-        if (!newUser) return false;
+        // If the user already exists, update their account, otherwise create a new user
+        if (user) {
+          const userAccount = await getAccountByUserAndProviderHandler(user.id, providerAccountId, provider);
 
-        // After creating the user, we need to create/update the account
-        const newAccount = await prisma.account.upsert({
-          where: {
-            provider_providerAccountId: {
-              providerAccountId: account?.providerAccountId,
-              provider: account.provider,
-            },
-          },
-          update: {
-            access_token: account.access_token,
-            refresh_token: account.refresh_token,
-            expires_at: account.expires_at,
-            scope: account.scope,
-          },
-          create: {
-            type: account.type,
-            access_token: account.access_token,
-            refresh_token: account.refresh_token,
-            expires_at: account.expires_at,
-            providerAccountId: id,
-            provider: account.provider,
-            token_type: account.token_type,
-            scope: account.scope,
-            id_token: account.id_token,
-            session_state: account.session_state,
-            userId: newUser.id,
-          },
-        });
-
-        if (!newAccount) return false;
+          /**
+           * If the user already has an account with the same provider and providerAccountId,
+           * update the account. Otherwise, create a new account for the user.
+           */
+          if (userAccount) await updateAccountHandler(userAccount.id, username, account);
+          else await createAccountHandler(user.id, username, account);
+        } else await createUserHandler(name, username, email, image_url, account);
       }
 
+      /**
+       * The Github provider flow
+       */
+      if (account?.provider === 'github') {
+        const { login, email } = profile as GithubProfile;
+        const { provider, providerAccountId } = account;
+
+        if (login) {
+          // Check if the account already exists
+          const existingAccount = await getAccountByProviderHandler(providerAccountId, provider);
+          if (existingAccount) await updateProviderUsernameAccountHandler(existingAccount.id, login);
+          else {
+            // Find the user by email
+            const user = await getUserByEmailHandler(email as string);
+
+            // If the user already exists, create a new account for them, otherwise return an error
+            if (user) await createAccountHandler(user.id, login, account);
+            else return '/auth/error?error=UserNotFound';
+          }
+        }
+      }
+
+      /**
+       * NOTE: Remember that by returning true, you are telling next-auth to continue the authentication process.
+       * the authentication process, i.e., it will create and update again all the tables involved in the authentication process (User, Account, Session, etc.).
+       * tables that are involved in the authentication process (User, Account, Session, etc.).
+       * Here we should only update the fields that next-auth does not update by default (such as username).
+       */
       return true;
     },
 
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
+        session.user.name = user.name;
+        session.user.email = user.email;
+        session.user.image = user.image;
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;
     },
+  },
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error',
   },
 };

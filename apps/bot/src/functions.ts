@@ -1,6 +1,5 @@
 import { PermissionFlagsBits, type GuildMember, type PermissionResolvable, type TextChannel } from 'discord.js';
-
-import { type GuildOption } from './types';
+import { type GuildOption } from './@types/discord';
 
 /**
 This function checks whether a given GuildMember has an array of permissions and returns an array of the missing permissions as strings.

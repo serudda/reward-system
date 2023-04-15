@@ -1,6 +1,5 @@
 import { type Client } from 'discord.js';
-
-import { type BotEvent } from '../types';
+import { type BotEvent } from '../@types/discord';
 
 /*
 This  sets up an event listener that triggers once when the bot is logged in and ready to execute commands.It logs a message to the console with the bot's tag to confirm successful login. */
