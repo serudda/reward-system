@@ -37,6 +37,17 @@ const config = {
       'error',
       { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
     ],
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'react-i18next',
+            message: 'Please use next-i18next import instead to avoid hydration errors',
+          },
+        ],
+      },
+    ],
   },
   ignorePatterns: ['**/*.config.js', '**/*.config.cjs', 'packages/config/**'],
   reportUnusedDisableDirectives: true,

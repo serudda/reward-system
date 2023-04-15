@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { signIn } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'react-i18next';
 import { Button, ButtonVariant, IconCatalog, Logo, LogoColor, LogoType } from '~/components';
 
 type SigninProps = {};
