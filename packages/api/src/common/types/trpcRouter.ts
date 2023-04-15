@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { Session } from 'next-auth';
+import type { PrismaClient } from '@prisma/client';
+import type { Session } from 'next-auth';
 
 export type Ctx = {
   prisma: PrismaClient;

@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { DefaultSession, NextAuthOptions } from 'next-auth';
+import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import DiscordProvider, { type DiscordProfile } from 'next-auth/providers/discord';
 import GithubProvider, { type GithubProfile } from 'next-auth/providers/github';
 import { prisma } from '@acme/db';

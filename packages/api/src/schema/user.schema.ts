@@ -1,4 +1,4 @@
-import { TypeOf, z } from 'zod';
+import { z, type TypeOf } from 'zod';
 
 /*------------------------------------*/
 

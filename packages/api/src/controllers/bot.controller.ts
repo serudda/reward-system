@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { i18n } from '@acme/i18n';
 import { TRPCErrorCode } from '../common';
-import { SendDiscordMsgInputType } from '../schema/bot.schema';
+import type { SendDiscordMsgInputType } from '../schema/bot.schema';
 
 const DISCORD_BOT_USERNAME = 'Reward System';
 

@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { i18n } from '@acme/i18n';
 import { PrismaErrorCode, TRPCErrorCode, type Params } from '../common';
-import { BuyItemInputType, GetItemsByStoreIdInputInputType } from '../schema/item.schema';
+import type { BuyItemInputType, GetItemsByStoreIdInputInputType } from '../schema/item.schema';
 
 export const getItemsByStoreIdHandler = async ({ ctx, input }: Params<GetItemsByStoreIdInputInputType>) => {
   return ctx.prisma.item.findMany({ where: { storeId: input.storeId } });

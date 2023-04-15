@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { i18n } from '@acme/i18n';
 import { PrismaErrorCode, Response, TRPCErrorCode, setThumbnailUrl, type Ctx, type Params } from '../common';
-import {
+import type {
   CreateUserInputType,
   GetUserByDiscordIdInputType,
   GetUserByEmailInputType,
