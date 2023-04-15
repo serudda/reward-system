@@ -41,7 +41,7 @@ void i18n
       caches: ['cookie'],
       lookupCookie: 'lenguaje',
     },
-    debug: true,
+    debug: process?.env?.NODE_ENV === 'development',
   });
 
 export default i18n;
