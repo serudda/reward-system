@@ -1,15 +1,18 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import i18n from '@acme/i18n';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Button, ButtonSize, ButtonVariant, IconCatalog, Logo, LogoColor, LogoType } from '~/components';
 import { AuthError } from '../../common';
 
-const Error: NextPage = () => {
+type ErrorProps = {};
+
+const Error: NextPage = (_props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const { error } = router.query;
   const { data: session } = useSession();
-  const { t } = i18n;
+  const { t } = useTranslation(['common']);
 
   const handleGoBackClick = () => router.back();
 
@@ -27,11 +30,17 @@ const Error: NextPage = () => {
           variant={ButtonVariant.destructive}
           onClick={handleGoBackClick}
         >
-          {t('common.back')}
+          {t('common:back')}
         </Button>
       </div>
     </div>
   );
 };
+
+export const getServerSideProps: GetServerSideProps<ErrorProps> = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+  },
+});
 
 export default Error;

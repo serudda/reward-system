@@ -5,7 +5,7 @@ import {
   type PermissionResolvable,
   type User,
 } from 'discord.js';
-import i18n from '@acme/i18n';
+import { i18n } from '@acme/i18n';
 import { api } from '../api';
 import { config } from '../common/constants';
 import { type BotEvent } from '../types';

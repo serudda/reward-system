@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import i18n from '@acme/i18n';
+import { i18n } from '@acme/i18n';
 import { TRPCErrorCode } from '../common';
 import { SendDiscordMsgInputType } from '../schema/bot.schema';
 

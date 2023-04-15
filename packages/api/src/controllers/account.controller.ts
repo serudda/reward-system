@@ -1,6 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import i18n from '@acme/i18n';
+import { i18n } from '@acme/i18n';
 import { Response, TRPCErrorCode, type Params } from '../common';
 import {
   CreateAccountInputType,

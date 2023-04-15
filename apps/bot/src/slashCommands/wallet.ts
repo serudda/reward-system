@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder, type CacheType, type CommandInteraction } from 'discord.js';
-import i18n from '@acme/i18n';
+import { i18n } from '@acme/i18n';
 import { api } from '../api';
 import { type SlashCommand } from '../types';
 

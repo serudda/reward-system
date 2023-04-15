@@ -1,7 +1,7 @@
 import { Prisma, type User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import i18n from '@acme/i18n';
+import { i18n } from '@acme/i18n';
 import { PrismaErrorCode, Response, TRPCErrorCode, setThumbnailUrl, type Ctx, type Params } from '../common';
 import {
   CreateUserInputType,

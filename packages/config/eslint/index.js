@@ -17,6 +17,14 @@ const config = {
     '@typescript-eslint/no-unsafe-call': 'warn',
     '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/no-unsafe-argument': 'warn',
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          '{}': false,
+        },
+      },
+    ],
     '@typescript-eslint/no-unused-vars': [
       'error',
       {

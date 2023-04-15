@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import i18n from '@acme/i18n';
+import { i18n } from '@acme/i18n';
 import { PrismaErrorCode, TRPCErrorCode, type Params } from '../common';
 import { BuyItemInputType, GetItemsByStoreIdInputInputType } from '../schema/item.schema';
 

@@ -1,10 +1,14 @@
 import type { ReactElement } from 'react';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { api } from '~/utils/api';
 import { ItemsGrid, RootLayout } from '~/components';
 import type { NextPageWithLayout } from '../_app';
 
-const Store: NextPageWithLayout = () => {
+type StoreProps = {};
+
+const Store: NextPageWithLayout = (_props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: stores, isLoading, isError } = api.store.getAllWithItems.useQuery();
 
   const renderStores = () => {
@@ -29,5 +33,11 @@ const Store: NextPageWithLayout = () => {
 };
 
 Store.getLayout = (page: ReactElement) => <RootLayout>{page}</RootLayout>;
+
+export const getServerSideProps: GetServerSideProps<StoreProps> = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', ['nextjs'])),
+  },
+});
 
 export default Store;
