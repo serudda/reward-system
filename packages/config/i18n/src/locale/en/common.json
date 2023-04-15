@@ -7,7 +7,9 @@
     "loading": "Loading",
     "back": "Back",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "logIn": "Log In",
+    "logOut": "Log Out"
   },
   "inputs": {
     "email": {

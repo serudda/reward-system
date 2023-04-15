@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import cn from 'classnames';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   AvatarSize,
@@ -26,6 +27,8 @@ export interface NavbarProps {
  * The Navbar is the main navigation component
  */
 export const Navbar = ({ className }: NavbarProps) => {
+  const { t } = useTranslation(['common', 'nextjs']);
+
   const classes = {
     navbar: cn(className, 'flex flex-row items-center gap-6 border-b border-slate-800 p-4'),
   };
@@ -49,10 +52,10 @@ export const Navbar = ({ className }: NavbarProps) => {
           menu={
             <DropdownMenu.Menu>
               <DropdownMenu.Option>
-                <Link href="/account">Account Settings</Link>
+                <Link href="/account">{t('nextjs:component.navbar.accountSettings')}</Link>
               </DropdownMenu.Option>
               <DropdownMenu.Option className="border-t border-slate-700/50" onClick={handleLogOutClick}>
-                <span className="text-red-500">Logout</span>
+                <span className="text-red-500">{t('common:actions.logOut')}</span>
               </DropdownMenu.Option>
             </DropdownMenu.Menu>
           }
@@ -67,7 +70,7 @@ export const Navbar = ({ className }: NavbarProps) => {
         onClick={handleLogInClick}
         endIcon={IconCatalog.arrowLongRight}
       >
-        Log In
+        {t('common:actions.logIn')}
       </Button>
     );
   };
@@ -88,15 +91,12 @@ export const Navbar = ({ className }: NavbarProps) => {
 
       {/* Nav Options */}
       <nav className="flex items-center space-x-9">
-        <a className="hidden transform text-sm font-medium text-slate-300 hover:text-white" href="#pricing">
-          Pricing
-        </a>
-        <a className="transform whitespace-nowrap text-sm font-semibold text-slate-300 hover:text-white" href="/signup">
-          Docs
-        </a>
-        <a className="transform whitespace-nowrap text-sm font-semibold text-slate-300 hover:text-white" href="/signup">
-          Help
-        </a>
+        <Link
+          className="transform whitespace-nowrap text-sm font-semibold text-slate-300 hover:text-white"
+          href="/store"
+        >
+          {t('nextjs:component.navbar.store')}
+        </Link>
 
         <Link
           className="hidden transform text-sm font-medium text-slate-300 hover:text-white sm:block"

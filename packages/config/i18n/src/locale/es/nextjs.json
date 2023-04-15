@@ -22,6 +22,12 @@
       }
     }
   },
+  "navbar": {
+    "store": "Store",
+    "accountSettings": "Account Settings",
+    "logIn": "Log In",
+    "logOut": "Log Out"
+  },
   "home": {
     "pov": "A simple way to reward your Community"
   },

@@ -19,7 +19,7 @@ const Home: NextPage = (_props: InferGetServerSidePropsType<typeof getServerSide
         <meta name="description" content="Reward System" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative flex h-screen w-full flex-none flex-col flex-wrap items-center justify-center gap-10 overflow-hidden p-10">
+      <main className="relative flex h-screen w-full flex-none flex-col items-center justify-center gap-10 overflow-hidden p-10">
         <div className="relative flex h-min w-min flex-none flex-col flex-wrap items-center justify-center gap-4 overflow-hidden p-0">
           <div className="mb-2 flex flex-row items-center gap-4 text-white">
             <Logo type={LogoType.symbol} width="40px" height="40px" />

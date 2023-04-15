@@ -20,6 +20,10 @@
           "boughtItem": "The transaction failed. Please try again"
         }
       }
+    },
+    "navbar": {
+      "store": "Store",
+      "accountSettings": "Account Settings"
     }
   },
   "home": {
