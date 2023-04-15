@@ -1,6 +1,6 @@
 import React, { type ButtonHTMLAttributes, type ReactNode } from 'react';
 import cn from 'classnames';
-import { Icon, type Catalog as IconCatalog } from '~/components';
+import { Icon, type IconCatalog } from '~/components';
 
 export enum ButtonSize {
   xs = 'xs',
@@ -9,27 +9,27 @@ export enum ButtonSize {
 }
 
 const SizesWithoutIcon: Record<ButtonSize, string> = {
-  [ButtonSize.xs]: 'py-2 px-4 text-sm font-medium',
-  [ButtonSize.sm]: 'py-2 px-4 text-base font-medium',
-  [ButtonSize.base]: 'p-4 text-base font-medium',
+  [ButtonSize.xs]: 'py-2 px-4 text-xs font-semibold',
+  [ButtonSize.sm]: 'py-2 px-4 text-sm font-semibold',
+  [ButtonSize.base]: 'py-3 px-5 text-base font-medium',
 };
 
 const SizesOnlyIcon: Record<ButtonSize, string> = {
-  [ButtonSize.xs]: 'p-1 text-sm font-medium',
-  [ButtonSize.sm]: 'p-2 text-base font-medium',
-  [ButtonSize.base]: 'p-4 text-base font-medium',
+  [ButtonSize.xs]: 'p-2',
+  [ButtonSize.sm]: 'p-2',
+  [ButtonSize.base]: 'p-3',
 };
 
 const SizesWithStartIcon: Record<ButtonSize, string> = {
-  [ButtonSize.xs]: 'pl-1 pr-2 py-1 text-sm font-medium',
-  [ButtonSize.sm]: 'pl-2 pr-4 py-2 text-base font-medium',
-  [ButtonSize.base]: 'pl-2 pr-4 py-4 text-base font-medium',
+  [ButtonSize.xs]: 'px-3 py-2 text-xs font-semibold',
+  [ButtonSize.sm]: 'px-4 py-2 text-sm font-semibold',
+  [ButtonSize.base]: 'px-4 py-3 text-base font-semibold',
 };
 
 const SizesWithEndIcon: Record<ButtonSize, string> = {
-  [ButtonSize.xs]: 'pl-2 pr-1 py-1 text-sm font-medium',
-  [ButtonSize.sm]: 'pl-4 pr-2 py-2 text-base font-medium',
-  [ButtonSize.base]: 'pl-4 pr-2 py-4 text-base font-medium',
+  [ButtonSize.xs]: 'px-3 py-2 text-xs font-semibold',
+  [ButtonSize.sm]: 'px-4 py-2 text-sm font-semibold',
+  [ButtonSize.base]: 'px-4 py-3 text-base font-semibold',
 };
 
 export enum ButtonVariant {
@@ -38,14 +38,16 @@ export enum ButtonVariant {
   tertiary = 'tertiary',
   ghost = 'ghost',
   destructive = 'destructive',
+  discord = 'discord',
 }
 
 const Variants: Record<ButtonVariant, string> = {
   [ButtonVariant.primary]: 'bg-primary-200/20 text-primary-50 hover:bg-primary-200/30',
-  [ButtonVariant.secondary]: 'bg-transparent hover:bg-base-white/20 border border-r-primary-50 text-base-white',
+  [ButtonVariant.secondary]: 'bg-transparent hover:bg-white/20 border border-r-primary-50 text-white',
   [ButtonVariant.tertiary]: 'bg-slate-200/20 text-slate-50 hover:bg-slate-200/30',
   [ButtonVariant.ghost]: 'bg-transparent hover:bg-neutral-600 text-primary-300',
-  [ButtonVariant.destructive]: 'bg-red-600 hover:bg-red-700 text-red-50',
+  [ButtonVariant.destructive]: 'bg-red-400/20 hover:bg-red-400/40 text-red-50',
+  [ButtonVariant.discord]: 'bg-[#5865f2]/60 hover:bg-[#5865f2]/80 text-white',
 };
 
 const DisabledVariants: Record<ButtonVariant, string> = {
@@ -54,12 +56,13 @@ const DisabledVariants: Record<ButtonVariant, string> = {
   [ButtonVariant.tertiary]: 'bg-transparent text-neutral-300',
   [ButtonVariant.ghost]: 'bg-transparent text-neutral-300',
   [ButtonVariant.destructive]: 'bg-error-800 text-neutral-300',
+  [ButtonVariant.discord]: 'bg-[#5865f2]/60 text-[#5865f2]',
 };
 
 enum ButtonIconSize {
-  xs = '24',
-  sm = '24',
-  base = '24',
+  xs = 'w-4 h-4',
+  sm = 'w-5 h-5',
+  base = 'w-6 h-6',
 }
 
 export enum HtmlType {
@@ -88,6 +91,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * The icon to display on the right side.
    */
   endIcon?: IconCatalog;
+
+  /**
+   * If set to true, the icon will be solid.
+   */
+  iconIsSolid?: boolean;
 
   /**
    * Disables the button, disallowing user interaction.
@@ -124,6 +132,7 @@ export const Button = ({
   size = ButtonSize.base,
   startIcon,
   endIcon,
+  iconIsSolid = false,
   isDisabled = false,
   isLoading = false,
   isFullWidth = false,
@@ -155,11 +164,11 @@ export const Button = ({
         'cursor-default opacity-30': isDisabled,
       },
     ),
-    startIcon: cn({
+    startIcon: cn(ButtonIconSize[size], {
       'mr-1': children && size === ButtonSize.xs,
       'mr-2': children && (size === ButtonSize.sm || size === ButtonSize.base),
     }),
-    endIcon: cn({
+    endIcon: cn(ButtonIconSize[size], {
       'ml-1': children && size === ButtonSize.xs,
       'ml-2': children && (size === ButtonSize.sm || size === ButtonSize.base),
     }),
@@ -187,19 +196,10 @@ export const Button = ({
       onClick={onClick}
       {...restOfProps}
     >
-      {startIcon && (
-        <Icon
-          className={classes.startIcon}
-          icon={startIcon}
-          width={ButtonIconSize[size]}
-          height={ButtonIconSize[size]}
-        />
-      )}
+      {startIcon && <Icon className={classes.startIcon} icon={startIcon} isSolid={iconIsSolid} />}
       <span>{children}</span>
       {isLoading && <span className={classes.loading}></span>}
-      {endIcon && (
-        <Icon className={classes.endIcon} icon={endIcon} width={ButtonIconSize[size]} height={ButtonIconSize[size]} />
-      )}
+      {endIcon && <Icon className={classes.endIcon} icon={endIcon} isSolid={iconIsSolid} />}
     </button>
   );
 };

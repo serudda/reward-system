@@ -1,0 +1,36 @@
+{
+  "bot": {
+    "sendDiscordMsg": {
+      "payload": ":mega:\n---------------\n**{{username}}** has been rewarded with **{{coins}}** Indie Tokens :gem:.\n→ For merging the following pull request in Develop:\n  {{url}}\n---------------",
+      "success": "Message sent successfully.",
+      "error": {
+        "webhookNotFound": "Webhook URL not found: {{url}}",
+        "internalError": "An internal error has occurred"
+      }
+    }
+  },
+  "item": {
+    "buyItem": {
+      "error": {
+        "notFound": "User or item not found",
+        "insufficientBalance": "Insufficient balance",
+        "insufficientStock": "Insufficient stock",
+        "userAlreadyExists": "User already exists",
+        "invalidItemId": "Invalid item id"
+      }
+    }
+  },
+  "user": {
+    "sendCoinsByUserId": {
+      "error": {
+        "notFound": "User not found"
+      }
+    },
+    "payCoinsByUserId": {
+      "error": {
+        "insufficientBalance": "You don't have enough Indie Tokens for this transaction",
+        "userUpdateNotFound": "User to update not found"
+      }
+    }
+  }
+}

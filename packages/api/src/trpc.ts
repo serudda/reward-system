@@ -12,8 +12,8 @@ import superjson from 'superjson';
 import { ZodError } from 'zod';
 import { getServerSession, type Session } from '@acme/auth';
 import { prisma } from '@acme/db';
-import i18n from '@acme/i18n';
-import { TRPCErrorCode } from './constants';
+import { i18n } from '@acme/i18n';
+import { TRPCErrorCode } from './common';
 
 /**
  * 1. CONTEXT
@@ -107,7 +107,7 @@ export const publicProcedure = t.procedure;
  */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
-    const message = i18n.t('common.message.error.unauthorized');
+    const message = i18n.t('common:message.error.unauthorized');
     throw new TRPCError({
       code: TRPCErrorCode.UNAUTHORIZED,
       message,
