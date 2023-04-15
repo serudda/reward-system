@@ -36,7 +36,7 @@ Store.getLayout = (page: ReactElement) => <RootLayout>{page}</RootLayout>;
 
 export const getServerSideProps: GetServerSideProps<StoreProps> = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['nextjs'])),
+    ...(await serverSideTranslations(locale ?? 'en', ['common', 'nextjs'])),
   },
 });
 

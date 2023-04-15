@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import cn from 'classnames';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import {
   Avatar,
   AvatarSize,
