@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import { i18n } from 'next-i18next';
 
 type ErrorMessages = {
   [key: string]: string;
@@ -14,7 +14,7 @@ const errors: ErrorMessages = {
   OAuthAccountNotLinked: 'To confirm your identity, sign in with the same account you used originally.',
   EmailSignin: 'Check your email address.',
   CredentialsSignin: 'Sign in failed. Check the details you provided are correct.',
-  UserNotFound: i18n.t('app.nextjs.error.gitHubNotConnect.description'),
+  UserNotFound: i18n?.t('nextjs:error.gitHubNotConnect.description') as string,
   default: 'Unable to sign in.',
 };
 

@@ -1,8 +1,7 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
-
-import { type SlashCommand } from './types';
+import { type SlashCommand } from './@types/discord';
 
 const { Guilds, MessageContent, GuildMessages, GuildMembers, GuildMessageReactions } = GatewayIntentBits;
 const { GuildMember, Message, Channel, Reaction, User } = Partials;

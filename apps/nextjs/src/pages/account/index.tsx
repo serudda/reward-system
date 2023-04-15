@@ -25,7 +25,7 @@ const Account: NextPageWithLayout = (_props: InferGetServerSidePropsType<typeof 
   if (status === 'loading')
     return (
       <div className="flex h-52 items-center justify-center text-xl font-bold text-slate-50">
-        {t('common:loading')}...
+        {t('common:actions.loading')}...
       </div>
     );
 

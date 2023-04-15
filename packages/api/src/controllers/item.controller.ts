@@ -12,7 +12,7 @@ export const getItemsByStoreIdHandler = async ({ ctx, input }: Params<GetItemsBy
 export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) => {
   try {
     if (!ctx.session) {
-      const message = i18n.t('common.message.error.unauthorized');
+      const message = i18n.t('common:message.error.unauthorized');
       throw new TRPCError({
         code: TRPCErrorCode.UNAUTHORIZED,
         message,
@@ -24,7 +24,7 @@ export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) =
 
     // Check if user and item exist
     if (!user || !item) {
-      const message = i18n.t('package.api.item.buyItem.error.notFound');
+      const message = i18n.t('api:item.buyItem.error.notFound');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -33,7 +33,7 @@ export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) =
 
     // Check if user has enough coins
     if (user.coins < item.price) {
-      const message = i18n.t('package.api.item.buyItem.error.insufficientBalance');
+      const message = i18n.t('api:item.buyItem.error.insufficientBalance');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -42,7 +42,7 @@ export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) =
 
     // Check if item has enough stock
     if (item.stock === 0) {
-      const message = i18n.t('package.api.item.buyItem.error.insufficientStock');
+      const message = i18n.t('api:item.buyItem.error.insufficientStock');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -71,7 +71,7 @@ export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) =
     // Prisma error (Database issue)
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
-        const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+        const message = i18n.t('api:item.buyItem.error.userAlreadyExists');
         throw new TRPCError({
           code: TRPCErrorCode.CONFLICT,
           message,
@@ -81,7 +81,7 @@ export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) =
 
     // Zod error (Invalid input)
     if (error instanceof z.ZodError) {
-      const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+      const message = i18n.t('api:item.buyItem.error.invalidItemId');
       throw new TRPCError({
         code: TRPCErrorCode.BAD_REQUEST,
         message,
@@ -91,7 +91,7 @@ export const buyItemHandler = async ({ ctx, input }: Params<BuyItemInputType>) =
     // TRPC error (Custom error)
     if (error instanceof TRPCError) {
       if (error.code === TRPCErrorCode.UNAUTHORIZED) {
-        const message = i18n.t('common.message.error.unauthorized');
+        const message = i18n.t('common:message.error.unauthorized');
         throw new TRPCError({
           code: TRPCErrorCode.UNAUTHORIZED,
           message,

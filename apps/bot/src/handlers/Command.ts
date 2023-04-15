@@ -2,7 +2,7 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 import { REST, Routes, type Client, type SlashCommandBuilder } from 'discord.js';
 import { i18n } from '@acme/i18n';
-import { type SlashCommand } from '../types';
+import { type SlashCommand } from '../@types/discord';
 
 // This code registers slash commands for a Discord bot by loading command files from a directory, creating a builder array, setting commands in the client's collection, using the Discord REST API to PUT the commands, and logging the number of commands loaded.
 module.exports = (client: Client) => {

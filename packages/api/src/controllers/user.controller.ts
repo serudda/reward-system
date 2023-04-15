@@ -94,7 +94,7 @@ export const createUserHandler = async ({ ctx, input }: Params<CreateUserInputTy
     // Prisma error (Database issue)
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
-        const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+        const message = i18n.t('api:item.buyItem.error.userAlreadyExists');
         throw new TRPCError({
           code: TRPCErrorCode.CONFLICT,
           message,
@@ -104,7 +104,7 @@ export const createUserHandler = async ({ ctx, input }: Params<CreateUserInputTy
 
     // Zod error (Invalid input)
     if (error instanceof z.ZodError) {
-      const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+      const message = i18n.t('api:item.buyItem.error.invalidItemId');
       throw new TRPCError({
         code: TRPCErrorCode.BAD_REQUEST,
         message,
@@ -114,7 +114,7 @@ export const createUserHandler = async ({ ctx, input }: Params<CreateUserInputTy
     // TRPC error (Custom error)
     if (error instanceof TRPCError) {
       if (error.code === TRPCErrorCode.UNAUTHORIZED) {
-        const message = i18n.t('common.message.error.unauthorized');
+        const message = i18n.t('common:message.error.unauthorized');
         throw new TRPCError({
           code: TRPCErrorCode.UNAUTHORIZED,
           message,
@@ -200,7 +200,7 @@ export const sendCoinsByUserIdHandler = async ({ ctx, input }: Params<SendCoinsB
 
     // Check if user exist
     if (!user) {
-      const message = i18n.t('common.message.error.userNotFound');
+      const message = i18n.t('common:message.error.userNotFound');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -217,7 +217,7 @@ export const sendCoinsByUserIdHandler = async ({ ctx, input }: Params<SendCoinsB
     // Prisma error (Database issue)
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
-        const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+        const message = i18n.t('api:item.buyItem.error.userAlreadyExists');
         throw new TRPCError({
           code: TRPCErrorCode.CONFLICT,
           message,
@@ -227,7 +227,7 @@ export const sendCoinsByUserIdHandler = async ({ ctx, input }: Params<SendCoinsB
 
     // Zod error (Invalid input)
     if (error instanceof z.ZodError) {
-      const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+      const message = i18n.t('api:item.buyItem.error.invalidItemId');
       throw new TRPCError({
         code: TRPCErrorCode.BAD_REQUEST,
         message,
@@ -237,7 +237,7 @@ export const sendCoinsByUserIdHandler = async ({ ctx, input }: Params<SendCoinsB
     // TRPC error (Custom error)
     if (error instanceof TRPCError) {
       if (error.code === TRPCErrorCode.UNAUTHORIZED) {
-        const message = i18n.t('common.message.error.unauthorized');
+        const message = i18n.t('common:message.error.unauthorized');
         throw new TRPCError({
           code: TRPCErrorCode.UNAUTHORIZED,
           message,
@@ -321,7 +321,7 @@ export const sendCoinsByGithubIdHandler = async ({ ctx, input }: Params<SendCoin
     }
 
     if (!user) {
-      const message = i18n.t('common.message.error.userNotFound');
+      const message = i18n.t('common:message.error.userNotFound');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -338,7 +338,7 @@ export const sendCoinsByGithubIdHandler = async ({ ctx, input }: Params<SendCoin
     // Prisma error (Database issue)
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
-        const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+        const message = i18n.t('api:item.buyItem.error.userAlreadyExists');
         throw new TRPCError({
           code: TRPCErrorCode.CONFLICT,
           message,
@@ -348,7 +348,7 @@ export const sendCoinsByGithubIdHandler = async ({ ctx, input }: Params<SendCoin
 
     // Zod error (Invalid input)
     if (error instanceof z.ZodError) {
-      const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+      const message = i18n.t('api:item.buyItem.error.invalidItemId');
       throw new TRPCError({
         code: TRPCErrorCode.BAD_REQUEST,
         message,
@@ -358,7 +358,7 @@ export const sendCoinsByGithubIdHandler = async ({ ctx, input }: Params<SendCoin
     // TRPC error (Custom error)
     if (error instanceof TRPCError) {
       if (error.code === TRPCErrorCode.UNAUTHORIZED) {
-        const message = i18n.t('common.message.error.unauthorized');
+        const message = i18n.t('common:message.error.unauthorized');
         throw new TRPCError({
           code: TRPCErrorCode.UNAUTHORIZED,
           message,
@@ -434,8 +434,8 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
 
       // After created the user, notify the user that he doesn't have enough balance
       const message = newUser
-        ? i18n.t('package.api.user.payCoinsByUserId.error.insufficientBalance')
-        : i18n.t('common.message.error.internalError');
+        ? i18n.t('api:user.payCoinsByUserId.error.insufficientBalance')
+        : i18n.t('common:message.error.internalError');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -444,7 +444,7 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
 
     // If sender doesn't have coins, reject the transaction.
     if (senderBalance.coins <= 0 || senderBalance.coins < input.coins) {
-      const message = i18n.t('package.api.user.payCoinsByUserId.error.insufficientBalance');
+      const message = i18n.t('api:user.payCoinsByUserId.error.insufficientBalance');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -470,7 +470,7 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
     });
 
     if (!newSenderBalance) {
-      const message = i18n.t('common.message.error.internalError');
+      const message = i18n.t('common:message.error.internalError');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -549,7 +549,7 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
     }
 
     if (!receiver) {
-      const message = i18n.t('package.api.user.payCoinsByUserId.error.userUpdateNotFound');
+      const message = i18n.t('api:user.payCoinsByUserId.error.userUpdateNotFound');
       throw new TRPCError({
         code: TRPCErrorCode.INTERNAL_SERVER_ERROR,
         message,
@@ -566,7 +566,7 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
     // Prisma error (Database issue)
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === PrismaErrorCode.UniqueConstraintViolation) {
-        const message = i18n.t('package.api.item.buyItem.error.userAlreadyExists');
+        const message = i18n.t('api:item.buyItem.error.userAlreadyExists');
         throw new TRPCError({
           code: TRPCErrorCode.CONFLICT,
           message,
@@ -576,7 +576,7 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
 
     // Zod error (Invalid input)
     if (error instanceof z.ZodError) {
-      const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+      const message = i18n.t('api:item.buyItem.error.invalidItemId');
       throw new TRPCError({
         code: TRPCErrorCode.BAD_REQUEST,
         message,
@@ -586,7 +586,7 @@ export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByU
     // TRPC error (Custom error)
     if (error instanceof TRPCError) {
       if (error.code === TRPCErrorCode.UNAUTHORIZED) {
-        const message = i18n.t('common.message.error.unauthorized');
+        const message = i18n.t('common:message.error.unauthorized');
         throw new TRPCError({
           code: TRPCErrorCode.UNAUTHORIZED,
           message,

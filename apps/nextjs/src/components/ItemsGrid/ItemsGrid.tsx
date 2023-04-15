@@ -44,7 +44,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     onSuccess: () => {
       addToast({
         variant: ToastVariant.success,
-        title: t('component.itemsGrid.message.success.boughtItem'),
+        title: t('nextjs:component.itemsGrid.message.success.boughtItem'),
         dismissInterval: 5000,
       });
     },
@@ -64,7 +64,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
     if (items.length === 0)
       return (
         <div className="flex w-full items-center justify-center py-20">
-          <span className="text-lg text-slate-300">{t('component.itemsGrid.message.empty')}</span>
+          <span className="text-lg text-slate-300">{t('nextjs:component.itemsGrid.message.empty')}</span>
         </div>
       );
 
@@ -93,7 +93,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
 
         {/* Body */}
         <div className="p-8 pb-24">
-          <div className="mb-3 font-semibold text-slate-500">{t('component.itemsGrid.body.title')}</div>
+          <div className="mb-3 font-semibold text-slate-500">{t('nextjs:component.itemsGrid.body.title')}</div>
           {renderItems()}
         </div>
 
@@ -105,7 +105,7 @@ export const ItemsGrid = ({ className, storeName, storeImageUrl, items = [] }: I
               <div className="text-lg text-slate-400">{storeName}</div>
             </div>
             <div className="ml-auto font-semibold text-slate-600">
-              {t('component.itemsGrid.footer.itemsAvailable', { amount: items.length })}
+              {t('nextjs:component.itemsGrid.footer.itemsAvailable', { amount: items.length })}
             </div>
           </div>
         </div>

@@ -11,14 +11,14 @@ import resourcesToBackend from 'i18next-resources-to-backend';
  */
 
 const fallbackLng = 'en';
-const availableLanguages = ['en'];
+const availableLanguages = ['en', 'es'];
 
 void i18n
   .use(i18nextMiddleware.LanguageDetector)
   .use(LenguajeDetection)
   .use(
-    resourcesToBackend(async (language: string, _, callback) => {
-      import(`./locale/${language}.json`)
+    resourcesToBackend(async (language: string, namespace, callback) => {
+      import(`./locale/${language}/${namespace}.json`)
         .then(({ default: resources }) => {
           // with dynamic import, you have to use the "default" key of the module ( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#importing_defaults )
           callback(null, resources);
@@ -30,6 +30,7 @@ void i18n
   )
   .init({
     fallbackLng: fallbackLng,
+    ns: ['common', 'bot', 'api', 'nextjs'],
     preload: availableLanguages,
     supportedLngs: availableLanguages,
     interpolation: {
@@ -40,7 +41,7 @@ void i18n
       caches: ['cookie'],
       lookupCookie: 'lenguaje',
     },
-    debug: false,
+    debug: true,
   });
 
 export default i18n;

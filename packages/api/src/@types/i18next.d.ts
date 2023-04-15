@@ -3,7 +3,6 @@
  * Requires `resolveJsonModule:true` in your tsconfig.json.
  * @link https://www.i18next.com/overview/typescript
  */
-import 'react-i18next';
 import type { I18nNamespaces } from '@acme/i18n';
 
 declare module 'i18next' {

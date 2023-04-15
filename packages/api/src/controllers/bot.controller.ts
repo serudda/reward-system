@@ -9,7 +9,7 @@ export const sendDiscordMsgHandler = async (input: SendDiscordMsgInputType) => {
   try {
     const data = {
       username: DISCORD_BOT_USERNAME,
-      content: i18n.t('package.api.bot.sendDiscordMsg.payload', {
+      content: i18n.t('api:bot.sendDiscordMsg.payload', {
         username: input.username,
         coins: input.coins,
         url: input.prUrl,
@@ -17,7 +17,7 @@ export const sendDiscordMsgHandler = async (input: SendDiscordMsgInputType) => {
     };
 
     if (!input.webhookDiscordUrl) {
-      const message = i18n.t('package.api.bot.sendDiscordMsg.error.webhookNotFound', {
+      const message = i18n.t('api:bot.sendDiscordMsg.error.webhookNotFound', {
         url: input.webhookDiscordUrl,
       });
 
@@ -32,8 +32,8 @@ export const sendDiscordMsgHandler = async (input: SendDiscordMsgInputType) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-      .then(() => console.log(i18n.t('package.api.bot.sendDiscordMsg.success')))
-      .catch((error) => console.error(i18n.t('package.api.bot.sendDiscordMsg.error.internalError'), error));
+      .then(() => console.log(i18n.t('api:bot.sendDiscordMsg.success')))
+      .catch((error) => console.error(i18n.t('api:bot.sendDiscordMsg.error.internalError'), error));
   } catch (err: any) {
     throw err;
   }

@@ -1,7 +1,6 @@
 import { ChannelType, type Message } from 'discord.js';
-
+import { type BotEvent } from '../@types/discord';
 import { checkPermissions, sendTimedMessage } from '../functions';
-import { type BotEvent } from '../types';
 
 /**
   This is an event handler that listens for a message event.

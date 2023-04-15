@@ -51,7 +51,7 @@ export const createAccountHandler = async ({ ctx, input }: Params<CreateAccountI
   } catch (error: unknown) {
     // Zod error (Invalid input)
     if (error instanceof z.ZodError) {
-      const message = i18n.t('package.api.item.buyItem.error.invalidItemId');
+      const message = i18n.t('api:item.buyItem.error.notFound');
       throw new TRPCError({
         code: TRPCErrorCode.BAD_REQUEST,
         message,
@@ -61,7 +61,7 @@ export const createAccountHandler = async ({ ctx, input }: Params<CreateAccountI
     // TRPC error (Custom error)
     if (error instanceof TRPCError) {
       if (error.code === TRPCErrorCode.UNAUTHORIZED) {
-        const message = i18n.t('common.message.error.unauthorized');
+        const message = i18n.t('common:message.error.unauthorized');
         throw new TRPCError({
           code: TRPCErrorCode.UNAUTHORIZED,
           message,

@@ -6,9 +6,9 @@ import {
   type User,
 } from 'discord.js';
 import { i18n } from '@acme/i18n';
+import { type BotEvent } from '../@types/discord';
 import { api } from '../api';
 import { config } from '../common/constants';
-import { type BotEvent } from '../types';
 
 /**
   This is an event handler that listens for a message event.
@@ -26,7 +26,7 @@ const event: BotEvent = {
         await reaction.fetch();
         await user.fetch();
       } catch (error) {
-        console.error(i18n.t('common.message.error.internalError'), error);
+        console.error(i18n.t('common:message.error.internalError'), error);
         // Return as `reaction.message.author` may be undefined/null
         return;
       }
@@ -49,7 +49,7 @@ const event: BotEvent = {
       coins: config.reactionCoins,
     });
 
-    const message = i18n.t('app.bot.messageReaction.success', {
+    const message = i18n.t('bot:messageReaction.success', {
       userId: user.id,
       coins: config.reactionCoins,
       author: reaction.message.author,

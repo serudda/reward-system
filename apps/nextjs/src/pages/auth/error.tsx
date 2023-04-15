@@ -12,7 +12,7 @@ const Error: NextPage = (_props: InferGetServerSidePropsType<typeof getServerSid
   const router = useRouter();
   const { error } = router.query;
   const { data: session } = useSession();
-  const { t } = useTranslation(['common']);
+  const { t } = useTranslation('common');
 
   const handleGoBackClick = () => router.back();
 
@@ -30,7 +30,7 @@ const Error: NextPage = (_props: InferGetServerSidePropsType<typeof getServerSid
           variant={ButtonVariant.destructive}
           onClick={handleGoBackClick}
         >
-          {t('common:back')}
+          {t('actions.back')}
         </Button>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { type Interaction } from 'discord.js';
-
-import { type BotEvent } from '../types';
+import { type BotEvent } from '../@types/discord';
 
 /**
   This is an event handler for a Discord bot that handles slash commands and autocomplete interactions.
