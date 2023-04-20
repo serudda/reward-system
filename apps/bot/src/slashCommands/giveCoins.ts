@@ -9,6 +9,7 @@ const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: str
     sender: `<@${interaction.user.id}>`,
     coins,
     receiver: `<@${receiver?.id}>`,
+    ephemeral: true,
   });
 
   void interaction.reply(message);
@@ -33,7 +34,7 @@ const command: SlashCommand = {
 
       // Check if user is trying to send less than 1 coins
       if (parseInt(coins) < 1) {
-        const message = i18n.t('bot:common.error.invalidAmount');
+        const message = i18n.t('bot:common.error.invalidAmount', { ephemeral: true });
         await interaction.reply(message);
         return;
       }
@@ -49,6 +50,7 @@ const command: SlashCommand = {
       if (!error) return;
       await interaction.reply({
         content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        ephemeral: true,
       });
     }
   },

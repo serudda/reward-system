@@ -50,7 +50,8 @@ const command: SlashCommand = {
     } catch (error: any) {
       if (!error) return;
       await interaction.reply({
-        content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment,
+        ephemeral: true,
       });
     }
   },
