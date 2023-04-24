@@ -62,10 +62,10 @@ importers:
         specifier: '*'
         version: link:../../packages/config/i18n
       '@trpc/client':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1(@trpc/server@10.21.1)
       '@trpc/server':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1
       discord.js:
         specifier: ^14.9.0
@@ -117,16 +117,16 @@ importers:
         specifier: ^4.29.3
         version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
       '@trpc/client':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1(@trpc/server@10.21.1)
       '@trpc/next':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1(@tanstack/react-query@4.29.3)(@trpc/client@10.21.1)(@trpc/react-query@10.21.1)(@trpc/server@10.21.1)(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/react-query':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1(@tanstack/react-query@4.29.3)(@trpc/client@10.21.1)(@trpc/server@10.21.1)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1
       classnames:
         specifier: ^2.3.2
@@ -136,7 +136,7 @@ importers:
         version: 22.4.15
       next:
         specifier: ^13.3.1
-        version: 13.3.1(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+        version: 13.3.1(react-dom@18.2.0)(react@18.2.0)
       next-auth:
         specifier: ^4.22.1
         version: 4.22.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
@@ -188,7 +188,7 @@ importers:
         version: 8.4.23
       tailwindcss:
         specifier: ^3.3.1
-        version: 3.3.1(postcss@8.4.23)(ts-node@10.9.1)
+        version: 3.3.1(postcss@8.4.23)
       tsx:
         specifier: ^3.12.6
         version: 3.12.6
@@ -208,10 +208,10 @@ importers:
         specifier: ^0.1.0
         version: link:../config/i18n
       '@trpc/client':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1(@trpc/server@10.21.1)
       '@trpc/server':
-        specifier: ^10.21.1
+        specifier: ^10.20.0
         version: 10.21.1
       superjson:
         specifier: 1.12.3
@@ -237,10 +237,10 @@ importers:
         version: link:../db
       '@next-auth/prisma-adapter':
         specifier: ^1.0.6
-        version: 1.0.6(@prisma/client@4.13.0)(next-auth@4.22.1)
+        version: 1.0.6(next-auth@4.22.1)
       next:
         specifier: ^13.3.1
-        version: 13.3.1(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+        version: 13.3.1(react-dom@18.2.0)(react@18.2.0)
       next-auth:
         specifier: ^4.22.1
         version: 4.22.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
@@ -320,7 +320,7 @@ importers:
         version: 8.4.23
       tailwindcss:
         specifier: ^3.3.1
-        version: 3.3.1(postcss@8.4.23)(ts-node@10.9.1)
+        version: 3.3.1(postcss@8.4.23)
       tailwindcss-scrollbar:
         specifier: ^0.1.0
         version: 0.1.0(tailwindcss@3.3.1)
@@ -1147,13 +1147,12 @@ packages:
       read-yaml-file: 1.1.0
     dev: false
 
-  /@next-auth/prisma-adapter@1.0.6(@prisma/client@4.13.0)(next-auth@4.22.1):
+  /@next-auth/prisma-adapter@1.0.6(next-auth@4.22.1):
     resolution: {integrity: sha512-Z7agwfSZEeEcqKqrnisBun7VndRPshd6vyDsoRU68MXbkui8storkHgvN2hnNDrqr/hSCF9aRn56a1qpihaB4A==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
-      '@prisma/client': 4.13.0(prisma@4.13.0)
       next-auth: 4.22.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
@@ -1411,7 +1410,7 @@ packages:
       '@trpc/client': 10.21.1(@trpc/server@10.21.1)
       '@trpc/react-query': 10.21.1(@tanstack/react-query@4.29.3)(@trpc/client@10.21.1)(@trpc/server@10.21.1)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server': 10.21.1
-      next: 13.3.1(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+      next: 13.3.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-ssr-prepass: 1.5.0(react@18.2.0)
@@ -3997,7 +3996,7 @@ packages:
       '@panva/hkdf': 1.0.4
       cookie: 0.5.0
       jose: 4.14.1
-      next: 13.3.1(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+      next: 13.3.1(react-dom@18.2.0)(react@18.2.0)
       oauth: 0.9.15
       openid-client: 5.4.1
       preact: 10.13.2
@@ -4022,12 +4021,12 @@ packages:
       hoist-non-react-statics: 3.3.2
       i18next: 22.4.15
       i18next-fs-backend: 2.1.1
-      next: 13.3.1(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+      next: 13.3.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-i18next: 12.2.0(i18next@22.4.15)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
-  /next@13.3.1(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0):
+  /next@13.3.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-eByWRxPzKHs2oQz1yE41LX35umhz86ZSZ+mYyXBqn2IBi2hyUqxBA88avywdr4uyH+hCJczegGsDGWbzQA5Rqw==}
     engines: {node: '>=14.18.0'}
     hasBin: true
@@ -4055,7 +4054,7 @@ packages:
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.21.4)(react@18.2.0)
+      styled-jsx: 5.1.1(react@18.2.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 13.3.1
       '@next/swc-darwin-x64': 13.3.1
@@ -4402,7 +4401,7 @@ packages:
       postcss: 8.4.23
     dev: true
 
-  /postcss-load-config@3.1.4(postcss@8.4.23)(ts-node@10.9.1):
+  /postcss-load-config@3.1.4(postcss@8.4.23):
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
     peerDependencies:
@@ -4416,7 +4415,6 @@ packages:
     dependencies:
       lilconfig: 2.1.0
       postcss: 8.4.23
-      ts-node: 10.9.1(@types/node@18.16.0)(typescript@5.0.4)
       yaml: 1.10.2
     dev: true
 
@@ -5157,7 +5155,7 @@ packages:
       peek-readable: 5.0.0
     dev: false
 
-  /styled-jsx@5.1.1(@babel/core@7.21.4)(react@18.2.0):
+  /styled-jsx@5.1.1(react@18.2.0):
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -5170,7 +5168,6 @@ packages:
       babel-plugin-macros:
         optional: true
     dependencies:
-      '@babel/core': 7.21.4
       client-only: 0.0.1
       react: 18.2.0
     dev: false
@@ -5226,10 +5223,10 @@ packages:
     peerDependencies:
       tailwindcss: '>= 2.x.x'
     dependencies:
-      tailwindcss: 3.3.1(postcss@8.4.23)(ts-node@10.9.1)
+      tailwindcss: 3.3.1(postcss@8.4.23)
     dev: true
 
-  /tailwindcss@3.3.1(postcss@8.4.23)(ts-node@10.9.1):
+  /tailwindcss@3.3.1(postcss@8.4.23):
     resolution: {integrity: sha512-Vkiouc41d4CEq0ujXl6oiGFQ7bA3WEhUZdTgXAhtKxSy49OmKs8rEfQmupsfF0IGW8fv2iQkp1EVUuapCFrZ9g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
@@ -5253,7 +5250,7 @@ packages:
       postcss: 8.4.23
       postcss-import: 14.1.0(postcss@8.4.23)
       postcss-js: 4.0.1(postcss@8.4.23)
-      postcss-load-config: 3.1.4(postcss@8.4.23)(ts-node@10.9.1)
+      postcss-load-config: 3.1.4(postcss@8.4.23)
       postcss-nested: 6.0.0(postcss@8.4.23)
       postcss-selector-parser: 6.0.11
       postcss-value-parser: 4.2.0
