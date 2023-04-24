@@ -1,7 +1,8 @@
 {
   "common": {
     "error": {
-      "invalidAmount": "You can not give less than 1 coin"
+      "invalidAmount": "You can not give less than 1 coin",
+      "notAllowed": "You do not have permission to use this command"
     }
   },
   "command": {

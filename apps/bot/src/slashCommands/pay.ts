@@ -9,7 +9,6 @@ const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: str
     sender: `<@${interaction.user.id}>`,
     coins,
     receiver: `<@${receiver?.id}>`,
-    ephemeral: true,
   });
 
   void interaction.reply(message);
