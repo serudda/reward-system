@@ -34,14 +34,14 @@ const command: SlashCommand = {
 
     //Check if the user is trying to send coins to himself
     if (interaction.user === receiver) {
-      const message = i18n.t('bot:command.pay.error.autoPay');
+      const message = i18n.t('bot:command.pay.error.autoPay', { ephemeral: true });
       await interaction.reply(message);
       return;
     }
 
     // Check if user is trying to send less than 1 coins
     if (parseInt(coins) < 1) {
-      const message = i18n.t('bot:common.error.invalidAmount');
+      const message = i18n.t('bot:common.error.invalidAmount', { ephemeral: true });
       await interaction.reply(message);
       return;
     }
@@ -58,7 +58,8 @@ const command: SlashCommand = {
     } catch (error: any) {
       if (!error) return;
       await interaction.reply({
-        content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment,
+        ephemeral: true,
       });
     }
   },
