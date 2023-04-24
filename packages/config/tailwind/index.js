@@ -4,7 +4,7 @@ const config = {
   theme: {
     extend: {},
   },
-  plugins: [require('tailwindcss-scrollbar'), require('@tailwindcss/line-clamp')],
+  plugins: [require('tailwindcss-scrollbar')],
 };
 
 module.exports = config;
