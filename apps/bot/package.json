@@ -18,8 +18,8 @@
   "dependencies": {
     "@acme/api": "*",
     "@acme/i18n": "*",
-    "@trpc/client": "^10.21.1",
-    "@trpc/server": "^10.21.1",
+    "@trpc/client": "^10.14.0",
+    "@trpc/server": "^10.14.0",
     "discord.js": "^14.9.0",
     "superjson": "1.12.3"
   },
