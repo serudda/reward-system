@@ -1,7 +1,7 @@
 {
   "name": "reward-system",
   "author": "Indie Creators HQ",
-  "version": "0.1.0-beta",
+  "version": "0.1.0-beta.1",
   "private": true,
   "engines": {
     "node": ">=v18.15.0"
