@@ -1,7 +1,14 @@
-import { SlashCommandBuilder, type CacheType, type CommandInteraction, type User as UserDiscord } from 'discord.js';
+import {
+  SlashCommandBuilder,
+  type CacheType,
+  type CommandInteraction,
+  type PermissionResolvable,
+  type User as UserDiscord,
+} from 'discord.js';
 import { i18n } from '@acme/i18n';
 import { type SlashCommand } from '../@types/discord';
 import { api } from '../api';
+import { config } from '../common/constants';
 
 const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: string) => {
   const receiver = interaction.options.getUser('user');
@@ -9,7 +16,6 @@ const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: str
     sender: `<@${interaction.user.id}>`,
     coins,
     receiver: `<@${receiver?.id}>`,
-    ephemeral: true,
   });
 
   void interaction.reply(message);
@@ -32,10 +38,17 @@ const command: SlashCommand = {
       // TODO: Fix an Type issue with .getString, it is not recognized as a function
       const coins: string = (interaction.options as any).getString('coins'); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
+      // Check if the user has the role Admin
+      if (!interaction.memberPermissions?.has(config.roleAdminId as PermissionResolvable)) {
+        const message = i18n.t('bot:common.error.notAllowed');
+        await interaction.reply({ content: message, ephemeral: true });
+        return;
+      }
+
       // Check if user is trying to send less than 1 coins
       if (parseInt(coins) < 1) {
-        const message = i18n.t('bot:common.error.invalidAmount', { ephemeral: true });
-        await interaction.reply(message);
+        const message = i18n.t('bot:common.error.invalidAmount');
+        await interaction.reply({ content: message, ephemeral: true });
         return;
       }
 
