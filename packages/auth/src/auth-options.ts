@@ -82,7 +82,11 @@ export const authOptions: NextAuthOptions = {
 
         // If the user already exists, update their account, otherwise create a new user
         if (user) {
-          const userAccount = await getAccountByUserAndProviderHandler(user.id, providerAccountId, provider);
+          const userAccount = await getAccountByUserAndProviderHandler(
+            user.id,
+            providerAccountId,
+            provider,
+          );
 
           /**
            * If the user already has an account with the same provider and providerAccountId,
@@ -103,7 +107,8 @@ export const authOptions: NextAuthOptions = {
         if (login) {
           // Check if the account already exists
           const existingAccount = await getAccountByProviderHandler(providerAccountId, provider);
-          if (existingAccount) await updateProviderUsernameAccountHandler(existingAccount.id, login);
+          if (existingAccount)
+            await updateProviderUsernameAccountHandler(existingAccount.id, login);
           else {
             // Find the user by email
             const user = await getUserByEmailHandler(email as string);

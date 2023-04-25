@@ -8,7 +8,10 @@ import type {
   GetGithubUsernameByUserIdInputType,
 } from '../schema/account.schema';
 
-export const getAllProvidersByUserIdHandler = async ({ ctx, input }: Params<GetAllProvidersByUserIdInputType>) => {
+export const getAllProvidersByUserIdHandler = async ({
+  ctx,
+  input,
+}: Params<GetAllProvidersByUserIdInputType>) => {
   return ctx.prisma.account.findMany({
     where: {
       userId: input.userId,
@@ -16,7 +19,10 @@ export const getAllProvidersByUserIdHandler = async ({ ctx, input }: Params<GetA
   });
 };
 
-export const getGithubUsernameByUserIdHandler = async ({ ctx, input }: Params<GetGithubUsernameByUserIdInputType>) => {
+export const getGithubUsernameByUserIdHandler = async ({
+  ctx,
+  input,
+}: Params<GetGithubUsernameByUserIdInputType>) => {
   return await ctx.prisma.account.findFirst({
     where: {
       userId: input.userId,

@@ -1,5 +1,7 @@
-/** @type {import("tailwindcss").Config} */
-const config = {
+import type { Config } from 'tailwindcss';
+import baseConfig from '@acme/tailwind-config';
+
+export default {
   content: ['./src/**/*.tsx'],
   theme: {
     fontFamily: {
@@ -19,7 +21,15 @@ const config = {
         '"Noto Color Emoji"',
       ],
       serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: ['Fira Mono', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+      mono: [
+        'Fira Mono',
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        '"Liberation Mono"',
+        '"Courier New"',
+        'monospace',
+      ],
     },
     extend: {
       colors: {
@@ -68,8 +78,5 @@ const config = {
       },
     },
   },
-  // @ts-ignore
-  presets: [require('@acme/tailwind-config')],
-};
-
-module.exports = config;
+  presets: [baseConfig],
+} satisfies Config;
