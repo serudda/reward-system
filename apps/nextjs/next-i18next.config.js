@@ -14,7 +14,8 @@ module.exports = {
   react: {
     useSuspense: false,
   },
-  debug: process?.env?.NODE_ENV === 'development',
+  // debug: process?.env?.NODE_ENV === 'development',
+  debug: false,
   localePath:
     typeof window === 'undefined'
       ? require('path').resolve('../../packages/config/i18n/src/locale')

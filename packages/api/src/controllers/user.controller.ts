@@ -2,7 +2,14 @@ import { Prisma, type User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { i18n } from '@acme/i18n';
-import { PrismaErrorCode, Response, TRPCErrorCode, setThumbnailUrl, type Ctx, type Params } from '../common';
+import {
+  PrismaErrorCode,
+  Response,
+  TRPCErrorCode,
+  setThumbnailUrl,
+  type Ctx,
+  type Params,
+} from '../common';
 import type {
   CreateUserInputType,
   GetUserByDiscordIdInputType,
@@ -17,7 +24,10 @@ import type {
 export const getUserHandler = async ({ ctx, input }: Params<GetUserInputType>) =>
   ctx.prisma.user.findUnique({ where: { id: input.id } });
 
-export const getUserByDiscordIdHandler = async ({ ctx, input }: Params<GetUserByDiscordIdInputType>) => {
+export const getUserByDiscordIdHandler = async ({
+  ctx,
+  input,
+}: Params<GetUserByDiscordIdInputType>) => {
   return ctx.prisma.user.findFirst({
     where: {
       accounts: {
@@ -33,7 +43,10 @@ export const getUserByDiscordIdHandler = async ({ ctx, input }: Params<GetUserBy
   });
 };
 
-export const getUserByProviderHandler = async ({ ctx, input }: Params<GetUserByProviderInputType>) => {
+export const getUserByProviderHandler = async ({
+  ctx,
+  input,
+}: Params<GetUserByProviderInputType>) => {
   return ctx.prisma.user.findFirst({
     where: {
       accounts: {
@@ -129,7 +142,10 @@ export const createUserHandler = async ({ ctx, input }: Params<CreateUserInputTy
   }
 };
 
-export const sendCoinsByUserIdHandler = async ({ ctx, input }: Params<SendCoinsByUserIdInputType>) => {
+export const sendCoinsByUserIdHandler = async ({
+  ctx,
+  input,
+}: Params<SendCoinsByUserIdInputType>) => {
   try {
     const tempThumbnail = setThumbnailUrl(input.user);
 
@@ -252,7 +268,10 @@ export const sendCoinsByUserIdHandler = async ({ ctx, input }: Params<SendCoinsB
   }
 };
 
-export const sendCoinsByGithubIdHandler = async ({ ctx, input }: Params<SendCoinsByGithubIdInputType>) => {
+export const sendCoinsByGithubIdHandler = async ({
+  ctx,
+  input,
+}: Params<SendCoinsByGithubIdInputType>) => {
   try {
     // TODO: Clean this when this section is tested
     // const user: User = await ctx.prisma.user.upsert({
@@ -373,7 +392,10 @@ export const sendCoinsByGithubIdHandler = async ({ ctx, input }: Params<SendCoin
   }
 };
 
-export const payCoinsByUserIdHandler = async ({ ctx, input }: Params<PayCoinsByUserIdInputType>) => {
+export const payCoinsByUserIdHandler = async ({
+  ctx,
+  input,
+}: Params<PayCoinsByUserIdInputType>) => {
   try {
     //Check if the sender user has enough balance for the transaction
 

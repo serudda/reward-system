@@ -1,34 +1,36 @@
-import { EmbedBuilder, SlashCommandBuilder, type CacheType, type CommandInteraction } from 'discord.js';
+import {
+  EmbedBuilder,
+  SlashCommandBuilder,
+  type CacheType,
+  type CommandInteraction,
+} from 'discord.js';
 import { i18n } from '@acme/i18n';
 import { type SlashCommand } from '../@types/discord';
 import { api } from '../api';
 
 const showUserWalletMsg = (interaction: CommandInteraction<CacheType>, coins: string) => {
   const message = i18n.t('bot:command.wallet.description');
-  void interaction.reply({
+  void interaction.editReply({
     embeds: [new EmbedBuilder().setAuthor({ name: message }).setDescription(coins)],
-    ephemeral: true,
   });
 };
 
 /** Main command */
 const command: SlashCommand = {
-  command: new SlashCommandBuilder().setName('wallet').setDescription(i18n.t('bot:command.wallet.show')),
+  command: new SlashCommandBuilder()
+    .setName('wallet')
+    .setDescription(i18n.t('bot:command.wallet.show')),
   execute: async (interaction) => {
     try {
+      // Defer the reply to allow more processing time
+      await interaction.deferReply({ ephemeral: true });
+
+      // Get User
       const user = await api.user.getByDiscordId.query({ discordId: interaction.user.id });
 
       // Create User
       if (!user) {
         const thumbnailUrl = interaction.user.avatarURL();
-
-        // const response = await api.user.create.mutate({
-        //   name: interaction.user.username,
-        //   discordId: interaction.user.id,
-        //   discordUserName: interaction.user.username,
-        //   discordDiscriminator: interaction.user.discriminator,
-        //   thumbnail: thumbnailUrl ?? '',
-        // });
 
         const newUser = await api.user.create.mutate({
           name: interaction.user.username,

@@ -1,6 +1,6 @@
 packages:
-  - apps/nextjs
   - apps/bot
+  - apps/nextjs
   - packages/api
   - packages/auth
   - packages/db

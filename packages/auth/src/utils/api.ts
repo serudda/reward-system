@@ -79,7 +79,11 @@ export const getAccountByUserAndProviderHandler = async (
   });
 };
 
-export const createAccountHandler = async (userId: string, providerUsername: string, account: Account) => {
+export const createAccountHandler = async (
+  userId: string,
+  providerUsername: string,
+  account: Account,
+) => {
   return await prisma.account.create({
     data: {
       type: account.type,
@@ -102,7 +106,10 @@ export const createAccountHandler = async (userId: string, providerUsername: str
   });
 };
 
-export const updateProviderUsernameAccountHandler = async (accountId: string, providerUsername: string) => {
+export const updateProviderUsernameAccountHandler = async (
+  accountId: string,
+  providerUsername: string,
+) => {
   return await prisma.account.update({
     where: {
       id: accountId,
@@ -113,7 +120,11 @@ export const updateProviderUsernameAccountHandler = async (accountId: string, pr
   });
 };
 
-export const updateAccountHandler = async (accountId: string, providerUsername: string, account: Account) => {
+export const updateAccountHandler = async (
+  accountId: string,
+  providerUsername: string,
+  account: Account,
+) => {
   return await prisma.account.update({
     where: {
       id: accountId,

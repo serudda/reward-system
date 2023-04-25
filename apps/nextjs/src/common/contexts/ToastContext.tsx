@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useRef, useState } from 'react';
 import { createId } from '@paralleldrive/cuid2';
-
 import { type ToastProps } from '~/components/Notifications/Toast/Toast';
 
 export interface ToastContextType {
@@ -29,7 +28,9 @@ export const ToastProvider = ({ children }: ToastProviderProps): JSX.Element => 
   };
 
   const deleteToast = (toastId: string | number) => {
-    const newToasts = currentToastsRef.current.filter((currentToast) => currentToast.id !== toastId);
+    const newToasts = currentToastsRef.current.filter(
+      (currentToast) => currentToast.id !== toastId,
+    );
     setCurrentToasts([...newToasts]);
   };
 

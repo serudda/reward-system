@@ -119,7 +119,11 @@ export const Popover = ({
   });
 
   const menuStyles = menuFullWidth
-    ? { ...styles.popper, minWidth: refTriggerNode.current?.scrollWidth, maxWidth: refTriggerNode.current?.scrollWidth }
+    ? {
+        ...styles.popper,
+        minWidth: refTriggerNode.current?.scrollWidth,
+        maxWidth: refTriggerNode.current?.scrollWidth,
+      }
     : { ...styles.popper };
 
   useEffect(() => {
@@ -149,7 +153,13 @@ export const Popover = ({
     <>
       {elements}
       <Portal>
-        <div role={role} className={classes.menu} ref={setPopoverElement} style={menuStyles} {...attributes.popper}>
+        <div
+          role={role}
+          className={classes.menu}
+          ref={setPopoverElement}
+          style={menuStyles}
+          {...attributes.popper}
+        >
           {open && (
             <div className={classes.menuContent}>
               {content}
