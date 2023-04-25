@@ -72,7 +72,7 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/config/eslint
       '@types/node':
-        specifier: ^18.15.11
+        specifier: ^18.11.18
         version: 18.15.11
       dotenv-cli:
         specifier: ^7.2.1
@@ -166,7 +166,7 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/config/eslint
       '@types/node':
-        specifier: ^18.15.11
+        specifier: ^18.11.18
         version: 18.15.11
       '@types/react':
         specifier: ^18.0.37
