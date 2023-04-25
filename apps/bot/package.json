@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@acme/eslint-config": "^0.1.0",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.11.18",
     "dotenv-cli": "^7.2.1",
     "eslint": "^8.38.0",
     "ts-node": "^10.9.1",
