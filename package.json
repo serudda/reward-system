@@ -1,5 +1,6 @@
 {
-  "name": "side-project-starter-kit",
+  "name": "reward-system",
+  "version": "0.1.0-beta.2",
   "private": true,
   "engines": {
     "node": ">=v18.16.0"
