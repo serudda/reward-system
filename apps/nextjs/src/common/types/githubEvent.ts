@@ -9,15 +9,16 @@ export enum IssueColors {
   closed = '9000933',
 }
 
-export interface IssueEventResponse {
+export interface GithubEventResponse {
   action: IssueActions;
-  issue: Issue;
-  assignee: Assignee;
+  issue?: Issue;
+  pull_request?: PullRequest;
+  assignee: User;
   repository: Repository;
-  sender: Assignee;
+  sender: User;
 }
 
-export interface Assignee {
+export interface User {
   login: string;
   id: number;
   node_id: string;
@@ -37,6 +38,53 @@ export interface Assignee {
   type: string;
   site_admin: boolean;
 }
+export interface PullRequest {
+  url: string;
+  id: number;
+  node_id: string;
+  html_url: string;
+  diff_url: string;
+  patch_url: string;
+  issue_url: string;
+  number: number;
+  state: string;
+  locked: boolean;
+  title: string;
+  user: User;
+  body: string;
+  created_at: Date;
+  updated_at: Date;
+  closed_at: Date;
+  merged_at: null;
+  merge_commit_sha: string;
+  assignee: null;
+  assignees: any[];
+  requested_reviewers: User[];
+  requested_teams: any[];
+  labels: any[];
+  milestone: null;
+  draft: boolean;
+  commits_url: string;
+  review_comments_url: string;
+  review_comment_url: string;
+  comments_url: string;
+  statuses_url: string;
+  author_association: string;
+  auto_merge: null;
+  active_lock_reason: null;
+  merged: boolean;
+  mergeable: boolean;
+  rebaseable: boolean;
+  mergeable_state: string;
+  merged_by: null;
+  comments: number;
+  review_comments: number;
+  maintainer_can_modify: boolean;
+  commits: number;
+  additions: number;
+  deletions: number;
+  changed_files: number;
+}
 
 export interface Issue {
   url: string;
@@ -49,12 +97,12 @@ export interface Issue {
   node_id: string;
   number: number;
   title: string;
-  user: Assignee;
+  user: User;
   labels: any[];
   state: string;
   locked: boolean;
-  assignee: Assignee;
-  assignees: Assignee[];
+  assignee: User;
+  assignees: User[];
   milestone: null;
   comments: number;
   created_at: Date;
@@ -88,7 +136,7 @@ export interface Repository {
   name: string;
   full_name: string;
   private: boolean;
-  owner: Assignee;
+  owner: User;
   html_url: string;
   description: null;
   fork: boolean;
