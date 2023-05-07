@@ -32,7 +32,7 @@ export default async function handler(req: GithubEventRequest, res: NextApiRespo
           },
         },
       });
-      await fetch(`${process.env.API_URL}/api/trpc/bot.sendIssueMsg?batch=1`, {
+      await fetch(`${process.env.API_URL}/api/trpc/bot.sendDiscordGitHubMsg?batch=1`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

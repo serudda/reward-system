@@ -1,42 +1,42 @@
-export interface DiscordMsg {
+export interface DiscordMsgType {
   username?: string;
   avatar_url?: string;
   content?: string;
-  embeds?: Embed[];
+  embeds?: DiscordMsgEmbedType[];
   // TODO: add components type
   components?: any[];
 }
 
-export interface Embed {
+export interface DiscordMsgEmbedType {
   title?: string;
   color?: number | string;
   description?: string;
   timestamp?: Date;
   url?: string;
-  author?: Author;
-  image?: Image;
-  thumbnail?: Image;
-  footer?: Footer;
-  fields?: Field[];
+  author?: DiscordMsgAuthorType;
+  image?: DiscordMsgImageType;
+  thumbnail?: DiscordMsgImageType;
+  footer?: DiscordMsgFooterType;
+  fields?: DiscordMsgFieldType[];
 }
 
-export interface Author {
+export interface DiscordMsgAuthorType {
   name?: string;
   url?: string;
   icon_url?: string;
 }
 
-export interface Field {
+export interface DiscordMsgFieldType {
   name?: string;
   value?: string;
   inline?: boolean;
 }
 
-export interface Footer {
+export interface DiscordMsgFooterType {
   text?: string;
   icon_url?: string;
 }
 
-export interface Image {
+export interface DiscordMsgImageType {
   url?: string;
 }
