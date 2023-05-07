@@ -1,6 +1,4 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-#Db volumen
-postgres_data
 
 # dependencies
 node_modules
@@ -11,17 +9,13 @@ node_modules
 coverage
 
 # database
-prisma/db.sqlite
-prisma/db.sqlite-journal
+**/prisma/db.sqlite
+**/prisma/db.sqlite-journal
 
 # next.js
 .next/
 out/
 next-env.d.ts
-
-# expo
-.expo/
-dist/
 
 # production
 build
@@ -37,8 +31,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
-.env.production
+.env
 .env*.local
+.env.production
 .env.development
 
 # vercel

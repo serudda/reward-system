@@ -17,6 +17,7 @@ interface User {
 
 export const setThumbnailUrl = (user: User): string => {
   if (user.avatar === null) {
+    // TODO: Mirar bien si ya no viene mas el discriminator.
     const defaultAvatarNumber = parseInt(user.discriminator) % 5;
     return `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
   } else {

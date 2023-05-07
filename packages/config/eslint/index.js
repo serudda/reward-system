@@ -9,6 +9,7 @@ const config = {
     'prettier',
   ],
   rules: {
+    'jsx-a11y/media-has-caption': 'off',
     '@next/next/no-html-link-for-pages': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/no-var-requires': 'off',
@@ -16,6 +17,14 @@ const config = {
     '@typescript-eslint/no-unsafe-call': 'warn',
     '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/no-unsafe-argument': 'warn',
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          '{}': false,
+        },
+      },
+    ],
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -27,6 +36,17 @@ const config = {
     '@typescript-eslint/consistent-type-imports': [
       'error',
       { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
+    ],
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'react-i18next',
+            message: 'Please use next-i18next import instead to avoid hydration errors',
+          },
+        ],
+      },
     ],
   },
   ignorePatterns: ['**/*.config.js', '**/*.config.cjs', 'packages/config/**'],

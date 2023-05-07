@@ -1,7 +1,36 @@
-/** @type {import("tailwindcss").Config} */
-const config = {
+import type { Config } from 'tailwindcss';
+import baseConfig from '@acme/tailwind-config';
+
+export default {
   content: ['./src/**/*.tsx'],
   theme: {
+    fontFamily: {
+      sans: [
+        'Open Sans',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        '"Noto Sans"',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"',
+      ],
+      serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+      mono: [
+        'Fira Mono',
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        '"Liberation Mono"',
+        '"Courier New"',
+        'monospace',
+      ],
+    },
     extend: {
       colors: {
         primary: {
@@ -49,8 +78,5 @@ const config = {
       },
     },
   },
-  // @ts-ignore
-  presets: [require('@acme/tailwind-config')],
-};
-
-module.exports = config;
+  presets: [baseConfig],
+} satisfies Config;

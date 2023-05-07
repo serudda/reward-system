@@ -1,0 +1,37 @@
+{
+  "common": {
+    "error": {
+      "invalidAmount": "You can not give less than 1 coin",
+      "notAllowed": "No tienes permiso para usar este comando"
+    }
+  },
+  "command": {
+    "wallet": {
+      "create": "Create your wallet :moneybag:",
+      "show": "Show my wallet's balance",
+      "description": "This is the amount of Indie Tokens in your wallet"
+    },
+    "giveCoins": {
+      "give": "Give Indie Tokens to an User",
+      "receiver": "The receiver's username",
+      "amount": "Set the amount of coins you want to give.",
+      "success": {
+        "give": "{{sender}} has added {{coins}} Indie Tokens to {{receiver}}'s wallet."
+      }
+    },
+    "pay": {
+      "description": "Give indie tokens to a user from his/her balance",
+      "receiver": "The receiver's username",
+      "amount": "Set the amount of coins you are going to pay.",
+      "success": {
+        "pay": "{{sender}} has paid {{coins}} Indie Tokens to {{receiver}}."
+      },
+      "error": {
+        "autoPay": "It is not possible to send Indie Token to yourself"
+      }
+    }
+  },
+  "messageReaction": {
+    "success": ":mega:\n---------------\n<@{{userId}}> has added **{{coins}}** Indie Tokens :gem: to <@{{author}}>'s wallet\n→ For sharing the following valuable message:\n{{url}}\n---------------"
+  }
+}

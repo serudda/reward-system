@@ -27,8 +27,6 @@ jobs:
       - name: Get Reward from Github Issue
         uses: octokit/graphql-action@v2.x
         id: get_reward
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_TOKEN }}
         with:
           query: |
             query GetCoinsAndAssigneeUser($owner:String!, $repo:String!, $issue:Int!, $field: String!) {
@@ -59,6 +57,8 @@ jobs:
           repo: ${{ github.event.repository.name }}
           issue: ${{ steps.get_issue_number.outputs.issue_number_int }}
           field: ${{ vars.REWARD_FIELD_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_TOKEN }}
 
       - name: Set Variables to Send Coins
         id: vars_send_coins

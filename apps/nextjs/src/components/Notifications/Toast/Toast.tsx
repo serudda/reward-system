@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import cn from 'classnames';
-
 import { useToast } from '~/common';
-import { Button, ButtonSize, ButtonVariant, Icon, Catalog as IconCatalog } from '~/components';
+import { Button, ButtonSize, ButtonVariant, Icon, IconCatalog } from '~/components';
 
 export type ActionType = {
   /**
@@ -157,7 +156,7 @@ export const Toast = ({
             onClick={handleCloseBtnClick}
             onKeyDown={handleCloseBtnClick}
           >
-            <Icon icon={IconCatalog.close} width="12px" height="12px" />
+            <Icon className="h-2 w-2" icon={IconCatalog.xCircle} />
           </div>
         )}
       </div>
