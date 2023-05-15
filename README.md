@@ -419,7 +419,7 @@ If you need help using our project, please visit our [SUPPORT.md](./docs/SUPPORT
 
 ## Join Our Community
 
-Join our [Discord](https://.discord.gg/77guznJ8mZ) community to connect with other contributors and get help from the maintainers. This is a great place to ask questions, get feedback on your ideas, and collaborate with others on the project.
+Join our [Discord](https://indiecreatorshq.com/discord) community to connect with other contributors and get help from the maintainers. This is a great place to ask questions, get feedback on your ideas, and collaborate with others on the project.
 
 ## Read the Contribution Guidelines
 
@@ -468,7 +468,7 @@ Made with [contrib.rocks](https://contrib.rocks).
 <a href="https://github.com/Indie-Creator-Community">
 <img src="https://img.shields.io/badge/IndieCreatorsHQ-FAFF00?style=for-the-badge&logo=github&logoColor=black">
 </a>
-<a href="https://.discord.gg/77guznJ8mZ">
+<a href="https://indiecreatorshq.com/discord">
 <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 </a>
 <a href="https://twitter.com/IndieCreatorsHQ">
