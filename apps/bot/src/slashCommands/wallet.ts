@@ -51,9 +51,8 @@ const command: SlashCommand = {
       } else showUserWalletMsg(interaction, user.coins.toString());
     } catch (error: any) {
       if (!error) return;
-      await interaction.reply({
+      await interaction.editReply({
         content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment,
-        ephemeral: true,
       });
     }
   },

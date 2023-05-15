@@ -1,4 +1,9 @@
-import { SlashCommandBuilder, type CacheType, type CommandInteraction, type User as UserDiscord } from 'discord.js';
+import {
+  SlashCommandBuilder,
+  type CacheType,
+  type CommandInteraction,
+  type User as UserDiscord,
+} from 'discord.js';
 import { i18n } from '@acme/i18n';
 import { type SlashCommand } from '../@types/discord';
 import { api } from '../api';
@@ -11,7 +16,7 @@ const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: str
     receiver: `<@${receiver?.id}>`,
   });
 
-  void interaction.reply(message);
+  void interaction.editReply(message);
 };
 
 /**
@@ -28,6 +33,9 @@ const command: SlashCommand = {
       option.setName('coins').setDescription(i18n.t('bot:command.pay.amount')).setRequired(true),
     ),
   execute: async (interaction) => {
+    // Defer the reply to allow more processing time
+    await interaction.deferReply({ ephemeral: true });
+
     const receiver = interaction.options.getUser('user');
     // TODO: Fix an Type issue with .getString, it is not recognized as a function
     const coins: string = (interaction.options as any).getString('coins'); // eslint-disable-line @typescript-eslint/no-unsafe-assignment

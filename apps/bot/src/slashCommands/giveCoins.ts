@@ -18,7 +18,7 @@ const showSentCoinsMsg = (interaction: CommandInteraction<CacheType>, coins: str
     receiver: `<@${receiver?.id}>`,
   });
 
-  void interaction.reply(message);
+  void interaction.editReply(message);
 };
 
 /** Main command */
@@ -27,13 +27,22 @@ const command: SlashCommand = {
     .setName('give-coins')
     .setDescription(i18n.t('bot:command.giveCoins.give'))
     .addUserOption((option) =>
-      option.setName('user').setDescription(i18n.t('bot:command.giveCoins.receiver')).setRequired(true),
+      option
+        .setName('user')
+        .setDescription(i18n.t('bot:command.giveCoins.receiver'))
+        .setRequired(true),
     )
     .addStringOption((option) =>
-      option.setName('coins').setDescription(i18n.t('bot:command.giveCoins.amount')).setRequired(true),
+      option
+        .setName('coins')
+        .setDescription(i18n.t('bot:command.giveCoins.amount'))
+        .setRequired(true),
     ),
   execute: async (interaction) => {
     try {
+      // Defer the reply to allow more processing time
+      await interaction.deferReply({ ephemeral: true });
+
       const user = interaction.options.getUser('user');
       // TODO: Fix an Type issue with .getString, it is not recognized as a function
       const coins: string = (interaction.options as any).getString('coins'); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
@@ -41,14 +50,14 @@ const command: SlashCommand = {
       // Check if the user has the role Admin
       if (!interaction.memberPermissions?.has(config.roleAdminId as PermissionResolvable)) {
         const message = i18n.t('bot:common.error.notAllowed');
-        await interaction.reply({ content: message, ephemeral: true });
+        await interaction.editReply({ content: message });
         return;
       }
 
       // Check if user is trying to send less than 1 coins
       if (parseInt(coins) < 1) {
         const message = i18n.t('bot:common.error.invalidAmount');
-        await interaction.reply({ content: message, ephemeral: true });
+        await interaction.editReply({ content: message });
         return;
       }
 
@@ -61,9 +70,8 @@ const command: SlashCommand = {
       if (response?.data) showSentCoinsMsg(interaction, coins);
     } catch (error: any) {
       if (!error) return;
-      await interaction.reply({
+      await interaction.editReply({
         content: error?.message ? error.message : i18n.t('common:message.error.internalError'), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-        ephemeral: true,
       });
     }
   },
